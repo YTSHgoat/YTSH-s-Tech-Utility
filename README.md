@@ -82,7 +82,7 @@ This script is not perfect. Some operations may report [SUCCESS] even when the u
 
 YTSH's Tech Utility is still actively developed. While v1.0 is stable and ready for daily use, new features, fixes, and improvements are continuously being worked on.
 
-All feedback is genuinely welcome — whether it's a bug report, a silent failure you noticed, a feature request, a new debloat option, or a suggestion for a new menu entirely. If you tested it on an unusual hardware setup or a specific OEM machine and something didn't work as expected, that information is valuable.
+All feedback is genuinely welcome. Whether it's a bug report, a silent failure you noticed, a feature request, a new debloat option, or a suggestion for a new menu entirely. If you tested it on an unusual hardware setup or a specific OEM machine and something didn't work as expected, that information is valuable.
 
 Feel free to open an Issue on GitHub to report bugs or suggest features. This tool was built for the community and your input directly shapes what gets added next.
 
