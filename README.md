@@ -1,5 +1,7 @@
 # YTSH's Tech Utility
 
+### Discord: https://discord.gg/MtgG8TZpnD
+
 A Windows batch utility for debloating, optimizing registry settings, managing services, creating restore points, and cleaning up system junk, all from a single admin-run script.
 
 ## Features
