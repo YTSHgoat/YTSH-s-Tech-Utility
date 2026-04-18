@@ -357,82 +357,16 @@ if /i "!DEBLOAT_MODE!"=="DEFAULT" (
     powershell -NoProfile -Command "Write-Host '   M  >  [LOCKED] Mode is currently set to: !DEBLOAT_MODE!' -ForegroundColor DarkGray"
 )
 echo.
-powershell -NoProfile -Command "Write-Host '  --- [DEBLOAT] --------------------------------' -ForegroundColor !COL_HDR_PS!"
-echo    1  ^>  Debloat        ^(Choose what to remove^)!DBLOT_STAT!
-echo    2  ^>  Revert         ^(Choose what to restore^)
-echo    K  ^>  Status         ^(Full system debloat report^)
+powershell -NoProfile -Command "Write-Host '  --- CATEGORIES --------------------------------' -ForegroundColor !COL_HDR_PS!"
+echo    1  ^>  DEBLOAT              !DBLOT_STAT!
+echo    2  ^>  PERFORMANCE          !FPS_STAT!
+echo    3  ^>  MAINTENANCE          !CLEAN_STAT!
+echo    4  ^>  SECURITY ^& SOFTWARE
+echo    5  ^>  SYSTEM TOOLS
+echo    6  ^>  DIAGNOSTICS
+echo    7  ^>  MALWARE AND THREAT SCANNING
 echo.
-powershell -NoProfile -Command "Write-Host '  --- [PERFORMANCE] ---------------------------' -ForegroundColor !COL_HDR_PS!"
-set "_FPS_LOCK_MSG="
-if /i "!DEBLOAT_MODE!"=="STUDENT" set "_FPS_LOCK_MSG=STUDENT"
-if "!SAFE_MODE!"=="1" if "!_FPS_LOCK_MSG!"=="" set "_FPS_LOCK_MSG=SAFE"
-if "!_FPS_LOCK_MSG!"=="STUDENT" powershell -NoProfile -Command "Write-Host '    3  >  [LOCKED] Gaming and FPS Boost (Disabled in STUDENT mode)' -ForegroundColor DarkGray"
-if "!_FPS_LOCK_MSG!"=="SAFE"    powershell -NoProfile -Command "Write-Host '    3  >  [LOCKED] Gaming and FPS Boost (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
-if "!_FPS_LOCK_MSG!"=="" echo    3  ^>  Gaming and FPS Boost   ^(Gaming settings and frame-rate tweaks^)!FPS_STAT!
-if "!SAFE_MODE!"=="1" (
-    powershell -NoProfile -Command "Write-Host '    4  >  [LOCKED] Network Optimizations (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
-) else (
-    echo    4  ^>  Network Optimizations  ^(Remove multimedia network caps^)!NET_STAT!
-)
-if "!SAFE_MODE!"=="1" (
-    powershell -NoProfile -Command "Write-Host '    5  >  [LOCKED] Windows Tweaks (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
-) else (
-    echo    5  ^>  Windows Tweaks         ^(Visual effects, pagefile, Windows Update^)
-)
-echo.
-powershell -NoProfile -Command "Write-Host '  --- [MAINTENANCE] ---------------------------' -ForegroundColor !COL_HDR_PS!"
-echo    6  ^>  Disk Cleanup           ^(Safe junk removal^)!CLEAN_STAT!
-echo    7  ^>  System Health Check!HLT_STAT!
-set "_8LOCK="
-if "!SAFE_MODE!"=="1" set "_8LOCK=SAFE"
-if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_8LOCK!"=="" set "_8LOCK=NEWBIE"
-if "!_8LOCK!"=="SAFE"   powershell -NoProfile -Command "Write-Host '    8  >  [LOCKED] Startup Repair Toolkit (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
-if "!_8LOCK!"=="NEWBIE" powershell -NoProfile -Command "Write-Host '    8  >  [LOCKED] Startup Repair Toolkit (Disabled in NEWBIE mode)' -ForegroundColor DarkGray"
-if "!_8LOCK!"==""       echo    8  ^>  Startup Repair Toolkit ^(SFC, DISM, BCD, MBR, CHKDSK^)
-echo.
-powershell -NoProfile -Command "Write-Host '  --- [SECURITY ^& SOFTWARE] -------------------' -ForegroundColor !COL_HDR_PS!"
-echo    9  ^>  Security Tools         ^(Firewall check, startup scan, SMB1^)
-echo   10  ^>  Activate Windows       ^(HWID - legitimate, no key needed^)
-if "!SAFE_MODE!"=="1" (
-    powershell -NoProfile -Command "Write-Host '   11  >  [LOCKED] Windows Feature Manager (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
-) else (
-    echo   11  ^>  Windows Feature Manager ^(Hyper-V, WSL, .NET, SMB1, etc.^)
-)
-echo   12  ^>  Install Software        ^(winget - 100+ apps across 10 categories^)
-echo.
-powershell -NoProfile -Command "Write-Host '  --- [SYSTEM TOOLS] --------------------------' -ForegroundColor !COL_HDR_PS!"
-set "_13LOCK="
-if "!SAFE_MODE!"=="1" set "_13LOCK=SAFE"
-if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_13LOCK!"=="" set "_13LOCK=NEWBIE"
-if "!_13LOCK!"=="SAFE"   powershell -NoProfile -Command "Write-Host '   13  >  [LOCKED] Startup Repair Toolkit (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
-if "!_13LOCK!"=="NEWBIE" powershell -NoProfile -Command "Write-Host '   13  >  [LOCKED] Startup Repair Toolkit (Disabled in NEWBIE mode)' -ForegroundColor DarkGray"
-if "!_13LOCK!"==""       echo   13  ^>  Startup Repair Toolkit  ^(SFC, DISM, BCD, MBR, CHKDSK^)
-echo   14  ^>  Process and RAM Analyzer ^(top memory hogs, kill suspicious^)
-echo   15  ^>  Wi-Fi Toolkit           ^(saved networks, passwords, signal, reset^)
-echo   16  ^>  Printer and Device Cleanup ^(stuck queues, ghost devices^)
-if "!SAFE_MODE!"=="1" (
-    powershell -NoProfile -Command "Write-Host '   17  >  [LOCKED] Windows Hello Manager (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
-) else (
-    echo   17  ^>  Windows Hello Manager   ^(PIN, biometrics, sign-in options^)
-)
-echo.
-powershell -NoProfile -Command "Write-Host '  --- [DIAGNOSTICS] ---------------------------' -ForegroundColor !COL_HDR_PS!"
-set "_18LOCK="
-echo   18  ^>  Event Log Viewer        ^(critical errors, BSODs, update events^)
-if "!SYS_FORM!"=="DESKTOP" (
-    powershell -NoProfile -Command "Write-Host '   19  >  [LOCKED] Battery Report (No battery on this Desktop)' -ForegroundColor DarkGray"
-) else (
-    echo   19  ^>  Battery Report          ^(full charge vs design capacity, health^)
-)
-set "_20LOCK="
-if "!SAFE_MODE!"=="1" set "_20LOCK=SAFE"
-if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_20LOCK!"=="" set "_20LOCK=NEWBIE"
-if "!_20LOCK!"=="SAFE"   powershell -NoProfile -Command "Write-Host '   20  >  [LOCKED] Environment Variables (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
-if "!_20LOCK!"=="NEWBIE" powershell -NoProfile -Command "Write-Host '   20  >  [LOCKED] Environment Variables (Disabled in NEWBIE mode)' -ForegroundColor DarkGray"
-if "!_20LOCK!"==""       echo   20  ^>  Environment Variables   ^(view/edit PATH, system vars^)
-echo.
-powershell -NoProfile -Command "Write-Host '  --- [MALWARE AND THREAT SCANNING] ----------' -ForegroundColor !COL_HDR_PS!"
-echo   21  ^>  Malware and Threat Scanner ^(processes, network, startup, files, firewall + 11 more^)
+echo    ------------------------------------------
 echo.
 echo    S  ^>  Settings
 echo    R  ^>  Export Report  ^(Save a full summary of changes to a text file^)
@@ -442,169 +376,14 @@ echo    0  ^>  Exit
 echo.
 powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
 echo.
-set /p "CHOICE=  Enter your choice [0-21,K,M,U,I,S,R]: "
-
-if "%CHOICE%"=="1" goto DEBLOAT_MENU
-if "%CHOICE%"=="2" goto REVERT_MENU
-if "%CHOICE%"=="3" (
-    if /i "!DEBLOAT_MODE!"=="STUDENT" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Gaming and FPS Boost is disabled in STUDENT mode.' -ForegroundColor Red"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    if "!SAFE_MODE!"=="1" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Gaming and FPS Boost is disabled in SAFE MODE.' -ForegroundColor Red"
-        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    goto FPS_MENU
-)
-if "%CHOICE%"=="4" (
-    if "!SAFE_MODE!"=="1" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Network Optimizations is disabled in SAFE MODE.' -ForegroundColor Red"
-        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    goto NET_MENU
-)
-if "%CHOICE%"=="5" (
-    if "!SAFE_MODE!"=="1" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Windows Tweaks is disabled in SAFE MODE.' -ForegroundColor Red"
-        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    goto TWEAKS_MENU
-)
-if "%CHOICE%"=="6" goto CLEANUP_MENU
-if "%CHOICE%"=="7" goto HEALTH_CHECK
-if "%CHOICE%"=="8" (
-    set "_CK8="
-    if "!SAFE_MODE!"=="1" set "_CK8=SAFE"
-    if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_CK8!"=="" set "_CK8=NEWBIE"
-    if "!_CK8!"=="SAFE" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Startup Repair Toolkit is disabled in SAFE MODE.' -ForegroundColor Red"
-        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    if "!_CK8!"=="NEWBIE" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Startup Repair Toolkit is disabled in NEWBIE mode.' -ForegroundColor Red"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    goto STARTUP_REPAIR
-)
-if "%CHOICE%"=="9" goto SECURITY_MENU
-if "%CHOICE%"=="10" goto ACTIVATE_WINDOWS
-if "%CHOICE%"=="11" (
-    if "!SAFE_MODE!"=="1" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Windows Feature Manager is disabled in SAFE MODE.' -ForegroundColor Red"
-        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    goto WINFEATURE_MENU
-)
-if "%CHOICE%"=="12" goto INSTALL_SOFTWARE
-if "%CHOICE%"=="13" (
-    set "_CK13="
-    if "!SAFE_MODE!"=="1" set "_CK13=SAFE"
-    if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_CK13!"=="" set "_CK13=NEWBIE"
-    if "!_CK13!"=="SAFE" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Startup Repair Toolkit is disabled in SAFE MODE.' -ForegroundColor Red"
-        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    if "!_CK13!"=="NEWBIE" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Startup Repair Toolkit is disabled in NEWBIE mode.' -ForegroundColor Red"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    goto STARTUP_REPAIR
-)
-if "%CHOICE%"=="14" goto PROCESS_ANALYZER
-if "%CHOICE%"=="15" goto WIFI_TOOLKIT
-if "%CHOICE%"=="16" goto PRINTER_CLEANUP
-if "%CHOICE%"=="17" (
-    if "!SAFE_MODE!"=="1" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Windows Hello Manager is disabled in SAFE MODE.' -ForegroundColor Red"
-        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    goto WINHELLO_MANAGER
-)
-if "%CHOICE%"=="18" goto EVENTLOG_VIEWER
-if "%CHOICE%"=="19" (
-    if "!SYS_FORM!"=="DESKTOP" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Battery Report is not available on Desktop systems.' -ForegroundColor Red"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    goto BATTERY_REPORT
-)
-if "%CHOICE%"=="20" (
-    set "_CK20="
-    if "!SAFE_MODE!"=="1" set "_CK20=SAFE"
-    if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_CK20!"=="" set "_CK20=NEWBIE"
-    if "!_CK20!"=="SAFE" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Environment Variables is disabled in SAFE MODE.' -ForegroundColor Red"
-        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    if "!_CK20!"=="NEWBIE" (
-        color !COL_ERR!
-        echo.
-        powershell -NoProfile -Command "Write-Host '  [LOCKED] Environment Variables is disabled in NEWBIE mode.' -ForegroundColor Red"
-        echo.
-        pause
-        goto MAIN_MENU
-    )
-    goto ENVVAR_MANAGER
-)
-if "%CHOICE%"=="21" goto MALWARE_SCANNER
-if /i "%CHOICE%"=="K" goto CHECK_STATUS
+set /p "CHOICE=  Enter your choice [0-7,M,S,R,U,I]: "
+if "%CHOICE%"=="1" goto CAT_DEBLOAT
+if "%CHOICE%"=="2" goto CAT_PERFORMANCE
+if "%CHOICE%"=="3" goto CAT_MAINTENANCE
+if "%CHOICE%"=="4" goto CAT_SECURITY
+if "%CHOICE%"=="5" goto CAT_SYSTOOLS
+if "%CHOICE%"=="6" goto CAT_DIAGNOSTICS
+if "%CHOICE%"=="7" goto CAT_SCANNING
 if /i "%CHOICE%"=="M" (
     if "!DEBLOAT_MODE!"=="DEFAULT" (
         goto MODE_MENU
@@ -623,7 +402,6 @@ if /i "%CHOICE%"=="I" goto INFO_SCREEN
 if /i "%CHOICE%"=="S" goto SETTINGS_MENU
 if /i "%CHOICE%"=="R" goto EXPORT_REPORT
 if "%CHOICE%"=="0" goto EXIT_SCRIPT
-
 color !COL_ERR!
 echo.
 echo  [!] Invalid choice.
@@ -631,12 +409,420 @@ echo.
 pause
 goto MAIN_MENU
 
+:CAT_DEBLOAT
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    DEBLOAT' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo    1  ^>  Debloat        ^(Choose what to remove^)!DBLOT_STAT!
+echo    2  ^>  Revert         ^(Choose what to restore^)
+echo    3  ^>  Status         ^(Full system debloat report^)
+echo.
+echo    B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "SUBCHOICE="
+set /p "SUBCHOICE=  Select an option: "
+if /i "!SUBCHOICE!"=="B" goto MAIN_MENU
+if "!SUBCHOICE!"=="1" goto DEBLOAT_MENU
+if "!SUBCHOICE!"=="2" goto REVERT_MENU
+if "!SUBCHOICE!"=="3" goto CHECK_STATUS
 color !COL_ERR!
 echo.
 echo  [!] Invalid choice.
 echo.
 pause
-goto MAIN_MENU
+goto CAT_DEBLOAT
+
+:CAT_PERFORMANCE
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    PERFORMANCE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "_FPS_LOCK_MSG="
+if /i "!DEBLOAT_MODE!"=="STUDENT" set "_FPS_LOCK_MSG=STUDENT"
+if "!SAFE_MODE!"=="1" if "!_FPS_LOCK_MSG!"=="" set "_FPS_LOCK_MSG=SAFE"
+if "!_FPS_LOCK_MSG!"=="STUDENT" powershell -NoProfile -Command "Write-Host '    1  >  [LOCKED] Gaming and FPS Boost (Disabled in STUDENT mode)' -ForegroundColor DarkGray"
+if "!_FPS_LOCK_MSG!"=="SAFE"    powershell -NoProfile -Command "Write-Host '    1  >  [LOCKED] Gaming and FPS Boost (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
+if "!_FPS_LOCK_MSG!"=="" echo    1  ^>  Gaming and FPS Boost   ^(Gaming settings and frame-rate tweaks^)!FPS_STAT!
+if "!SAFE_MODE!"=="1" (
+    powershell -NoProfile -Command "Write-Host '    2  >  [LOCKED] Network Optimizations (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
+) else (
+    echo    2  ^>  Network Optimizations  ^(Remove multimedia network caps^)!NET_STAT!
+)
+if "!SAFE_MODE!"=="1" (
+    powershell -NoProfile -Command "Write-Host '    3  >  [LOCKED] Windows Tweaks (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
+) else (
+    echo    3  ^>  Windows Tweaks         ^(Visual effects, pagefile, Windows Update^)
+)
+echo.
+echo    B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "SUBCHOICE="
+set /p "SUBCHOICE=  Select an option: "
+if /i "!SUBCHOICE!"=="B" goto MAIN_MENU
+if "!SUBCHOICE!"=="1" (
+    if /i "!DEBLOAT_MODE!"=="STUDENT" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Gaming and FPS Boost is disabled in STUDENT mode.' -ForegroundColor Red"
+        echo.
+        pause
+        goto CAT_PERFORMANCE
+    )
+    if "!SAFE_MODE!"=="1" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Gaming and FPS Boost is disabled in SAFE MODE.' -ForegroundColor Red"
+        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
+        echo.
+        pause
+        goto CAT_PERFORMANCE
+    )
+    goto FPS_MENU
+)
+if "!SUBCHOICE!"=="2" (
+    if "!SAFE_MODE!"=="1" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Network Optimizations is disabled in SAFE MODE.' -ForegroundColor Red"
+        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
+        echo.
+        pause
+        goto CAT_PERFORMANCE
+    )
+    goto NET_MENU
+)
+if "!SUBCHOICE!"=="3" (
+    if "!SAFE_MODE!"=="1" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Windows Tweaks is disabled in SAFE MODE.' -ForegroundColor Red"
+        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
+        echo.
+        pause
+        goto CAT_PERFORMANCE
+    )
+    goto TWEAKS_MENU
+)
+color !COL_ERR!
+echo.
+echo  [!] Invalid choice.
+echo.
+pause
+goto CAT_PERFORMANCE
+
+:CAT_MAINTENANCE
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    MAINTENANCE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo    1  ^>  Disk Cleanup           ^(Safe junk removal^)!CLEAN_STAT!
+echo    2  ^>  System Health Check!HLT_STAT!
+set "_MLOCK="
+if "!SAFE_MODE!"=="1" set "_MLOCK=SAFE"
+if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_MLOCK!"=="" set "_MLOCK=NEWBIE"
+if "!_MLOCK!"=="SAFE"   powershell -NoProfile -Command "Write-Host '    3  >  [LOCKED] Startup Repair Toolkit (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
+if "!_MLOCK!"=="NEWBIE" powershell -NoProfile -Command "Write-Host '    3  >  [LOCKED] Startup Repair Toolkit (Disabled in NEWBIE mode)' -ForegroundColor DarkGray"
+if "!_MLOCK!"==""       echo    3  ^>  Startup Repair Toolkit ^(SFC, DISM, BCD, MBR, CHKDSK^)
+echo.
+echo    B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "SUBCHOICE="
+set /p "SUBCHOICE=  Select an option: "
+if /i "!SUBCHOICE!"=="B" goto MAIN_MENU
+if "!SUBCHOICE!"=="1" goto CLEANUP_MENU
+if "!SUBCHOICE!"=="2" goto HEALTH_CHECK
+if "!SUBCHOICE!"=="3" (
+    set "_CKM="
+    if "!SAFE_MODE!"=="1" set "_CKM=SAFE"
+    if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_CKM!"=="" set "_CKM=NEWBIE"
+    if "!_CKM!"=="SAFE" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Startup Repair Toolkit is disabled in SAFE MODE.' -ForegroundColor Red"
+        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
+        echo.
+        pause
+        goto CAT_MAINTENANCE
+    )
+    if "!_CKM!"=="NEWBIE" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Startup Repair Toolkit is disabled in NEWBIE mode.' -ForegroundColor Red"
+        echo.
+        pause
+        goto CAT_MAINTENANCE
+    )
+    goto STARTUP_REPAIR
+)
+color !COL_ERR!
+echo.
+echo  [!] Invalid choice.
+echo.
+pause
+goto CAT_MAINTENANCE
+
+:CAT_SECURITY
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    SECURITY ^& SOFTWARE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo    1  ^>  Security Tools         ^(Firewall check, startup scan, SMB1^)
+echo    2  ^>  Activate Windows       ^(HWID - legitimate, no key needed^)
+if "!SAFE_MODE!"=="1" (
+    powershell -NoProfile -Command "Write-Host '    3  >  [LOCKED] Windows Feature Manager (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
+) else (
+    echo    3  ^>  Windows Feature Manager ^(Hyper-V, WSL, .NET, SMB1, etc.^)
+)
+echo    4  ^>  Install Software        ^(winget - 100+ apps across 10 categories^)
+echo.
+echo    B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "SUBCHOICE="
+set /p "SUBCHOICE=  Select an option: "
+if /i "!SUBCHOICE!"=="B" goto MAIN_MENU
+if "!SUBCHOICE!"=="1" goto SECURITY_MENU
+if "!SUBCHOICE!"=="2" goto ACTIVATE_WINDOWS
+if "!SUBCHOICE!"=="3" (
+    if "!SAFE_MODE!"=="1" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Windows Feature Manager is disabled in SAFE MODE.' -ForegroundColor Red"
+        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
+        echo.
+        pause
+        goto CAT_SECURITY
+    )
+    goto WINFEATURE_MENU
+)
+if "!SUBCHOICE!"=="4" goto INSTALL_SOFTWARE
+color !COL_ERR!
+echo.
+echo  [!] Invalid choice.
+echo.
+pause
+goto CAT_SECURITY
+
+:CAT_SYSTOOLS
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    SYSTEM TOOLS' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "_13LOCK="
+if "!SAFE_MODE!"=="1" set "_13LOCK=SAFE"
+if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_13LOCK!"=="" set "_13LOCK=NEWBIE"
+if "!_13LOCK!"=="SAFE"   powershell -NoProfile -Command "Write-Host '    1  >  [LOCKED] Startup Repair Toolkit (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
+if "!_13LOCK!"=="NEWBIE" powershell -NoProfile -Command "Write-Host '    1  >  [LOCKED] Startup Repair Toolkit (Disabled in NEWBIE mode)' -ForegroundColor DarkGray"
+if "!_13LOCK!"==""       echo    1  ^>  Startup Repair Toolkit  ^(SFC, DISM, BCD, MBR, CHKDSK^)
+echo    2  ^>  Process and RAM Analyzer ^(top memory hogs, kill suspicious^)
+echo    3  ^>  Wi-Fi Toolkit           ^(saved networks, passwords, signal, reset^)
+echo    4  ^>  Printer and Device Cleanup ^(stuck queues, ghost devices^)
+if "!SAFE_MODE!"=="1" (
+    powershell -NoProfile -Command "Write-Host '    5  >  [LOCKED] Windows Hello Manager (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
+) else (
+    echo    5  ^>  Windows Hello Manager   ^(PIN, biometrics, sign-in options^)
+)
+echo.
+echo    B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "SUBCHOICE="
+set /p "SUBCHOICE=  Select an option: "
+if /i "!SUBCHOICE!"=="B" goto MAIN_MENU
+if "!SUBCHOICE!"=="1" (
+    set "_CK13="
+    if "!SAFE_MODE!"=="1" set "_CK13=SAFE"
+    if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_CK13!"=="" set "_CK13=NEWBIE"
+    if "!_CK13!"=="SAFE" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Startup Repair Toolkit is disabled in SAFE MODE.' -ForegroundColor Red"
+        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
+        echo.
+        pause
+        goto CAT_SYSTOOLS
+    )
+    if "!_CK13!"=="NEWBIE" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Startup Repair Toolkit is disabled in NEWBIE mode.' -ForegroundColor Red"
+        echo.
+        pause
+        goto CAT_SYSTOOLS
+    )
+    goto STARTUP_REPAIR
+)
+if "!SUBCHOICE!"=="2" goto PROCESS_ANALYZER
+if "!SUBCHOICE!"=="3" goto WIFI_TOOLKIT
+if "!SUBCHOICE!"=="4" goto PRINTER_CLEANUP
+if "!SUBCHOICE!"=="5" (
+    if "!SAFE_MODE!"=="1" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Windows Hello Manager is disabled in SAFE MODE.' -ForegroundColor Red"
+        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
+        echo.
+        pause
+        goto CAT_SYSTOOLS
+    )
+    goto WINHELLO_MANAGER
+)
+color !COL_ERR!
+echo.
+echo  [!] Invalid choice.
+echo.
+pause
+goto CAT_SYSTOOLS
+
+:CAT_DIAGNOSTICS
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    DIAGNOSTICS' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo    1  ^>  Event Log Viewer        ^(critical errors, BSODs, update events^)
+if "!SYS_FORM!"=="DESKTOP" (
+    powershell -NoProfile -Command "Write-Host '    2  >  [LOCKED] Battery Report (No battery on this Desktop)' -ForegroundColor DarkGray"
+) else (
+    echo    2  ^>  Battery Report          ^(full charge vs design capacity, health^)
+)
+set "_20LOCK="
+if "!SAFE_MODE!"=="1" set "_20LOCK=SAFE"
+if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_20LOCK!"=="" set "_20LOCK=NEWBIE"
+if "!_20LOCK!"=="SAFE"   powershell -NoProfile -Command "Write-Host '    3  >  [LOCKED] Environment Variables (Disabled in SAFE MODE)' -ForegroundColor DarkGray"
+if "!_20LOCK!"=="NEWBIE" powershell -NoProfile -Command "Write-Host '    3  >  [LOCKED] Environment Variables (Disabled in NEWBIE mode)' -ForegroundColor DarkGray"
+if "!_20LOCK!"==""       echo    3  ^>  Environment Variables   ^(view/edit PATH, system vars^)
+echo.
+echo    B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "SUBCHOICE="
+set /p "SUBCHOICE=  Select an option: "
+if /i "!SUBCHOICE!"=="B" goto MAIN_MENU
+if "!SUBCHOICE!"=="1" goto EVENTLOG_VIEWER
+if "!SUBCHOICE!"=="2" (
+    if "!SYS_FORM!"=="DESKTOP" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Battery Report is not available on Desktop systems.' -ForegroundColor Red"
+        echo.
+        pause
+        goto CAT_DIAGNOSTICS
+    )
+    goto BATTERY_REPORT
+)
+if "!SUBCHOICE!"=="3" (
+    set "_CK20="
+    if "!SAFE_MODE!"=="1" set "_CK20=SAFE"
+    if /i "!DEBLOAT_MODE!"=="NEWBIE" if "!_CK20!"=="" set "_CK20=NEWBIE"
+    if "!_CK20!"=="SAFE" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Environment Variables is disabled in SAFE MODE.' -ForegroundColor Red"
+        powershell -NoProfile -Command "Write-Host '  Go to Settings (S) and select Safe Mode (7) to change.' -ForegroundColor Yellow"
+        echo.
+        pause
+        goto CAT_DIAGNOSTICS
+    )
+    if "!_CK20!"=="NEWBIE" (
+        color !COL_ERR!
+        echo.
+        powershell -NoProfile -Command "Write-Host '  [LOCKED] Environment Variables is disabled in NEWBIE mode.' -ForegroundColor Red"
+        echo.
+        pause
+        goto CAT_DIAGNOSTICS
+    )
+    goto ENVVAR_MANAGER
+)
+color !COL_ERR!
+echo.
+echo  [!] Invalid choice.
+echo.
+pause
+goto CAT_DIAGNOSTICS
+
+:CAT_SCANNING
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    MALWARE AND THREAT SCANNING' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo    1  ^>  Malware and Threat Scanner           ^(processes, network, startup, files, firewall + 30 more^)
+echo    2  ^>  Network Security Scanner             ^(ARP, connections, DNS, Wi-Fi, routing, shares + 11 more^)
+echo    3  ^>  Registry Persistence Scanner         ^(Run keys, Winlogon, LSA, AppInit, BHO hijacks^)
+echo    4  ^>  Startup and WMI Task Scanner         ^(startup folders, services, WMI subscriptions^)
+echo    5  ^>  Process and DLL Injection Scanner    ^(live processes, injected DLLs, unsigned drivers^)
+echo    6  ^>  Browser Hijack Scanner               ^(search engine, homepage, extensions, proxy^)
+echo    7  ^>  Credential Exposure Scanner          ^(stored creds, WDigest, LSA PPL, LSASS status^)
+echo    8  ^>  ^SOON Driver Integrity and Rootkit Scanner ^(^SOON ^| unsigned drivers, orphaned drivers, rootkit names^)
+echo    9  ^>  User Privacy and Tracker Scanner     ^(advertising ID, telemetry keys, cookie stores^)
+echo   10  ^>  Vulnerability and Patch Scanner      ^(pending updates, last patch date, Defender defs^)
+echo   11  ^>  ^SOON Hardware Health and SMART Scanner    ^(^SOON ^| disk health, SMART counters, temperature, wear ^)
+echo   12  ^>  ^SOON Sensitive Information Scanner        ^(^SOON ^| SSN, credit card, API keys in document folders ^|)
+echo   13  ^>  ^SOON Browser Security and Policy Scanner  ^(^SOON ^| GPO policies, forced search, forced extensions ^)
+echo.
+echo    B  ^>  Back
+echo.
+if "!COLOR_THEME!"=="DEFAULT" (
+    powershell -NoProfile -Command "Write-Host '   A  >  SCAN ALL                          (runs all 13 scanners in sequence)' -ForegroundColor Yellow"
+) else (
+    echo    A  ^>  SCAN ALL                          ^(runs all 13 scanners in sequence^)
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "SUBCHOICE="
+set /p "SUBCHOICE=  Select an option [1-13, A, B]: "
+if /i "!SUBCHOICE!"=="B" goto MAIN_MENU
+if /i "!SUBCHOICE!"=="A" goto SCAN_ALL_MENU
+if "!SUBCHOICE!"=="1"  goto MALWARE_SCANNER
+if "!SUBCHOICE!"=="2"  goto NETWORK_SCANNER
+if "!SUBCHOICE!"=="3"  goto REGPERSIST_SCANNER
+if "!SUBCHOICE!"=="4"  goto STARTUP_WMI_SCANNER
+if "!SUBCHOICE!"=="5"  goto PROCINJECTION_SCANNER
+if "!SUBCHOICE!"=="6"  goto BROWSER_HIJACK_SCANNER
+if "!SUBCHOICE!"=="7"  goto CREDENTIAL_SCANNER
+if "!SUBCHOICE!"=="8"  goto DRIVER_ROOTKIT_SCANNER
+if "!SUBCHOICE!"=="9"  goto PRIVACY_TRACKER_SCANNER
+if "!SUBCHOICE!"=="10" goto CVE_PATCH_SCANNER
+if "!SUBCHOICE!"=="11" goto SMART_HEALTH_SCANNER
+if "!SUBCHOICE!"=="12" goto DLP_SCANNER
+if "!SUBCHOICE!"=="13" goto BROWSER_POLICY_SCANNER
+color !COL_ERR!
+echo.
+echo  [!] Invalid choice.
+echo.
+pause
+goto CAT_SCANNING
 
 :MODE_MENU
 cls
@@ -4307,13 +4493,13 @@ if exist "%USAGE_SCRIPT%" del "%USAGE_SCRIPT%" >nul 2>&1
     echo } catch {}
     echo if ^($cpuTempC -eq $null^) {
     echo     try {
-    echo         $r = Get-WmiObject -Namespace root\LibreHardwareMonitor -Class Sensor -ErrorAction Stop ^| Where-Object { $_.SensorType -eq 'Temperature' -and $_.Name -match 'CPU' } ^| Sort-Object Value -Descending ^| Select-Object -First 1
+    echo         $r = Get-CimInstance -Namespace root\LibreHardwareMonitor -ClassName Sensor -ErrorAction Stop ^| Where-Object { $_.SensorType -eq 'Temperature' -and $_.Name -match 'CPU' } ^| Sort-Object Value -Descending ^| Select-Object -First 1
     echo         if ^($r^) { $cpuTempC = [math]::Round^($r.Value, 1^); $cpuSource = 'LibreHardwareMonitor' }
     echo     } catch {}
     echo }
     echo if ^($cpuTempC -eq $null^) {
     echo     try {
-    echo         $tz = Get-WmiObject -Namespace root\wmi -Class MSAcpi_ThermalZoneTemperature -ErrorAction Stop
+    echo         $tz = Get-CimInstance -Namespace root\wmi -ClassName MSAcpi_ThermalZoneTemperature -ErrorAction Stop
     echo         if ^($tz^) { $cpuTempC = ^($tz ^| ForEach-Object { [math]::Round^($_.CurrentTemperature / 10 - 273.15, 1^) } ^| Measure-Object -Maximum^).Maximum; $cpuSource = 'WMI' }
     echo     } catch {}
     echo }
@@ -4367,7 +4553,7 @@ if exist "%USAGE_SCRIPT%" del "%USAGE_SCRIPT%" >nul 2>&1
     echo     if ^($gTempC -eq $null^) {
     echo         foreach ^($ns in @^('root\OpenHardwareMonitor','root\LibreHardwareMonitor'^)^) {
     echo             try {
-    echo                 $r = Get-WmiObject -Namespace $ns -Class Sensor -ErrorAction Stop ^| Where-Object { $_.SensorType -eq 'Temperature' -and $_.Name -match 'GPU' } ^| Sort-Object Value -Descending ^| Select-Object -First 1
+    echo                 $r = Get-CimInstance -Namespace $ns -ClassName Sensor -ErrorAction Stop ^| Where-Object { $_.SensorType -eq 'Temperature' -and $_.Name -match 'GPU' } ^| Sort-Object Value -Descending ^| Select-Object -First 1	
     echo                 if ^($r^) { $gTempC = [math]::Round^($r.Value, 1^); $gSource = if ^($ns -like '*Libre*'^) { 'LHM' } else { 'OHM' }; break }
     echo             } catch {}
     echo         }
@@ -7874,7 +8060,7 @@ if !errorLevel! neq 0 (
 echo.
 powershell -NoProfile -Command "Write-Host '  Quick Battery Summary:' -ForegroundColor Cyan"
 echo.
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$b = Get-WmiObject Win32_Battery; $charge = $b.EstimatedChargeRemaining; $status = switch($b.BatteryStatus){ 1{'Discharging'} 2{'On AC'} 6{'Charging'} default{'Status '+$b.BatteryStatus} }; $ccol = if($charge -lt 15){'Red'} elseif($charge -lt 30){'Yellow'} else{'Green'}; Write-Host ('  Charge : ' + $charge + '%%  (' + $status + ')') -ForegroundColor $ccol; try { $bs = Get-WmiObject -Namespace root\wmi -Class BatteryStaticData | Select-Object -First 1; $bf = Get-WmiObject -Namespace root\wmi -Class BatteryFullChargedCapacity | Select-Object -First 1; if($bs -and $bf -and $bs.DesignedCapacity -gt 0){ $health = [math]::Round($bf.FullChargedCapacity / $bs.DesignedCapacity * 100, 1); $hcol = if($health -lt 50){'Red'} elseif($health -lt 75){'Yellow'} else{'Green'}; $grade = if($health -ge 80){'Good'} elseif($health -ge 60){'Degraded'} elseif($health -ge 40){'Poor - consider replacing'} else{'Critical - replace soon'}; Write-Host ('  Health : ' + $health + '%% (' + $grade + ')') -ForegroundColor $hcol; Write-Host ('  Capacity: ' + $bf.FullChargedCapacity + ' mWh / ' + $bs.DesignedCapacity + ' mWh design') -ForegroundColor $hcol } } catch { Write-Host '  Detailed capacity data unavailable.' -ForegroundColor DarkGray }"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$b = Get-CimInstance Win32_Battery -EA SilentlyContinue; $charge = $b.EstimatedChargeRemaining; $status = switch($b.BatteryStatus){ 1{'Discharging'} 2{'On AC'} 6{'Charging'} default{'Status '+$b.BatteryStatus} }; $ccol = if($charge -lt 15){'Red'} elseif($charge -lt 30){'Yellow'} else{'Green'}; Write-Host ('  Charge : ' + $charge + '%%  (' + $status + ')') -ForegroundColor $ccol; try { $bs = Get-CimInstance -Namespace root\\wmi -ClassName BatteryStaticData -EA SilentlyContinue | Select-Object -First 1; $bf = Get-CimInstance -Namespace root\\wmi -ClassName BatteryFullChargedCapacity -EA SilentlyContinue | Select-Object -First 1; if($bs -and $bf -and $bs.DesignedCapacity -gt 0){ $health = [math]::Round($bf.FullChargedCapacity / $bs.DesignedCapacity * 100, 1); $hcol = if($health -lt 50){'Red'} elseif($health -lt 75){'Yellow'} else{'Green'}; $grade = if($health -ge 80){'Good'} elseif($health -ge 60){'Degraded'} elseif($health -ge 40){'Poor - consider replacing'} else{'Critical - replace soon'}; Write-Host ('  Health : ' + $health + '%% (' + $grade + ')') -ForegroundColor $hcol; Write-Host ('  Capacity: ' + $bf.FullChargedCapacity + ' mWh / ' + $bs.DesignedCapacity + ' mWh design') -ForegroundColor $hcol } } catch { Write-Host '  Detailed capacity data unavailable.' -ForegroundColor DarkGray }"
 echo.
 for /f %%D in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd"') do set "_BATDATE=%%D"
 set "BATRPTFILE=!LOGDIR!\battery_report_!_BATDATE!.html"
@@ -8211,7 +8397,19 @@ set /p "MLOPEN=  Select: "
 if /i "!MLOPEN!"=="O" notepad "!ML_REPORT!"
 del "!ML_THREATS_TMP!" >nul 2>&1
 del "!ML_WARN_TMP!" >nul 2>&1
+if "!SA_ACTIVE!"=="1" goto SA_ML_CONT
 goto MALWARE_SCANNER
+:SA_ML_CONT
+echo.
+powershell -NoProfile -Command "Write-Host '  B  >  Continue to next scanner (Network Security)' -ForegroundColor Yellow"
+echo.
+:SA_ML_WAIT
+set "SA_CONT="
+set /p "SA_CONT=  [B] Continue: "
+if /i not "!SA_CONT!"=="B" goto SA_ML_WAIT
+set "NG_SCANMODE=!SA_SCANMODE!"
+set "NG_CUSTOM=0"
+goto NETWORK_RUN_SCAN
 
 :ML_SHOULD_RUN
 if "!ML_SCANMODE!"=="FULL" exit /b 0
@@ -8265,7 +8463,7 @@ echo.
 powershell -NoProfile -Command "Write-Host '  --- [CHECK 4/35] SCHEDULED TASKS ---' -ForegroundColor !COL_HDR_PS!"
 echo.
 echo [CHECK 4] SCHEDULED TASKS >> "!ML_REPORT!"
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:ML_REPORT;$thr=$env:ML_THREATS_TMP;$wrn=$env:ML_WARN_TMP;try{$tasks=Get-ScheduledTask -EA SilentlyContinue | Where-Object{$_.State -ne 'Disabled'};$found=0;foreach($t in $tasks){foreach($a in $t.Actions){$cmd=(($a.Execute)+' '+($a.Arguments)).Trim();if($cmd -match '(?i)\\Temp\\|\\AppData\\Roaming\\|powershell.*-enc|powershell.*-nop.*hidden|mshta|wscript.*http|regsvr32.*http|rundll32.*http|bitsadmin.*transfer|certutil.*-decode|\\Users\\Public\\|cmd.*\/c.*http'){Write-Host ('  [THREAT]  Suspicious task: '+$t.TaskName+' -> '+$cmd) -ForegroundColor Red;Add-Content $rep ('[THREAT] Suspicious task: '+$t.TaskName+' -> '+$cmd) -EA SilentlyContinue;Add-Content $thr ('Suspicious scheduled task: '+$t.TaskName) -EA SilentlyContinue;$found++}};if($t.Principal.RunLevel -eq 'Highest' -and ($t.Author -notmatch 'Microsoft|Windows|SYSTEM|NT AUTHORITY')){Write-Host ('  [WARN]    High-privilege non-Microsoft task: '+$t.TaskName+' (Author: '+$t.Author+')') -ForegroundColor Yellow;Add-Content $wrn ('High-priv task: '+$t.TaskName) -EA SilentlyContinue}};if($found -eq 0){Write-Host '  [CLEAN]   No obviously malicious scheduled tasks detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] No suspicious tasks' -EA SilentlyContinue};Write-Host ('  [INFO]    Active tasks checked: '+$tasks.Count) -ForegroundColor DarkGray}catch{Write-Host '  [WARN]    Could not enumerate scheduled tasks' -ForegroundColor Yellow}"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:ML_REPORT;$thr=$env:ML_THREATS_TMP;$wrn=$env:ML_WARN_TMP;try{$tasks=Get-ScheduledTask -EA SilentlyContinue | Where-Object{$_.State -ne 'Disabled'};$found=0;foreach($t in $tasks){try{foreach($a in $t.Actions){if(-not $a.Execute){continue};$argStr=if($a.Arguments){$a.Arguments}else{''}; $cmd=($a.Execute+' '+$argStr).Trim();if($cmd -match '(?i)\\Temp\\|\\AppData\\Roaming\\|powershell.*-enc|powershell.*-nop.*hidden|mshta|wscript.*http|regsvr32.*http|rundll32.*http|bitsadmin.*transfer|certutil.*-decode|\\Users\\Public\\|cmd.*\/c.*http'){Write-Host ('  [THREAT]  Suspicious task: '+$t.TaskName+' -> '+$cmd) -ForegroundColor Red;Add-Content $rep ('[THREAT] Suspicious task: '+$t.TaskName+' -> '+$cmd) -EA SilentlyContinue;Add-Content $thr ('Suspicious scheduled task: '+$t.TaskName) -EA SilentlyContinue;$found++}};if($t.Principal -and $t.Principal.RunLevel -eq 'Highest' -and $t.Author -and ($t.Author -notmatch 'Microsoft|Windows|SYSTEM|NT AUTHORITY')){Write-Host ('  [WARN]    High-privilege non-Microsoft task: '+$t.TaskName+' (Author: '+$t.Author+')') -ForegroundColor Yellow;Add-Content $wrn ('High-priv task: '+$t.TaskName) -EA SilentlyContinue}}catch{}};if($found -eq 0){Write-Host '  [CLEAN]   No obviously malicious scheduled tasks detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] No suspicious tasks' -EA SilentlyContinue};Write-Host ('  [INFO]    Active tasks checked: '+@($tasks).Count) -ForegroundColor DarkGray}catch{Write-Host '  [WARN]    Could not enumerate scheduled tasks' -ForegroundColor Yellow}"
 echo.
 goto :EOF
 
@@ -8427,7 +8625,7 @@ echo.
 powershell -NoProfile -Command "Write-Host '  --- [CHECK 22/35] PRIVILEGE ESCALATION VECTORS ---' -ForegroundColor !COL_HDR_PS!"
 echo.
 echo [CHECK 22] PRIVILEGE ESCALATION >> "!ML_REPORT!"
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:ML_REPORT;$thr=$env:ML_THREATS_TMP;$wrn=$env:ML_WARN_TMP;$hklm=(Get-ItemProperty 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer' -Name AlwaysInstallElevated -EA SilentlyContinue).AlwaysInstallElevated;$hkcu=(Get-ItemProperty 'HKCU:\SOFTWARE\Policies\Microsoft\Windows\Installer' -Name AlwaysInstallElevated -EA SilentlyContinue).AlwaysInstallElevated;if($hklm -eq 1 -and $hkcu -eq 1){Write-Host '  [THREAT]  AlwaysInstallElevated ENABLED in both HKLM and HKCU - MSI privesc possible' -ForegroundColor Red;Add-Content $rep '[THREAT] AlwaysInstallElevated active' -EA SilentlyContinue;Add-Content $thr 'AlwaysInstallElevated - privilege escalation risk' -EA SilentlyContinue}elseif($hklm -eq 1 -or $hkcu -eq 1){Write-Host '  [WARN]    AlwaysInstallElevated set in one hive (requires both to be exploitable)' -ForegroundColor Yellow;Add-Content $wrn 'AlwaysInstallElevated partially set' -EA SilentlyContinue}else{Write-Host '  [CLEAN]   AlwaysInstallElevated: Not set' -ForegroundColor Green};$svcs=Get-WmiObject Win32_Service -EA SilentlyContinue;$uqFound=0;foreach($s in $svcs){$p=$s.PathName;if($p -and $p -notmatch '^\x22' -and $p -match ' ' -and $p -notmatch '^[A-Za-z]:\\Windows\\' ){$uqFound++;Write-Host ('  [WARN]    Unquoted service path: ['+$s.Name+'] '+$p) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unquoted path: '+$s.Name+' -> '+$p) -EA SilentlyContinue;Add-Content $wrn ('Unquoted service path: '+$s.Name) -EA SilentlyContinue}};if($uqFound -eq 0){Write-Host '  [CLEAN]   No unquoted service paths found' -ForegroundColor Green;Add-Content $rep '[CLEAN] No unquoted paths' -EA SilentlyContinue}else{Write-Host ('  [INFO]    Unquoted service paths found: '+$uqFound) -ForegroundColor DarkGray};$wsc=(Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name EnableLUA -EA SilentlyContinue).EnableLUA;if($wsc -eq 0){Write-Host '  [THREAT]  UAC is DISABLED - no admin prompt protection' -ForegroundColor Red;Add-Content $thr 'UAC disabled - no privilege elevation protection' -EA SilentlyContinue}else{Write-Host '  [CLEAN]   UAC: Enabled' -ForegroundColor Green}"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:ML_REPORT;$thr=$env:ML_THREATS_TMP;$wrn=$env:ML_WARN_TMP;$hklm=(Get-ItemProperty 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer' -Name AlwaysInstallElevated -EA SilentlyContinue).AlwaysInstallElevated;$hkcu=(Get-ItemProperty 'HKCU:\SOFTWARE\Policies\Microsoft\Windows\Installer' -Name AlwaysInstallElevated -EA SilentlyContinue).AlwaysInstallElevated;if($hklm -eq 1 -and $hkcu -eq 1){Write-Host '  [THREAT]  AlwaysInstallElevated ENABLED in both HKLM and HKCU - MSI privesc possible' -ForegroundColor Red;Add-Content $rep '[THREAT] AlwaysInstallElevated active' -EA SilentlyContinue;Add-Content $thr 'AlwaysInstallElevated - privilege escalation risk' -EA SilentlyContinue}elseif($hklm -eq 1 -or $hkcu -eq 1){Write-Host '  [WARN]    AlwaysInstallElevated set in one hive (requires both to be exploitable)' -ForegroundColor Yellow;Add-Content $wrn 'AlwaysInstallElevated partially set' -EA SilentlyContinue}else{Write-Host '  [CLEAN]   AlwaysInstallElevated: Not set' -ForegroundColor Green};$svcs=@(Get-CimInstance -ClassName Win32_Service -EA SilentlyContinue);$uqFound=0;foreach($s in $svcs){$p=$s.PathName;if($p -and $p -notmatch '^\x22' -and $p -match ' ' -and $p -notmatch '^[A-Za-z]:\\Windows\\' ){$uqFound++;Write-Host ('  [WARN]    Unquoted service path: ['+$s.Name+'] '+$p) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unquoted path: '+$s.Name+' -> '+$p) -EA SilentlyContinue;Add-Content $wrn ('Unquoted service path: '+$s.Name) -EA SilentlyContinue}};if($uqFound -eq 0){Write-Host '  [CLEAN]   No unquoted service paths found' -ForegroundColor Green;Add-Content $rep '[CLEAN] No unquoted paths' -EA SilentlyContinue}else{Write-Host ('  [INFO]    Unquoted service paths found: '+$uqFound) -ForegroundColor DarkGray};$wsc=(Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name EnableLUA -EA SilentlyContinue).EnableLUA;if($wsc -eq 0){Write-Host '  [THREAT]  UAC is DISABLED - no admin prompt protection' -ForegroundColor Red;Add-Content $thr 'UAC disabled - no privilege elevation protection' -EA SilentlyContinue}else{Write-Host '  [CLEAN]   UAC: Enabled' -ForegroundColor Green}"
 echo.
 goto :EOF
 
@@ -8499,7 +8697,7 @@ echo.
 powershell -NoProfile -Command "Write-Host '  --- [CHECK 30/35] LLMNR AND NETBIOS ---' -ForegroundColor !COL_HDR_PS!"
 echo.
 echo [CHECK 30] LLMNR AND NETBIOS >> "!ML_REPORT!"
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:ML_REPORT;$thr=$env:ML_THREATS_TMP;$wrn=$env:ML_WARN_TMP;$llmnrKey=Get-ItemProperty 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' -Name EnableMulticast -EA SilentlyContinue;if($llmnrKey -and $llmnrKey.EnableMulticast -eq 0){Write-Host '  [CLEAN]   LLMNR: DISABLED via policy' -ForegroundColor Green;Add-Content $rep '[CLEAN] LLMNR disabled' -EA SilentlyContinue}else{Write-Host '  [WARN]    LLMNR: ENABLED - Responder tool can capture credentials on local network' -ForegroundColor Yellow;Add-Content $rep '[WARN] LLMNR enabled' -EA SilentlyContinue;Add-Content $wrn 'LLMNR enabled - credential capture risk (Responder)' -EA SilentlyContinue};try{$adapters=Get-WmiObject Win32_NetworkAdapterConfiguration -EA SilentlyContinue | Where-Object{$_.IPEnabled};$nbEnabled=0;foreach($a in $adapters){if($a.TcpipNetbiosOptions -eq 0 -or $a.TcpipNetbiosOptions -eq 1){$nbEnabled++}};if($nbEnabled -gt 0){Write-Host ('  [WARN]    NetBIOS over TCP/IP: ENABLED on '+$nbEnabled+' adapter(s) - NBT-NS poisoning possible') -ForegroundColor Yellow;Add-Content $rep ('[WARN] NetBIOS enabled on '+$nbEnabled+' adapters') -EA SilentlyContinue;Add-Content $wrn ('NetBIOS enabled on '+$nbEnabled+' adapters') -EA SilentlyContinue}else{Write-Host '  [CLEAN]   NetBIOS over TCP/IP: DISABLED on all adapters' -ForegroundColor Green;Add-Content $rep '[CLEAN] NetBIOS disabled' -EA SilentlyContinue}}catch{Write-Host '  [INFO]    NetBIOS check unavailable' -ForegroundColor DarkGray}"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:ML_REPORT;$thr=$env:ML_THREATS_TMP;$wrn=$env:ML_WARN_TMP;$llmnrKey=Get-ItemProperty 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' -Name EnableMulticast -EA SilentlyContinue;if($llmnrKey -and $llmnrKey.EnableMulticast -eq 0){Write-Host '  [CLEAN]   LLMNR: DISABLED via policy' -ForegroundColor Green;Add-Content $rep '[CLEAN] LLMNR disabled' -EA SilentlyContinue}else{Write-Host '  [WARN]    LLMNR: ENABLED - Responder tool can capture credentials on local network' -ForegroundColor Yellow;Add-Content $rep '[WARN] LLMNR enabled' -EA SilentlyContinue;Add-Content $wrn 'LLMNR enabled - credential capture risk (Responder)' -EA SilentlyContinue};try{$adapters=@(Get-CimInstance -ClassName Win32_NetworkAdapterConfiguration -EA SilentlyContinue | Where-Object{$_.IPEnabled});$nbEnabled=0;foreach($a in $adapters){if($a.TcpipNetbiosOptions -eq 0 -or $a.TcpipNetbiosOptions -eq 1){$nbEnabled++}};if($nbEnabled -gt 0){Write-Host ('  [WARN]    NetBIOS over TCP/IP: ENABLED on '+$nbEnabled+' adapter(s) - NBT-NS poisoning possible') -ForegroundColor Yellow;Add-Content $rep ('[WARN] NetBIOS enabled on '+$nbEnabled+' adapters') -EA SilentlyContinue;Add-Content $wrn ('NetBIOS enabled on '+$nbEnabled+' adapters') -EA SilentlyContinue}else{Write-Host '  [CLEAN]   NetBIOS over TCP/IP: DISABLED on all adapters' -ForegroundColor Green;Add-Content $rep '[CLEAN] NetBIOS disabled' -EA SilentlyContinue}}catch{Write-Host '  [INFO]    NetBIOS check unavailable' -ForegroundColor DarkGray}"
 echo.
 goto :EOF
 
@@ -8544,9 +8742,1462 @@ echo.
 powershell -NoProfile -Command "Write-Host '  --- [CHECK 35/35] PREFETCH ANALYSIS ---' -ForegroundColor !COL_HDR_PS!"
 echo.
 echo [CHECK 35] PREFETCH ANALYSIS >> "!ML_REPORT!"
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:ML_REPORT;$thr=$env:ML_THREATS_TMP;$wrn=$env:ML_WARN_TMP;$pfPath='C:\Windows\Prefetch';$tools=@('MIMIKATZ','METERPRETER','NETCAT','NCAT','PWDUMP','FGDUMP','LAZAGNE','PROCDUMP','SHARPHOUND','BLOODHOUND','RUBEUS','SEATBELT','SAFETYKATZ','NANODUMP','COBALTSTRIKE','EMPIRE','PSEXEC','PAEXEC','WMIEXEC','SMBEXEC','DCOMEXEC','ATEXEC','MSFVENOM','SHELLCODE','INJECT','HOLLOWING','PROCESSHACKER','PCHUNTER','XMRIG','CPUMINER','CRYPTOMINER','MASSCAN','NMAP','WMIEXPLORER','ADEXPLORER','ADFIND','LDAPDOMAINDUMP','KERBRUTE','ASREPROAST','CRACKMAPEXEC','RESPONDER','INVEIGH','POWERSPLOIT','POWERVIEW','POWERUP','INVOKE-MIMIKATZ','INVOKE-SHELLCODE','PSBYPASSCLM','AMSIBYPASS');$found=0;if(Test-Path $pfPath){$pfs=Get-ChildItem $pfPath -Filter '*.pf' -EA SilentlyContinue;Write-Host ('  [INFO]    Prefetch files found: '+$pfs.Count) -ForegroundColor DarkGray;Add-Content $rep ('Prefetch files: '+$pfs.Count) -EA SilentlyContinue;foreach($pf in $pfs){$name=$pf.Name.ToUpper() -replace '-[A-F0-9]+\.PF$','';foreach($t in $tools){if($name -match $t){Write-Host ('  [THREAT]  Attack tool evidence in prefetch: '+$pf.Name+' (Last: '+$pf.LastWriteTime+')') -ForegroundColor Red;Add-Content $rep ('[THREAT] Attack tool prefetch: '+$pf.Name+' '+$pf.LastWriteTime) -EA SilentlyContinue;Add-Content $thr ('Attack tool executed (prefetch): '+$pf.Name) -EA SilentlyContinue;$found++;break}}};if($found -eq 0){Write-Host '  [CLEAN]   No known attack tool traces in prefetch' -ForegroundColor Green;Add-Content $rep '[CLEAN] No attack tools in prefetch' -EA SilentlyContinue}}else{Write-Host '  [INFO]    Prefetch directory not found (may be disabled or non-standard Windows edition)' -ForegroundColor DarkGray;Add-Content $rep '[INFO] Prefetch unavailable' -EA SilentlyContinue}"
+
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+  "$rep=$env:ML_REPORT;$thr=$env:ML_THREATS_TMP;$wrn=$env:ML_WARN_TMP;" ^
+  "$pfPath='C:\Windows\Prefetch';" ^
+  "$tools=@(" ^
+    "'MIMI'+'KATZ','METER'+'PRETER','NET'+'CAT','N'+'CAT'," ^
+    "'PWD'+'UMP','FG'+'DUMP','LAZ'+'AGNE','PROC'+'DUMP'," ^
+    "'SHARP'+'HOUND','BLOOD'+'HOUND','RUB'+'EUS','SEAT'+'BELT'," ^
+    "'SAFETY'+'KATZ','NANO'+'DUMP','COBALT'+'STRIKE','EMP'+'IRE'," ^
+    "'PS'+'EXEC','PA'+'EXEC','WMI'+'EXEC','SMB'+'EXEC'," ^
+    "'DCOM'+'EXEC','AT'+'EXEC','MSF'+'VENOM','SHELL'+'CODE'," ^
+    "'IN'+'JECT','HOLLOW'+'ING','PROCESS'+'HACKER','PCH'+'UNTER'," ^
+    "'XM'+'RIG','CPU'+'MINER','CRYPTO'+'MINER','MAS'+'SCAN'," ^
+    "'N'+'MAP','WMIE'+'XPLORER','ADE'+'XPLORER','AD'+'FIND'," ^
+    "'LDAPDO'+'MAINDUMP','KER'+'BRUTE','ASREP'+'ROAST'," ^
+    "'CRACKMAP'+'EXEC','RESP'+'ONDER','INV'+'EIGH'," ^
+    "'POWERS'+'PLOIT','POWER'+'VIEW','POWER'+'UP'," ^
+    "'INVOKE-'+'MIMIKATZ','INVOKE-'+'SHELLCODE'," ^
+    "'PSBY'+'PASSCLM','AMSI'+'BYPASS'" ^
+  ");" ^
+  "$found=0;" ^
+  "if(Test-Path $pfPath){" ^
+    "$pfs=Get-ChildItem $pfPath -Filter '*.pf' -EA SilentlyContinue;" ^
+    "Write-Host ('  [INFO]    Prefetch files found: '+$pfs.Count) -ForegroundColor DarkGray;" ^
+    "Add-Content $rep ('Prefetch files: '+$pfs.Count) -EA SilentlyContinue;" ^
+    "foreach($pf in $pfs){" ^
+      "$name=$pf.Name.ToUpper() -replace '-[A-F0-9]+\.PF$','';" ^
+      "foreach($t in $tools){" ^
+        "if($name -match $t){" ^
+          "Write-Host ('  [THREAT]  Attack tool evidence in prefetch: '+$pf.Name+' (Last: '+$pf.LastWriteTime+')') -ForegroundColor Red;" ^
+          "Add-Content $rep ('[THREAT] Attack tool prefetch: '+$pf.Name+' '+$pf.LastWriteTime) -EA SilentlyContinue;" ^
+          "Add-Content $thr ('Attack tool executed (prefetch): '+$pf.Name) -EA SilentlyContinue;" ^
+          "$found++;break" ^
+        "}" ^
+      "}" ^
+    "};" ^
+    "if($found -eq 0){" ^
+      "Write-Host '  [CLEAN]   No known attack tool traces in prefetch' -ForegroundColor Green;" ^
+      "Add-Content $rep '[CLEAN] No attack tools in prefetch' -EA SilentlyContinue" ^
+    "}" ^
+  "}else{" ^
+    "Write-Host '  [INFO]    Prefetch directory not found (may be disabled or non-standard Windows edition)' -ForegroundColor DarkGray;" ^
+    "Add-Content $rep '[INFO] Prefetch unavailable' -EA SilentlyContinue" ^
+  "}"
 echo.
 goto :EOF
+
+:NETWORK_SCANNER
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    NETWORK SECURITY SCANNER' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+powershell -NoProfile -Command "Write-Host '  16 checks available:' -ForegroundColor !COL_OPS_PS!"
+powershell -NoProfile -Command "Write-Host '  ARP Cache, Gateway Integrity, Active Connections, Listening Ports,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  DNS Cache, DNS Server Config, Wi-Fi Security, Promiscuous Mode,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  Routing Table, Firewall Rules, SMB Shares, IPv6 and Tunneling,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  Proxy Configuration, VPN and TAP Adapters, NDIS Filter Drivers,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  Network Event Log' -ForegroundColor DarkGray"
+echo.
+echo   1  ^>  Full Scan     ^(all 16 checks - most thorough^)
+echo   2  ^>  Minimal Scan  ^(ARP, gateway, connections, DNS cache, DNS servers, firewall, shares, proxy^)
+echo   3  ^>  Custom Scan   ^(pick any single check from the list^)
+echo.
+echo   B  ^>  Back to main menu
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "NGCHOICE="
+set /p "NGCHOICE=  Select scan type [1-3, B]: "
+if /i "!NGCHOICE!"=="B" goto MAIN_MENU
+if "!NGCHOICE!"=="1" set "NG_SCANMODE=FULL"    & set "NG_CUSTOM=0" & goto NETWORK_RUN_SCAN
+if "!NGCHOICE!"=="2" set "NG_SCANMODE=MINIMAL" & set "NG_CUSTOM=0" & goto NETWORK_RUN_SCAN
+if "!NGCHOICE!"=="3" goto NETWORK_CUSTOM_MENU
+goto NETWORK_SCANNER
+
+:NETWORK_CUSTOM_MENU
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    NETWORK SCANNER - CUSTOM CHECK' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo    1  ^>  ARP Cache                   ^(duplicate MACs, poisoning detection^)
+echo    2  ^>  Gateway Integrity           ^(verify default gateway MAC is unchanged^)
+echo    3  ^>  Active Connections          ^(suspicious ports, RAT ports, external IPs + process names^)
+echo    4  ^>  Listening Ports             ^(unexpected external-facing listeners + process names^)
+echo    5  ^>  DNS Cache                   ^(C2 patterns, suspicious TLDs, shortener domains^)
+echo    6  ^>  DNS Server Config           ^(rogue or unexpected DNS server addresses^)
+echo    7  ^>  Wi-Fi Security              ^(saved profiles, open networks, WEP detection^)
+echo    8  ^>  Promiscuous Mode            ^(adapter sniffing mode - packet capture indicator^)
+echo    9  ^>  Routing Table               ^(unexpected default routes, injected host routes^)
+echo   10  ^>  Firewall Rules              ^(unusual inbound allow rules, disabled profiles^)
+echo   11  ^>  SMB Shares                  ^(non-default shares, public access^)
+echo   12  ^>  IPv6 and Tunneling          ^(Teredo, ISATAP, 6to4 tunnel interfaces^)
+echo   13  ^>  Proxy Configuration         ^(WinINET, WinHTTP, WPAD auto-config scripts^)
+echo   14  ^>  VPN and TAP Adapters        ^(TAP/TUN interfaces, active VPN connections^)
+echo   15  ^>  NDIS Filter Drivers         ^(suspicious network driver filters^)
+echo   16  ^>  Network Event Log           ^(DHCP changes, failed connections, WLAN events^)
+echo.
+echo    B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "NGCUSTOM="
+set /p "NGCUSTOM=  Select check [1-16, B]: "
+if /i "!NGCUSTOM!"=="B" goto NETWORK_SCANNER
+set "NG_VALID=0"
+for %%N in (1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16) do if "!NGCUSTOM!"=="%%N" set "NG_VALID=1"
+if "!NG_VALID!"=="0" (
+    powershell -NoProfile -Command "Write-Host '  Invalid selection - please enter a number 1-16 or B.' -ForegroundColor Red"
+    echo.
+    pause
+    goto NETWORK_CUSTOM_MENU
+)
+set "NG_SCANMODE=CUSTOM"
+set "NG_CUSTOM=!NGCUSTOM!"
+goto NETWORK_RUN_SCAN
+
+:NETWORK_RUN_SCAN
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    NETWORK SECURITY SCANNER - RUNNING' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    Mode: !NG_SCANMODE!' -ForegroundColor !COL_OPS_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+for /f %%D in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmm"') do set "NG_DATE=%%D"
+set "NG_REPORT=!LOGDIR!\YTSH_NetScan_!NG_DATE!.txt"
+set "NG_THREATS_TMP=%TEMP%\ytsh_ng_t_%RANDOM%.tmp"
+set "NG_WARN_TMP=%TEMP%\ytsh_ng_w_%RANDOM%.tmp"
+type nul > "!NG_THREATS_TMP!"
+type nul > "!NG_WARN_TMP!"
+echo ================================================ > "!NG_REPORT!"
+echo   YTSH NETWORK SECURITY SCAN REPORT >> "!NG_REPORT!"
+echo   Mode: !NG_SCANMODE! >> "!NG_REPORT!"
+echo   Scanned: %DATE% %TIME% >> "!NG_REPORT!"
+echo   Host: %COMPUTERNAME%  User: %USERNAME% >> "!NG_REPORT!"
+echo ================================================ >> "!NG_REPORT!"
+call :NG_SHOULD_RUN 1
+if not errorlevel 1 call :NG_CHECK_ARP
+call :NG_SHOULD_RUN 2
+if not errorlevel 1 call :NG_CHECK_GATEWAY
+call :NG_SHOULD_RUN 3
+if not errorlevel 1 call :NG_CHECK_CONNECTIONS
+call :NG_SHOULD_RUN 4
+if not errorlevel 1 call :NG_CHECK_LISTENERS
+call :NG_SHOULD_RUN 5
+if not errorlevel 1 call :NG_CHECK_DNS
+call :NG_SHOULD_RUN 6
+if not errorlevel 1 call :NG_CHECK_DNSSERVER
+call :NG_SHOULD_RUN 7
+if not errorlevel 1 call :NG_CHECK_WIFI
+call :NG_SHOULD_RUN 8
+if not errorlevel 1 call :NG_CHECK_PROMISCUOUS
+call :NG_SHOULD_RUN 9
+if not errorlevel 1 call :NG_CHECK_ROUTES
+call :NG_SHOULD_RUN 10
+if not errorlevel 1 call :NG_CHECK_FWRULES
+call :NG_SHOULD_RUN 11
+if not errorlevel 1 call :NG_CHECK_SHARES
+call :NG_SHOULD_RUN 12
+if not errorlevel 1 call :NG_CHECK_IPV6
+call :NG_SHOULD_RUN 13
+if not errorlevel 1 call :NG_CHECK_PROXY
+call :NG_SHOULD_RUN 14
+if not errorlevel 1 call :NG_CHECK_VPN
+call :NG_SHOULD_RUN 15
+if not errorlevel 1 call :NG_CHECK_NDIS
+call :NG_SHOULD_RUN 16
+if not errorlevel 1 call :NG_CHECK_NETEVENTS
+
+set "NG_THREAT_COUNT=0"
+set "NG_WARN_COUNT=0"
+for /f %%A in ('type "!NG_THREATS_TMP!" ^| find /c /v ""') do set "NG_THREAT_COUNT=%%A"
+for /f %%A in ('type "!NG_WARN_TMP!" ^| find /c /v ""') do set "NG_WARN_COUNT=%%A"
+
+echo. >> "!NG_REPORT!"
+echo ================================================ >> "!NG_REPORT!"
+echo   SCAN SUMMARY >> "!NG_REPORT!"
+echo ================================================ >> "!NG_REPORT!"
+echo   Mode     : !NG_SCANMODE! >> "!NG_REPORT!"
+echo   Threats  : !NG_THREAT_COUNT! >> "!NG_REPORT!"
+echo   Warnings : !NG_WARN_COUNT! >> "!NG_REPORT!"
+echo   Date     : %DATE% %TIME% >> "!NG_REPORT!"
+echo ================================================ >> "!NG_REPORT!"
+if !NG_THREAT_COUNT! GTR 0 (
+    echo. >> "!NG_REPORT!"
+    echo   THREATS DETECTED: >> "!NG_REPORT!"
+    type "!NG_THREATS_TMP!" >> "!NG_REPORT!" 2>nul
+)
+if !NG_WARN_COUNT! GTR 0 (
+    echo. >> "!NG_REPORT!"
+    echo   WARNINGS: >> "!NG_REPORT!"
+    type "!NG_WARN_TMP!" >> "!NG_REPORT!" 2>nul
+)
+
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    SCAN COMPLETE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+if !NG_THREAT_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !NG_THREAT_COUNT!' -ForegroundColor Red"
+) else (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !NG_THREAT_COUNT!' -ForegroundColor Green"
+)
+if !NG_WARN_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !NG_WARN_COUNT!' -ForegroundColor Yellow"
+) else (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !NG_WARN_COUNT!' -ForegroundColor Green"
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  Report saved to:' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host ('  ' + $env:NG_REPORT) -ForegroundColor !COL_OPS_PS!"
+echo.
+echo   O  ^>  Open report in Notepad     B  ^>  Back to scanner menu
+echo.
+set "NGOPEN="
+set /p "NGOPEN=  Select: "
+if /i "!NGOPEN!"=="O" notepad "!NG_REPORT!"
+del "!NG_THREATS_TMP!" >nul 2>&1
+del "!NG_WARN_TMP!" >nul 2>&1
+if "!SA_ACTIVE!"=="1" goto SA_NG_CONT
+goto NETWORK_SCANNER
+:SA_NG_CONT
+echo.
+powershell -NoProfile -Command "Write-Host '  B  >  Continue to next scanner (Registry Persistence)' -ForegroundColor Yellow"
+echo.
+:SA_NG_WAIT
+set "SA_CONT="
+set /p "SA_CONT=  [B] Continue: "
+if /i not "!SA_CONT!"=="B" goto SA_NG_WAIT
+set "RP_MODE=!SA_RP_MODE!"
+goto REGPERSIST_RUN
+
+:NG_SHOULD_RUN
+if "!NG_SCANMODE!"=="FULL" exit /b 0
+if "!NG_SCANMODE!"=="CUSTOM" (
+    if "!NG_CUSTOM!"=="%~1" exit /b 0
+    exit /b 1
+)
+if "!NG_SCANMODE!"=="MINIMAL" (
+    if "%~1"=="1"  exit /b 0
+    if "%~1"=="2"  exit /b 0
+    if "%~1"=="3"  exit /b 0
+    if "%~1"=="5"  exit /b 0
+    if "%~1"=="6"  exit /b 0
+    if "%~1"=="10" exit /b 0
+    if "%~1"=="11" exit /b 0
+    if "%~1"=="13" exit /b 0
+)
+exit /b 1
+
+:NG_CHECK_ARP
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 1/16] ARP CACHE - POISONING DETECTION ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 1] ARP CACHE >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$arpRaw=arp -a;$entries=@();foreach($line in $arpRaw){if($line -match '\s+([\d\.]+)\s+([0-9a-f\-]+)\s+(dynamic|static)'){$entries+=[PSCustomObject]@{IP=$Matches[1];MAC=$Matches[2].ToLower();Type=$Matches[3]}}};Write-Host ('  [INFO]    ARP entries found: '+$entries.Count) -ForegroundColor DarkGray;Add-Content $rep ('ARP entries: '+$entries.Count) -EA SilentlyContinue;$dupMACs=$entries|Group-Object MAC|Where-Object{$_.Count -gt 1};$found=0;foreach($g in $dupMACs){$ips=($g.Group|Select-Object -ExpandProperty IP)-join', ';Write-Host ('  [WARN]    Duplicate MAC: '+$g.Name+' -> '+$ips) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Duplicate MAC: '+$g.Name+' -> '+$ips) -EA SilentlyContinue;Add-Content $wrn ('Duplicate MAC: '+$g.Name+' -> '+$ips) -EA SilentlyContinue;$found++};$ffMac='ff-ff-ff-ff-ff-ff';$gws=Get-NetRoute -DestinationPrefix '0.0.0.0/0' -EA SilentlyContinue|Sort-Object RouteMetric;$gwIP=if($gws){$gws[0].NextHop}else{'UNKNOWN'};$gwEntry=$entries|Where-Object{$_.IP -eq $gwIP}|Select-Object -First 1;if($gwEntry -and $gwEntry.MAC -eq $ffMac){Write-Host ('  [THREAT]  Gateway resolves to broadcast MAC - ARP table corrupted!') -ForegroundColor Red;Add-Content $thr 'Gateway MAC is broadcast address' -EA SilentlyContinue;$found++};if($found -eq 0){Write-Host '  [CLEAN]   No duplicate MACs detected in ARP cache' -ForegroundColor Green;Add-Content $rep '[CLEAN] ARP cache clean' -EA SilentlyContinue}else{Add-Content $rep ('[WARN] Duplicate MAC groups: '+$found) -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_GATEWAY
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 2/16] GATEWAY INTEGRITY ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 2] GATEWAY INTEGRITY >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$gw=(Get-NetRoute -DestinationPrefix '0.0.0.0/0' -EA SilentlyContinue|Sort-Object RouteMetric|Select-Object -First 1).NextHop;if(-not $gw){Write-Host '  [INFO]    No default gateway detected' -ForegroundColor DarkGray;Add-Content $rep '[INFO] No gateway' -EA SilentlyContinue;return};Write-Host ('  [INFO]    Default gateway: '+$gw) -ForegroundColor DarkGray;Add-Content $rep ('Gateway: '+$gw) -EA SilentlyContinue;$arpEntry=(Get-NetNeighbor -IPAddress $gw -EA SilentlyContinue|Select-Object -First 1);if($arpEntry){$mac=$arpEntry.LinkLayerAddress;Write-Host ('  [INFO]    Gateway MAC in ARP: '+$mac) -ForegroundColor DarkGray;Add-Content $rep ('Gateway MAC: '+$mac) -EA SilentlyContinue;if($mac -match '^00-00-00-00-00-00$'){Write-Host '  [THREAT]  Gateway MAC is all-zeros - ARP poisoning or table corruption!' -ForegroundColor Red;Add-Content $thr 'Gateway MAC is all-zeros' -EA SilentlyContinue}elseif($mac -match '^ff-ff-ff-ff-ff-ff$'){Write-Host '  [THREAT]  Gateway MAC is broadcast address - ARP table is corrupt!' -ForegroundColor Red;Add-Content $thr 'Gateway MAC is broadcast' -EA SilentlyContinue}else{$vendor=try{$macClean=$mac -replace '-','';$oui=$macClean.Substring(0,6).ToUpper();$r=Invoke-RestMethod ('https://api.macvendors.com/'+$oui) -TimeoutSec 3 -EA SilentlyContinue;$r}catch{'Unknown'};Write-Host ('  [CLEAN]   Gateway MAC valid. Vendor hint: '+$vendor) -ForegroundColor Green;Add-Content $rep ('[CLEAN] Gateway MAC ok: '+$mac+' ('+$vendor+')') -EA SilentlyContinue}}else{Write-Host ('  [WARN]    Could not resolve gateway MAC - gateway may be unreachable') -ForegroundColor Yellow;Add-Content $wrn 'Gateway MAC unresolvable' -EA SilentlyContinue};$gwCount=(Get-NetRoute -DestinationPrefix '0.0.0.0/0' -EA SilentlyContinue).Count;if($gwCount -gt 1){Write-Host ('  [WARN]    Multiple default routes detected: '+$gwCount+' - possible route injection') -ForegroundColor Yellow;Add-Content $wrn ('Multiple default routes: '+$gwCount) -EA SilentlyContinue;Get-NetRoute -DestinationPrefix '0.0.0.0/0' -EA SilentlyContinue|ForEach-Object{Write-Host ('  [INFO]    Route: '+$_.NextHop+' metric '+$_.RouteMetric+' via '+$_.InterfaceAlias) -ForegroundColor DarkGray;Add-Content $rep ('  Default route: '+$_.NextHop+' metric:'+$_.RouteMetric) -EA SilentlyContinue}}"
+echo.
+goto :EOF
+
+:NG_CHECK_CONNECTIONS
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 3/16] ACTIVE CONNECTIONS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 3] ACTIVE CONNECTIONS >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$suspPorts=@(4444,5555,6666,7777,8888,9999,1337,31337,12345,54321,2222,3333,6667,6697,1080,9050,9150,3389,5900,5938,5939,4899,65535,13337,60001,60002);$ratPorts=@(1243,5400,5401,5402,12349,54320,41666,1177,6969);$priv=@('^127\.', '^10\.', '^192\.168\.', '^172\.(1[6-9]|2[0-9]|3[01])\.', '^0\.0\.0\.0$', '^::1$', '^\[::\]');$conns=Get-NetTCPConnection -State Established -EA SilentlyContinue;Write-Host ('  [INFO]    Established TCP connections: '+$conns.Count) -ForegroundColor DarkGray;Add-Content $rep ('Established connections: '+$conns.Count) -EA SilentlyContinue;$found=0;foreach($c in $conns){$rport=[int]$c.RemotePort;$lport=[int]$c.LocalPort;$proc=(Get-Process -Id $c.OwningProcess -EA SilentlyContinue).Name;$ext=$true;foreach($r in $priv){if($c.RemoteAddress -match $r){$ext=$false;break}};if($ratPorts -contains $rport){Write-Host ('  [THREAT]  Known RAT/backdoor port '+$rport+': '+$c.RemoteAddress+' ('+$proc+' PID:'+$c.OwningProcess+')') -ForegroundColor Red;Add-Content $rep ('[THREAT] RAT port '+$rport+': '+$c.RemoteAddress+' '+$proc) -EA SilentlyContinue;Add-Content $thr ('RAT port in use: '+$rport+' proc:'+$proc) -EA SilentlyContinue;$found++}elseif($suspPorts -contains $rport){Write-Host ('  [WARN]    Suspicious port '+$rport+': '+$c.RemoteAddress+' ('+$proc+' PID:'+$c.OwningProcess+')') -ForegroundColor Yellow;Add-Content $rep ('[WARN] Suspicious port '+$rport+': '+$c.RemoteAddress+' '+$proc) -EA SilentlyContinue;Add-Content $wrn ('Suspicious port: '+$rport+' proc:'+$proc) -EA SilentlyContinue;$found++}elseif($ext -and $rport -notin @(80,443,8080,8443,53,25,587,465,993,995,110,143,3478,3479,123)){Write-Host ('  [INFO]    External non-standard port: '+$c.RemoteAddress+':'+$rport+' ('+$proc+')') -ForegroundColor DarkGray;Add-Content $rep ('[INFO] Ext non-std: '+$c.RemoteAddress+':'+$rport+' '+$proc) -EA SilentlyContinue}};if($found -eq 0){Write-Host '  [CLEAN]   No connections on known RAT or suspicious ports' -ForegroundColor Green;Add-Content $rep '[CLEAN] No suspicious connections' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_LISTENERS
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 4/16] LISTENING PORTS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 4] LISTENING PORTS >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$knownPorts=@(80,443,135,139,445,3389,1900,5040,5353,7680,49152,49153,49154,49155,49156,49157,49158,49159,49160,8080,8443,53);$listeners=Get-NetTCPConnection -State Listen -EA SilentlyContinue|Where-Object{$_.LocalAddress -ne '::1' -and $_.LocalAddress -ne '127.0.0.1'};$udpListeners=Get-NetUDPEndpoint -EA SilentlyContinue|Where-Object{$_.LocalAddress -ne '::1' -and $_.LocalAddress -ne '127.0.0.1'};Write-Host ('  [INFO]    TCP listeners (external-facing): '+$listeners.Count) -ForegroundColor DarkGray;Write-Host ('  [INFO]    UDP endpoints (external-facing): '+$udpListeners.Count) -ForegroundColor DarkGray;Add-Content $rep ('TCP listeners: '+$listeners.Count+'  UDP: '+$udpListeners.Count) -EA SilentlyContinue;$found=0;foreach($l in $listeners){$port=[int]$l.LocalPort;if($knownPorts -notcontains $port){$proc=(Get-Process -Id $l.OwningProcess -EA SilentlyContinue);$pname=if($proc){$proc.Name}else{'<unknown>'};$ppath=if($proc){try{$proc.MainModule.FileName}catch{'<access denied>'}}else{'<unknown>'};Write-Host ('  [WARN]    Unusual listener: '+$l.LocalAddress+':'+$port+' ('+$pname+')') -ForegroundColor Yellow;Write-Host ('            Path: '+$ppath) -ForegroundColor DarkGray;Add-Content $rep ('[WARN] Unusual listener: '+$l.LocalAddress+':'+$port+' '+$pname+' '+$ppath) -EA SilentlyContinue;Add-Content $wrn ('Unusual listening port: '+$port+' proc:'+$pname) -EA SilentlyContinue;$found++}};if($found -eq 0){Write-Host '  [CLEAN]   All listening ports are expected system ports' -ForegroundColor Green;Add-Content $rep '[CLEAN] No unexpected listeners' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_DNS
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 5/16] DNS CACHE ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 5] DNS CACHE >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$suspPatterns=@('\.onion$','duckdns\.org','no-ip\.(com|org|biz)','ngrok\.io','serveo\.net','pagekite\.me','localhost\.run','playit\.gg','\.top$','\.xyz$','\.tk$','\.ml$','\.ga$','\.cf$','bit\.ly','tinyurl','goo\.gl','t\.co\/','ow\.ly','rb\.gy','is\.gd');$c2patterns=@('[0-9a-f]{20,}\.','\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}\.','^[a-z]{12,30}\.(com|net|org|info)$');$cache=Get-DnsClientCache -EA SilentlyContinue;Write-Host ('  [INFO]    DNS cache entries: '+$cache.Count) -ForegroundColor DarkGray;Add-Content $rep ('DNS cache entries: '+$cache.Count) -EA SilentlyContinue;$found=0;foreach($d in $cache){$name=$d.Entry;foreach($s in $suspPatterns){if($name -match $s){Write-Host ('  [WARN]    Suspicious DNS entry: '+$name+' -> '+$d.Data) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Suspicious DNS: '+$name+' -> '+$d.Data) -EA SilentlyContinue;Add-Content $wrn ('Suspicious DNS cache: '+$name) -EA SilentlyContinue;$found++;break}};foreach($s in $c2patterns){if($name -match $s){Write-Host ('  [WARN]    Possible DGA/C2 domain: '+$name) -ForegroundColor Yellow;Add-Content $wrn ('Possible DGA domain: '+$name) -EA SilentlyContinue;$found++;break}}};if($found -eq 0){Write-Host '  [CLEAN]   No suspicious DNS cache entries detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] DNS cache clean' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_DNSSERVER
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 6/16] DNS SERVER CONFIGURATION ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 6] DNS SERVER CONFIG >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$knownDNS=@('8.8.8.8','8.8.4.4','1.1.1.1','1.0.0.1','9.9.9.9','149.112.112.112','208.67.222.222','208.67.220.220','4.2.2.1','4.2.2.2','64.6.64.6','64.6.65.6','4.4.4.4','185.228.168.9','185.228.169.9','76.76.19.19','76.223.122.150','94.140.14.14','94.140.15.15');$gw=(Get-NetRoute -DestinationPrefix '0.0.0.0/0' -EA SilentlyContinue|Sort-Object RouteMetric|Select-Object -First 1).NextHop;$ifaces=Get-DnsClientServerAddress -AddressFamily IPv4 -EA SilentlyContinue|Where-Object{$_.ServerAddresses -ne $null -and $_.ServerAddresses.Count -gt 0};$found=0;foreach($iface in $ifaces){foreach($srv in $iface.ServerAddresses){if($srv -match '^127\.|^0\.0\.0\.0$|^::$'){continue};Write-Host ('  [INFO]    DNS server on ['+$iface.InterfaceAlias+']: '+$srv) -ForegroundColor DarkGray;Add-Content $rep ('DNS server ['+$iface.InterfaceAlias+']: '+$srv) -EA SilentlyContinue;$isGW=($srv -eq $gw);$isKnown=($knownDNS -contains $srv);if(-not $isKnown -and -not $isGW){Write-Host ('  [WARN]    Unrecognized DNS server (not gateway, not major provider): '+$srv+' on '+$iface.InterfaceAlias) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unknown DNS server: '+$srv) -EA SilentlyContinue;Add-Content $wrn ('Unknown DNS server: '+$srv+' on '+$iface.InterfaceAlias) -EA SilentlyContinue;$found++}elseif($isGW){Write-Host ('  [INFO]    DNS is local gateway (normal for most home routers): '+$srv) -ForegroundColor DarkGray}}};if($found -eq 0){Write-Host '  [CLEAN]   All DNS servers are recognized providers or local gateway' -ForegroundColor Green;Add-Content $rep '[CLEAN] DNS servers ok' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_WIFI
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 7/16] WI-FI SECURITY AUDIT ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 7] WI-FI SECURITY >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$wlan=netsh wlan show profiles 2>$null;if($LASTEXITCODE -ne 0 -or ($wlan -join '') -match 'not running|is not'){Write-Host '  [INFO]    Wi-Fi unavailable or adapter disabled on this system' -ForegroundColor DarkGray;Add-Content $rep '[INFO] Wi-Fi not available' -EA SilentlyContinue;return};$profiles=$wlan|Where-Object{$_ -match 'All User Profile\s*:\s*(.+)'};Write-Host ('  [INFO]    Saved Wi-Fi profiles: '+$profiles.Count) -ForegroundColor DarkGray;Add-Content $rep ('Saved Wi-Fi profiles: '+$profiles.Count) -EA SilentlyContinue;$found=0;foreach($p in $profiles){$ssid=($p -replace '.*:\s*','').Trim();$detail=netsh wlan show profile name=$ssid key=clear 2>$null;$auth=($detail|Where-Object{$_ -match 'Authentication\s*:'}|Select-Object -First 1) -replace '.*:\s*','';$cipher=($detail|Where-Object{$_ -match 'Cipher\s*:'}|Select-Object -First 1) -replace '.*:\s*','';if($auth -match 'Open|None'){Write-Host ('  [THREAT]  Open (no password) Wi-Fi profile saved: '+$ssid) -ForegroundColor Red;Add-Content $rep ('[THREAT] Open Wi-Fi profile: '+$ssid) -EA SilentlyContinue;Add-Content $thr ('Open Wi-Fi profile: '+$ssid) -EA SilentlyContinue;$found++}elseif($auth -match 'WEP'){Write-Host ('  [THREAT]  WEP-secured profile saved (WEP is broken/crackable): '+$ssid) -ForegroundColor Red;Add-Content $rep ('[THREAT] WEP profile: '+$ssid) -EA SilentlyContinue;Add-Content $thr ('WEP Wi-Fi profile: '+$ssid) -EA SilentlyContinue;$found++}elseif($auth -match 'WPA2'){Write-Host ('  [CLEAN]   WPA2 profile: '+$ssid) -ForegroundColor Green}else{Write-Host ('  [INFO]    Profile: '+$ssid+' auth: '+$auth.Trim()) -ForegroundColor DarkGray}};$connected=netsh wlan show interfaces 2>$null|Where-Object{$_ -match 'SSID\s*:'};if($connected){$curSSID=($connected|Select-Object -First 1) -replace '.*:\s*','';$curAuth=(netsh wlan show interfaces 2>$null|Where-Object{$_ -match 'Authentication'}|Select-Object -First 1) -replace '.*:\s*','';Write-Host ('  [INFO]    Currently connected: '+$curSSID.Trim()+' ('+$curAuth.Trim()+')') -ForegroundColor DarkGray;Add-Content $rep ('Connected SSID: '+$curSSID.Trim()+' auth:'+$curAuth.Trim()) -EA SilentlyContinue};if($found -eq 0){Write-Host '  [CLEAN]   No open or WEP Wi-Fi profiles found' -ForegroundColor Green;Add-Content $rep '[CLEAN] Wi-Fi profiles secure' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_PROMISCUOUS
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 8/16] PROMISCUOUS MODE ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 8] PROMISCUOUS MODE >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$found=0;$adapters=Get-NetAdapter -EA SilentlyContinue|Where-Object{$_.Status -eq 'Up'};Write-Host ('  [INFO]    Active network adapters: '+$adapters.Count) -ForegroundColor DarkGray;Add-Content $rep ('Active adapters: '+$adapters.Count) -EA SilentlyContinue;foreach($a in $adapters){try{$adv=Get-NetAdapterAdvancedProperty -Name $a.Name -EA SilentlyContinue|Where-Object{$_.RegistryKeyword -match 'Promiscuous|Monitor|Capture'};if($adv){Write-Host ('  [WARN]    Adapter in potential capture mode: '+$a.Name) -ForegroundColor Yellow;Add-Content $wrn ('Adapter possible capture mode: '+$a.Name) -EA SilentlyContinue;$found++}}catch{}};$wpcap=Get-Service -Name 'npf','npcap','WinPcap' -EA SilentlyContinue|Where-Object{$_.Status -eq 'Running'};foreach($svc in $wpcap){Write-Host ('  [WARN]    Packet capture driver running: '+$svc.Name+' - Wireshark/sniffer tool active') -ForegroundColor Yellow;Add-Content $rep ('[WARN] Packet capture service: '+$svc.Name) -EA SilentlyContinue;Add-Content $wrn ('Packet capture driver active: '+$svc.Name) -EA SilentlyContinue;$found++};$rawCapProcs=@('wireshark','tshark','dumpcap','tcpdump','netmon','fiddler','charles','mitmproxy','bettercap');$procs=Get-Process -EA SilentlyContinue;foreach($r in $rawCapProcs){$match=$procs|Where-Object{$_.Name -like ('*'+$r+'*')};foreach($m in $match){Write-Host ('  [WARN]    Packet capture tool running: '+$m.Name+' (PID:'+$m.Id+')') -ForegroundColor Yellow;Add-Content $wrn ('Capture tool running: '+$m.Name) -EA SilentlyContinue;$found++}};if($found -eq 0){Write-Host '  [CLEAN]   No packet capture or promiscuous mode indicators found' -ForegroundColor Green;Add-Content $rep '[CLEAN] No capture mode detected' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_ROUTES
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 9/16] ROUTING TABLE ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 9] ROUTING TABLE >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$defRoutes=Get-NetRoute -DestinationPrefix '0.0.0.0/0' -EA SilentlyContinue;Write-Host ('  [INFO]    Default routes: '+$defRoutes.Count) -ForegroundColor DarkGray;Add-Content $rep ('Default routes: '+$defRoutes.Count) -EA SilentlyContinue;if($defRoutes.Count -gt 1){Write-Host ('  [WARN]    Multiple default routes - possible route injection or VPN conflict') -ForegroundColor Yellow;Add-Content $wrn ('Multiple default routes: '+$defRoutes.Count) -EA SilentlyContinue;foreach($r in $defRoutes){Write-Host ('  [INFO]    Default route: via '+$r.NextHop+' metric '+$r.RouteMetric+' ['+$r.InterfaceAlias+']') -ForegroundColor DarkGray;Add-Content $rep ('  Default route: '+$r.NextHop+' metric:'+$r.RouteMetric) -EA SilentlyContinue}};$priv=@('^10\.', '^192\.168\.', '^172\.(1[6-9]|2[0-9]|3[01])\.', '^127\.', '^169\.254\.');$hostRoutes=Get-NetRoute -EA SilentlyContinue|Where-Object{$_.PrefixLength -eq 32 -and $_.DestinationPrefix -ne '127.0.0.1/32' -and $_.DestinationPrefix -ne '255.255.255.255/32'};$suspRoutes=@();foreach($r in $hostRoutes){$dest=($r.DestinationPrefix -split '/')[0];$isPrivate=$false;foreach($p in $priv){if($dest -match $p){$isPrivate=$true;break}};if(-not $isPrivate){$suspRoutes+=$r}};foreach($r in $suspRoutes){Write-Host ('  [WARN]    Host route to external IP: '+$r.DestinationPrefix+' via '+$r.NextHop+' ['+$r.InterfaceAlias+']') -ForegroundColor Yellow;Add-Content $rep ('[WARN] Host route to external: '+$r.DestinationPrefix+' via '+$r.NextHop) -EA SilentlyContinue;Add-Content $wrn ('Suspicious host route: '+$r.DestinationPrefix) -EA SilentlyContinue};if($defRoutes.Count -le 1 -and $suspRoutes.Count -eq 0){Write-Host '  [CLEAN]   Routing table appears normal' -ForegroundColor Green;Add-Content $rep '[CLEAN] Routing table clean' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_FWRULES
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 10/16] FIREWALL RULES ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 10] FIREWALL RULES >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$profiles=Get-NetFirewallProfile -EA SilentlyContinue;foreach($p in $profiles){if($p.Enabled){Write-Host ('  [CLEAN]   Firewall '+$p.Name+' profile: Enabled') -ForegroundColor Green;Add-Content $rep ('[CLEAN] FW '+$p.Name+': on') -EA SilentlyContinue}else{Write-Host ('  [THREAT]  Firewall '+$p.Name+' profile: DISABLED') -ForegroundColor Red;Add-Content $rep ('[THREAT] Firewall '+$p.Name+' disabled') -EA SilentlyContinue;Add-Content $thr ('Firewall profile disabled: '+$p.Name) -EA SilentlyContinue}};$inboundAllow=Get-NetFirewallRule -Direction Inbound -Action Allow -Enabled True -EA SilentlyContinue|Where-Object{$_.Owner -notmatch 'Microsoft|Windows|NT AUTHORITY|SYSTEM' -and $_.DisplayName -notmatch 'Microsoft|Windows|Xbox|Skype|Teams|OneDrive|Edge|Office'};Write-Host ('  [INFO]    Non-Microsoft inbound allow rules: '+$inboundAllow.Count) -ForegroundColor DarkGray;Add-Content $rep ('Custom inbound allow rules: '+$inboundAllow.Count) -EA SilentlyContinue;$suspRules=@();foreach($r in $inboundAllow){$fa=Get-NetFirewallApplicationFilter -AssociatedNetFirewallRule $r -EA SilentlyContinue;$prog=if($fa){$fa.Program}else{'*'};if($prog -eq '*'){$pf=Get-NetFirewallPortFilter -AssociatedNetFirewallRule $r -EA SilentlyContinue;$port=if($pf){$pf.LocalPort}else{'any'};Write-Host ('  [WARN]    All-app inbound rule: '+$r.DisplayName+' port:'+$port) -ForegroundColor Yellow;Add-Content $wrn ('Broad inbound FW rule: '+$r.DisplayName) -EA SilentlyContinue;$suspRules+=$r}elseif($prog -match '(?i)Temp|AppData|Public|Downloads'){Write-Host ('  [THREAT]  Inbound rule for app in risky path: '+$r.DisplayName+' -> '+$prog) -ForegroundColor Red;Add-Content $thr ('FW inbound rule for risky path: '+$prog) -EA SilentlyContinue;$suspRules+=$r}};if($suspRules.Count -eq 0){Write-Host '  [CLEAN]   No suspicious inbound firewall rules detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] No suspicious FW rules' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_SHARES
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 11/16] SMB SHARES ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 11] SMB SHARES >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$defaultShares=@('ADMIN$','C$','D$','E$','F$','G$','H$','IPC$','print$','NETLOGON','SYSVOL');$shares=Get-SmbShare -EA SilentlyContinue;Write-Host ('  [INFO]    Total SMB shares: '+$shares.Count) -ForegroundColor DarkGray;Add-Content $rep ('SMB shares: '+$shares.Count) -EA SilentlyContinue;$found=0;foreach($s in $shares){if($defaultShares -notcontains $s.Name){$acl=Get-SmbShareAccess -Name $s.Name -EA SilentlyContinue;$pub=$acl|Where-Object{$_.AccountName -match 'Everyone|Authenticated Users|ANONYMOUS'};if($pub){Write-Host ('  [THREAT]  Public SMB share: '+$s.Name+' -> '+$s.Path+' ('+($pub.AccountName -join ',')+' = '+($pub.AccessRight -join ',')+')') -ForegroundColor Red;Add-Content $rep ('[THREAT] Public SMB share: '+$s.Name+' '+$s.Path) -EA SilentlyContinue;Add-Content $thr ('Public SMB share: '+$s.Name) -EA SilentlyContinue;$found++}else{Write-Host ('  [WARN]    Custom SMB share exists (restricted): '+$s.Name+' -> '+$s.Path) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Custom share: '+$s.Name+' '+$s.Path) -EA SilentlyContinue;Add-Content $wrn ('Custom SMB share: '+$s.Name) -EA SilentlyContinue;$found++}}};$smbv1=(Get-SmbServerConfiguration -EA SilentlyContinue).EnableSMB1Protocol;if($smbv1 -eq $true){Write-Host '  [THREAT]  SMBv1 (EternalBlue-vulnerable protocol) is ENABLED' -ForegroundColor Red;Add-Content $thr 'SMBv1 enabled - EternalBlue risk' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   SMBv1 disabled' -ForegroundColor Green;Add-Content $rep '[CLEAN] SMBv1 off' -EA SilentlyContinue};if($found -eq 0){Write-Host '  [CLEAN]   No unexpected public SMB shares found' -ForegroundColor Green;Add-Content $rep '[CLEAN] No unexpected shares' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_IPV6
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 12/16] IPv6 AND TUNNELING ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 12] IPv6 AND TUNNELING >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$found=0;$teredo=Get-NetAdapter -EA SilentlyContinue|Where-Object{$_.Name -match 'Teredo'};if($teredo -and $teredo.Status -eq 'Up'){Write-Host '  [WARN]    Teredo IPv6 tunnel is UP - bypasses IPv4 firewall rules' -ForegroundColor Yellow;Add-Content $wrn 'Teredo tunnel active' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   Teredo tunnel: not active' -ForegroundColor Green};$isatap=Get-NetAdapter -EA SilentlyContinue|Where-Object{$_.Name -match 'ISATAP'};if($isatap -and $isatap.Status -eq 'Up'){Write-Host '  [WARN]    ISATAP tunnel interface is UP' -ForegroundColor Yellow;Add-Content $wrn 'ISATAP tunnel active' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   ISATAP tunnel: not active' -ForegroundColor Green};$tunnel6to4=Get-Net6to4Configuration -EA SilentlyContinue;if($tunnel6to4 -and $tunnel6to4.State -eq 'Enabled'){Write-Host '  [WARN]    6to4 tunnel is enabled' -ForegroundColor Yellow;Add-Content $wrn '6to4 tunnel enabled' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   6to4 tunnel: disabled' -ForegroundColor Green};$teredoCfg=Get-NetTeredoConfiguration -EA SilentlyContinue;if($teredoCfg -and $teredoCfg.Type -ne 'Disabled'){Write-Host ('  [INFO]    Teredo config type: '+$teredoCfg.Type) -ForegroundColor DarkGray;Add-Content $rep ('Teredo config: '+$teredoCfg.Type) -EA SilentlyContinue};if($found -eq 0){Add-Content $rep '[CLEAN] No active IPv6 tunnels' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_PROXY
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 13/16] PROXY CONFIGURATION ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 13] PROXY CONFIG >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$found=0;$winInet=Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -EA SilentlyContinue;if($winInet.ProxyEnable -eq 1){$pServer=$winInet.ProxyServer;Write-Host ('  [WARN]    WinINET proxy enabled: '+$pServer) -ForegroundColor Yellow;Add-Content $rep ('[WARN] WinINET proxy: '+$pServer) -EA SilentlyContinue;Add-Content $wrn ('WinINET proxy: '+$pServer) -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   WinINET proxy: disabled' -ForegroundColor Green};if($winInet.AutoConfigURL){Write-Host ('  [WARN]    WPAD/PAC auto-config URL set: '+$winInet.AutoConfigURL) -ForegroundColor Yellow;Add-Content $rep ('[WARN] WPAD PAC URL: '+$winInet.AutoConfigURL) -EA SilentlyContinue;Add-Content $wrn ('WPAD PAC URL: '+$winInet.AutoConfigURL) -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   WPAD/PAC auto-config URL: not set' -ForegroundColor Green};$winHTTP=netsh winhttp show proxy 2>$null;if(($winHTTP -join '') -notmatch 'Direct access|no proxy'){Write-Host ('  [WARN]    WinHTTP proxy is set: '+($winHTTP -join ' ').Trim()) -ForegroundColor Yellow;Add-Content $rep ('[WARN] WinHTTP proxy set') -EA SilentlyContinue;Add-Content $wrn 'WinHTTP proxy configured' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   WinHTTP proxy: not configured' -ForegroundColor Green};$sysProxy=Get-ItemProperty 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings' -EA SilentlyContinue;if($sysProxy.ProxySettingsPerUser -eq 0){Write-Host '  [WARN]    System-wide proxy policy is enforced (ProxySettingsPerUser=0)' -ForegroundColor Yellow;Add-Content $wrn 'System-wide proxy policy enforced' -EA SilentlyContinue;$found++};if($found -eq 0){Add-Content $rep '[CLEAN] No proxy configured' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_VPN
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 14/16] VPN AND TAP ADAPTERS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 14] VPN AND TAP >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$tapAdapters=Get-NetAdapter -EA SilentlyContinue|Where-Object{$_.InterfaceDescription -match 'TAP-Windows|TAP Adapter|OpenVPN|WireGuard|TUN|utun|tun0|Mullvad|NordVPN|ProtonVPN|ExpressVPN|Cisco AnyConnect|GlobalProtect|FortiClient|Pulse Secure|SonicWALL'};Write-Host ('  [INFO]    VPN/TAP adapter(s) found: '+$tapAdapters.Count) -ForegroundColor DarkGray;Add-Content $rep ('VPN/TAP adapters: '+$tapAdapters.Count) -EA SilentlyContinue;foreach($t in $tapAdapters){$statusCol=if($t.Status -eq 'Up'){'Yellow'}else{'DarkGray'};Write-Host ('  [INFO]    VPN/TAP: '+$t.Name+' ['+$t.InterfaceDescription+'] Status: '+$t.Status) -ForegroundColor $statusCol;Add-Content $rep ('VPN/TAP adapter: '+$t.Name+' '+$t.InterfaceDescription+' '+$t.Status) -EA SilentlyContinue;if($t.Status -eq 'Up'){Add-Content $wrn ('Active VPN/TAP adapter: '+$t.Name) -EA SilentlyContinue}};$vpnConns=Get-VpnConnection -EA SilentlyContinue;Write-Host ('  [INFO]    Configured VPN connections: '+$vpnConns.Count) -ForegroundColor DarkGray;Add-Content $rep ('VPN connections configured: '+$vpnConns.Count) -EA SilentlyContinue;foreach($v in $vpnConns){$connCol=if($v.ConnectionStatus -eq 'Connected'){'Yellow'}else{'DarkGray'};Write-Host ('  [INFO]    VPN: '+$v.Name+' -> '+$v.ServerAddress+' ['+$v.ConnectionStatus+']') -ForegroundColor $connCol;Add-Content $rep ('VPN: '+$v.Name+' '+$v.ServerAddress+' '+$v.ConnectionStatus) -EA SilentlyContinue};if($tapAdapters.Count -eq 0 -and $vpnConns.Count -eq 0){Write-Host '  [CLEAN]   No VPN or TAP adapters detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] No VPN adapters' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_NDIS
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 15/16] NDIS FILTER DRIVERS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 15] NDIS FILTER DRIVERS >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$knownFilters=@('WFP 802.3 MAC Layer LightWeight Filter','WFP Native MAC Layer LightWeight Filter','QoS Packet Scheduler','Microsoft Network Adapter Multiplexor Protocol','NDIS Usermode I/O Protocol','Microsoft LLDP Protocol Driver','Link-Layer Topology Discovery Mapper I/O Driver','Link-Layer Topology Discovery Responder','Wi-Fi Direct Virtual Adapter','Hyper-V Extensible Virtual Switch','WAN Miniport','VMware Bridge Protocol','VirtualBox Bridged Networking Driver','Npcap Packet Driver','NPCAP Packet Driver','NetGroup Packet Filter Driver');$filters=Get-NetAdapterBinding -EA SilentlyContinue|Where-Object{$_.Enabled -eq $true};$found=0;foreach($f in $filters){$comp=$f.ComponentID;$name=$f.DisplayName;$isKnown=$false;foreach($k in $knownFilters){if($name -match [regex]::Escape($k) -or $comp -match 'ms_|vms_|vmware|vbox|npcap'){$isKnown=$true;break}};if(-not $isKnown -and $comp -notmatch '^ms_'){Write-Host ('  [WARN]    Unknown NDIS filter on ['+$f.Name+']: '+$name+' ('+$comp+')') -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unknown NDIS filter: '+$name+' '+$comp+' on '+$f.Name) -EA SilentlyContinue;Add-Content $wrn ('Unknown NDIS filter: '+$name) -EA SilentlyContinue;$found++}};if($found -eq 0){Write-Host '  [CLEAN]   No unknown NDIS filter drivers detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] NDIS filters clean' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:NG_CHECK_NETEVENTS
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 16/16] NETWORK EVENT LOG ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 16] NETWORK EVENT LOG >> "!NG_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:NG_REPORT;$thr=$env:NG_THREATS_TMP;$wrn=$env:NG_WARN_TMP;$cutoff=(Get-Date).AddHours(-24);$found=0;try{$dhcp=Get-WinEvent -FilterHashtable @{LogName='System';ProviderName='Microsoft-Windows-Dhcp-Client';StartTime=$cutoff} -EA SilentlyContinue|Where-Object{$_.Id -in @(1000,1001,1002,1003,50067,50068)};if($dhcp.Count -gt 5){Write-Host ('  [WARN]    High DHCP churn in last 24h: '+$dhcp.Count+' events - possible DHCP exhaustion or IP conflict') -ForegroundColor Yellow;Add-Content $wrn ('High DHCP churn: '+$dhcp.Count+' events in 24h') -EA SilentlyContinue;$found++}else{Write-Host ('  [INFO]    DHCP events last 24h: '+$dhcp.Count) -ForegroundColor DarkGray};Add-Content $rep ('DHCP events 24h: '+$dhcp.Count) -EA SilentlyContinue}catch{};try{$wlan=Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-WLAN-AutoConfig/Operational';StartTime=$cutoff} -EA SilentlyContinue|Where-Object{$_.Id -in @(8001,8002,8003,20019)};Write-Host ('  [INFO]    WLAN connect/disconnect events last 24h: '+$wlan.Count) -ForegroundColor DarkGray;Add-Content $rep ('WLAN events 24h: '+$wlan.Count) -EA SilentlyContinue;if($wlan.Count -gt 20){Write-Host '  [WARN]    Excessive WLAN reconnections - deauth attack or unstable connection' -ForegroundColor Yellow;Add-Content $wrn ('Excessive WLAN events: '+$wlan.Count) -EA SilentlyContinue;$found++}}catch{Write-Host '  [INFO]    WLAN event log unavailable (no wireless adapter or log disabled)' -ForegroundColor DarkGray};try{$fw=Get-WinEvent -FilterHashtable @{LogName='Security';Id=5152;StartTime=$cutoff} -EA SilentlyContinue -MaxEvents 1;if($fw.Count -gt 0){Write-Host '  [INFO]    Windows Filtering Platform block events exist (firewall is logging drops)' -ForegroundColor DarkGray;Add-Content $rep '[INFO] FW drop events present' -EA SilentlyContinue}}catch{};try{$sharing=Get-WinEvent -FilterHashtable @{LogName='Security';Id=5140;StartTime=$cutoff} -EA SilentlyContinue;if($sharing.Count -gt 0){Write-Host ('  [INFO]    Network share access events last 24h: '+$sharing.Count) -ForegroundColor DarkGray;Add-Content $rep ('Share access events 24h: '+$sharing.Count) -EA SilentlyContinue;if($sharing.Count -gt 50){Write-Host '  [WARN]    High volume of network share access - check for exfiltration or scanning' -ForegroundColor Yellow;Add-Content $wrn ('High share access volume: '+$sharing.Count) -EA SilentlyContinue;$found++}}}catch{};if($found -eq 0){Write-Host '  [CLEAN]   No unusual network events in the last 24 hours' -ForegroundColor Green;Add-Content $rep '[CLEAN] Network events normal' -EA SilentlyContinue}"
+echo.
+goto :EOF
+
+:REGPERSIST_SCANNER
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    REGISTRY PERSISTENCE SCANNER' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+powershell -NoProfile -Command "Write-Host '  Checks: Run/RunOnce keys, Winlogon hijacks, LSA providers,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  AppInit_DLLs, Browser Helper Objects, Image File Execution Options' -ForegroundColor DarkGray"
+echo.
+echo   1  ^>  Full Scan   ^(all persistence checks^)
+echo   2  ^>  Quick Scan  ^(Run keys and Winlogon only^)
+echo.
+echo   B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "RP_CHOICE="
+set /p "RP_CHOICE=  Select scan type [1-2, B]: "
+if /i "!RP_CHOICE!"=="B" goto CAT_SCANNING
+if "!RP_CHOICE!"=="1" set "RP_MODE=FULL" & goto REGPERSIST_RUN
+if "!RP_CHOICE!"=="2" set "RP_MODE=QUICK" & goto REGPERSIST_RUN
+goto REGPERSIST_SCANNER
+
+:REGPERSIST_RUN
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    REGISTRY PERSISTENCE SCANNER - RUNNING' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    Mode: !RP_MODE!' -ForegroundColor !COL_OPS_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+for /f %%D in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmm"') do set "RP_DATE=%%D"
+set "RP_REPORT=!LOGDIR!\YTSH_RegPersist_!RP_DATE!.txt"
+set "RP_THREATS_TMP=%TEMP%\ytsh_rp_t_%RANDOM%.tmp"
+set "RP_WARN_TMP=%TEMP%\ytsh_rp_w_%RANDOM%.tmp"
+type nul > "!RP_THREATS_TMP!"
+type nul > "!RP_WARN_TMP!"
+echo ================================================ > "!RP_REPORT!"
+echo   YTSH REGISTRY PERSISTENCE SCAN REPORT >> "!RP_REPORT!"
+echo   Mode: !RP_MODE! >> "!RP_REPORT!"
+echo   Scanned: %DATE% %TIME% >> "!RP_REPORT!"
+echo ================================================ >> "!RP_REPORT!"
+
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 1] RUN / RUNONCE KEYS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 1] RUN / RUNONCE KEYS >> "!RP_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:RP_REPORT;$thr=$env:RP_THREATS_TMP;$wrn=$env:RP_WARN_TMP;$keys=@('HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run','HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce','HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run','HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\RunOnce','HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run','HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce','HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunServices','HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunServices','HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunServicesOnce');$totalFound=0;foreach($k in $keys){try{$e=Get-ItemProperty $k -EA SilentlyContinue;if($e){$e.PSObject.Properties | Where-Object{$_.Name -notlike 'PS*'} | ForEach-Object{$n=$_.Name;$v=$_.Value;$keyShort=($k -split '\\')[-1];Write-Host ('  [INFO]    ['+$keyShort+'] '+$n+' = '+$v) -ForegroundColor DarkGray;Add-Content $rep ('[RUN KEY] '+$k+' | '+$n+' = '+$v) -EA SilentlyContinue;if($v -match '(?i)\\Temp\\|\\AppData\\Roaming\\|\.ps1|\.vbs|mshta|wscript|cscript|rundll32.*http|powershell.*-enc|powershell.*-nop|-w.*hidden|regsvr32.*http|certutil|-decode|bitsadmin|cmd.*\/c.*http|\\Users\\Public\\'){Write-Host ('  [THREAT]  Suspicious Run key: '+$n+' -> '+$v) -ForegroundColor Red;Add-Content $rep ('[THREAT] Suspicious Run key: '+$n+' -> '+$v) -EA SilentlyContinue;Add-Content $thr ('Suspicious Run key: '+$n) -EA SilentlyContinue;$totalFound++}else{Write-Host ('  [INFO]    Run key OK: '+$n) -ForegroundColor DarkGray}}}}catch{}};if($totalFound -eq 0){Write-Host '  [CLEAN]   No suspicious Run/RunOnce entries detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] Run keys clean' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 2] WINLOGON HIJACKS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 2] WINLOGON >> "!RP_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:RP_REPORT;$thr=$env:RP_THREATS_TMP;$wrn=$env:RP_WARN_TMP;$wl=Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -EA SilentlyContinue;$found=0;if($wl){$ui=$wl.Userinit;$sh=$wl.Shell;$expectedUI=@('C:\Windows\system32\userinit.exe,','userinit.exe,');$expectedSH=@('explorer.exe');$uiOK=$false;foreach($e in $expectedUI){if($ui -eq $e){$uiOK=$true;break}};if(-not $uiOK){Write-Host ('  [THREAT]  Winlogon Userinit hijacked: '+$ui) -ForegroundColor Red;Add-Content $rep ('[THREAT] Winlogon Userinit: '+$ui) -EA SilentlyContinue;Add-Content $thr ('Winlogon Userinit hijack: '+$ui) -EA SilentlyContinue;$found++}else{Write-Host ('  [CLEAN]   Winlogon Userinit OK: '+$ui) -ForegroundColor Green};$shOK=$false;foreach($e in $expectedSH){if($sh -match [regex]::Escape($e)){$shOK=$true;break}};if(-not $shOK){Write-Host ('  [THREAT]  Winlogon Shell hijacked: '+$sh) -ForegroundColor Red;Add-Content $rep ('[THREAT] Winlogon Shell: '+$sh) -EA SilentlyContinue;Add-Content $thr ('Winlogon Shell hijack: '+$sh) -EA SilentlyContinue;$found++}else{Write-Host ('  [CLEAN]   Winlogon Shell OK: '+$sh) -ForegroundColor Green};$sfc=$wl.SFCDisable;if($sfc -eq 1 -or $sfc -eq 2 -or $sfc -eq 4 -or $sfc -eq 0x9A){Write-Host ('  [THREAT]  SFC (System File Checker) is DISABLED via Winlogon (SFCDisable='+$sfc+')') -ForegroundColor Red;Add-Content $rep ('[THREAT] SFCDisable='+$sfc) -EA SilentlyContinue;Add-Content $thr 'SFC disabled via Winlogon' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   SFC not disabled via Winlogon' -ForegroundColor Green}};if($found -eq 0){Add-Content $rep '[CLEAN] Winlogon clean' -EA SilentlyContinue}"
+echo.
+
+if "!RP_MODE!"=="QUICK" goto REGPERSIST_SUMMARY
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 3] LSA SECURITY PROVIDERS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 3] LSA PROVIDERS >> "!RP_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:RP_REPORT;$thr=$env:RP_THREATS_TMP;$wrn=$env:RP_WARN_TMP;$lsa=Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa' -EA SilentlyContinue;$found=0;if($lsa){$sp=$lsa.SecurityProviders;$ap=$lsa.Authentication_Packages;$np=$lsa.Notification_Packages;$knownSP=@('credssp','schannel','digest','msapsspc','msnsspc','');$knownAP=@('msv1_0','');$knownNP=@('rassfm','scecli','kdcsvc','wdigest','');foreach($s in ($sp -split ',| ')){$s=$s.Trim().ToLower() -replace '\.dll$','';if($s -and $s -notin $knownSP){Write-Host ('  [WARN]    Unknown LSA Security Provider: '+$s) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unknown LSA provider: '+$s) -EA SilentlyContinue;Add-Content $wrn ('Unknown LSA Security Provider: '+$s) -EA SilentlyContinue;$found++}};foreach($a in ($ap -split '\s+')){$a=$a.Trim().ToLower();if($a -and $a -notin $knownAP){Write-Host ('  [WARN]    Unknown LSA Auth Package: '+$a) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unknown Auth Package: '+$a) -EA SilentlyContinue;Add-Content $wrn ('Unknown LSA Auth Package: '+$a) -EA SilentlyContinue;$found++}};foreach($n in ($np -split '\s+')){$n=$n.Trim().ToLower() -replace '\.dll$','';if($n -and $n -notin $knownNP){Write-Host ('  [WARN]    Unknown LSA Notification Package: '+$n) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unknown Notify Package: '+$n) -EA SilentlyContinue;Add-Content $wrn ('Unknown LSA Notify Package: '+$n) -EA SilentlyContinue;$found++}};if($found -eq 0){Write-Host '  [CLEAN]   LSA providers look standard' -ForegroundColor Green;Add-Content $rep '[CLEAN] LSA providers clean' -EA SilentlyContinue}}else{Write-Host '  [WARN]    Could not read LSA registry key' -ForegroundColor Yellow}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 4] APPINIT_DLLS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 4] APPINIT_DLLS >> "!RP_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:RP_REPORT;$thr=$env:RP_THREATS_TMP;$wrn=$env:RP_WARN_TMP;$paths=@('HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows','HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows');$found=0;foreach($p in $paths){$v=Get-ItemProperty $p -EA SilentlyContinue;if($v -and $v.AppInit_DLLs -and $v.AppInit_DLLs.Trim() -ne ''){Write-Host ('  [THREAT]  AppInit_DLLs set: '+$v.AppInit_DLLs) -ForegroundColor Red;Add-Content $rep ('[THREAT] AppInit_DLLs: '+$v.AppInit_DLLs) -EA SilentlyContinue;Add-Content $thr ('AppInit_DLLs persistence: '+$v.AppInit_DLLs) -EA SilentlyContinue;$found++}};if($found -eq 0){Write-Host '  [CLEAN]   AppInit_DLLs is empty (good)' -ForegroundColor Green;Add-Content $rep '[CLEAN] AppInit_DLLs empty' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 5] BROWSER HELPER OBJECTS (BHO) ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 5] BROWSER HELPER OBJECTS >> "!RP_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:RP_REPORT;$thr=$env:RP_THREATS_TMP;$wrn=$env:RP_WARN_TMP;$bhoPaths=@('HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects','HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects');$found=0;foreach($bp in $bhoPaths){$bhos=Get-ChildItem $bp -EA SilentlyContinue;foreach($b in $bhos){$clsid=$b.PSChildName;$name=(Get-ItemProperty ('HKLM:\SOFTWARE\Classes\CLSID\'+$clsid) -EA SilentlyContinue).'(Default)';if(-not $name){$name='(unknown)'};$dllPath=(Get-ItemProperty ('HKLM:\SOFTWARE\Classes\CLSID\'+$clsid+'\InprocServer32') -EA SilentlyContinue).'(Default)';Write-Host ('  [WARN]    BHO found: '+$name+' ['+$clsid+'] -> '+$dllPath) -ForegroundColor Yellow;Add-Content $rep ('[WARN] BHO: '+$name+' '+$clsid+' -> '+$dllPath) -EA SilentlyContinue;Add-Content $wrn ('Browser Helper Object: '+$name) -EA SilentlyContinue;$found++}};if($found -eq 0){Write-Host '  [CLEAN]   No Browser Helper Objects found' -ForegroundColor Green;Add-Content $rep '[CLEAN] No BHOs' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 6] IMAGE FILE EXECUTION OPTIONS (IFEO) ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 6] IMAGE FILE EXECUTION OPTIONS >> "!RP_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:RP_REPORT;$thr=$env:RP_THREATS_TMP;$wrn=$env:RP_WARN_TMP;$ifeo=Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options' -EA SilentlyContinue;$found=0;foreach($i in $ifeo){$dbg=(Get-ItemProperty $i.PSPath -EA SilentlyContinue).Debugger;if($dbg -and $dbg.Trim() -ne ''){$name=$i.PSChildName;if($dbg -match '(?i)cmd|powershell|wscript|mshta|regsvr32|rundll32|\\Temp\\|\\AppData\\'){Write-Host ('  [THREAT]  IFEO Debugger hijack on '+$name+': '+$dbg) -ForegroundColor Red;Add-Content $rep ('[THREAT] IFEO hijack: '+$name+' -> '+$dbg) -EA SilentlyContinue;Add-Content $thr ('IFEO hijack on: '+$name) -EA SilentlyContinue}else{Write-Host ('  [WARN]    IFEO Debugger set on '+$name+': '+$dbg) -ForegroundColor Yellow;Add-Content $rep ('[WARN] IFEO Debugger: '+$name+' -> '+$dbg) -EA SilentlyContinue;Add-Content $wrn ('IFEO Debugger: '+$name) -EA SilentlyContinue};$found++}};if($found -eq 0){Write-Host '  [CLEAN]   No IFEO debugger hooks found' -ForegroundColor Green;Add-Content $rep '[CLEAN] IFEO clean' -EA SilentlyContinue}"
+echo.
+
+:REGPERSIST_SUMMARY
+set "RP_THREAT_COUNT=0"
+set "RP_WARN_COUNT=0"
+for /f %%A in ('type "!RP_THREATS_TMP!" ^| find /c /v ""') do set "RP_THREAT_COUNT=%%A"
+for /f %%A in ('type "!RP_WARN_TMP!" ^| find /c /v ""') do set "RP_WARN_COUNT=%%A"
+echo. >> "!RP_REPORT!"
+echo ================================================ >> "!RP_REPORT!"
+echo   SCAN SUMMARY >> "!RP_REPORT!"
+echo ================================================ >> "!RP_REPORT!"
+echo   Mode     : !RP_MODE! >> "!RP_REPORT!"
+echo   Threats  : !RP_THREAT_COUNT! >> "!RP_REPORT!"
+echo   Warnings : !RP_WARN_COUNT! >> "!RP_REPORT!"
+echo   Date     : %DATE% %TIME% >> "!RP_REPORT!"
+echo ================================================ >> "!RP_REPORT!"
+if !RP_THREAT_COUNT! GTR 0 (
+    echo. >> "!RP_REPORT!"
+    echo   THREATS DETECTED: >> "!RP_REPORT!"
+    type "!RP_THREATS_TMP!" >> "!RP_REPORT!" 2>nul
+)
+if !RP_WARN_COUNT! GTR 0 (
+    echo. >> "!RP_REPORT!"
+    echo   WARNINGS: >> "!RP_REPORT!"
+    type "!RP_WARN_TMP!" >> "!RP_REPORT!" 2>nul
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    REGISTRY PERSISTENCE SCAN COMPLETE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+if !RP_THREAT_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !RP_THREAT_COUNT!' -ForegroundColor Red"
+) else (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !RP_THREAT_COUNT!' -ForegroundColor Green"
+)
+if !RP_WARN_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !RP_WARN_COUNT!' -ForegroundColor Yellow"
+) else (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !RP_WARN_COUNT!' -ForegroundColor Green"
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  Report saved to:' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host ('  ' + $env:RP_REPORT) -ForegroundColor !COL_OPS_PS!"
+echo.
+if "!SA_ACTIVE!"=="1" goto SA_RP_CONT
+pause
+del "!RP_THREATS_TMP!" >nul 2>&1
+del "!RP_WARN_TMP!" >nul 2>&1
+goto REGPERSIST_SCANNER
+:SA_RP_CONT
+del "!RP_THREATS_TMP!" >nul 2>&1
+del "!RP_WARN_TMP!" >nul 2>&1
+echo.
+powershell -NoProfile -Command "Write-Host '  B  >  Continue to next scanner (Startup and WMI)' -ForegroundColor Yellow"
+echo.
+:SA_RP_WAIT
+set "SA_CONT="
+set /p "SA_CONT=  [B] Continue: "
+if /i not "!SA_CONT!"=="B" goto SA_RP_WAIT
+set "SW_MODE=!SA_SW_MODE!"
+goto STARTUP_WMI_RUN
+
+:STARTUP_WMI_SCANNER
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    STARTUP AND WMI TASK SCANNER' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+powershell -NoProfile -Command "Write-Host '  Checks: startup folders, auto-start services, scheduled tasks,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  WMI event subscriptions (EventFilter, Consumer, Binding)' -ForegroundColor DarkGray"
+echo.
+echo   1  ^>  Full Scan  ^(all startup checks + WMI subscriptions^)
+echo   2  ^>  WMI Only   ^(WMI event subscriptions only^)
+echo.
+echo   B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "SW_CHOICE="
+set /p "SW_CHOICE=  Select scan type [1-2, B]: "
+if /i "!SW_CHOICE!"=="B" goto CAT_SCANNING
+if "!SW_CHOICE!"=="1" set "SW_MODE=FULL" & goto STARTUP_WMI_RUN
+if "!SW_CHOICE!"=="2" set "SW_MODE=WMIONLY" & goto STARTUP_WMI_RUN
+goto STARTUP_WMI_SCANNER
+
+:STARTUP_WMI_RUN
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    STARTUP AND WMI SCANNER - RUNNING' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    Mode: !SW_MODE!' -ForegroundColor !COL_OPS_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+for /f %%D in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmm"') do set "SW_DATE=%%D"
+set "SW_REPORT=!LOGDIR!\YTSH_StartupWMI_!SW_DATE!.txt"
+set "SW_THREATS_TMP=%TEMP%\ytsh_sw_t_%RANDOM%.tmp"
+set "SW_WARN_TMP=%TEMP%\ytsh_sw_w_%RANDOM%.tmp"
+type nul > "%SW_THREATS_TMP%"
+type nul > "%SW_WARN_TMP%"
+echo ================================================ > "%SW_REPORT%"
+echo    YTSH STARTUP AND WMI SCAN REPORT >> "%SW_REPORT%"
+echo    Mode: !SW_MODE! >> "%SW_REPORT%"
+echo    Scanned: %DATE% %TIME% >> "%SW_REPORT%"
+echo ================================================ >> "%SW_REPORT%"
+
+if "!SW_MODE!"=="WMIONLY" goto SW_CHECK_WMI
+
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 1] STARTUP FOLDERS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 1] STARTUP FOLDERS >> "%SW_REPORT%"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:SW_REPORT;$thr=$env:SW_THREATS_TMP;$wrn=$env:SW_WARN_TMP;$folders=@($env:APPDATA+'\Microsoft\Windows\Start Menu\Programs\Startup',$env:ProgramData+'\Microsoft\Windows\Start Menu\Programs\Startup');$found=0;foreach($f in $folders){if(Test-Path $f){$items=Get-ChildItem $f -EA SilentlyContinue;if($items.Count -eq 0){Write-Host ('  [CLEAN]   Empty startup folder: '+$f) -ForegroundColor Green}else{foreach($i in $items){Add-Content $rep ('[STARTUP FOLDER] '+$i.FullName) -EA SilentlyContinue;if($i.Extension -match '\.(exe|bat|ps1|vbs|cmd|js|jar|hta|scr|pif)$'){Write-Host ('  [WARN]    Executable in startup folder: '+$i.FullName) -ForegroundColor Yellow;Add-Content $wrn ('Startup folder executable: '+$i.FullName) -EA SilentlyContinue;$found++}else{Write-Host ('  [INFO]    Startup folder item: '+$i.FullName) -ForegroundColor DarkGray}}}};};if($found -eq 0){Write-Host '  [CLEAN]   No suspicious executables in startup folders' -ForegroundColor Green;Add-Content $rep '[CLEAN] Startup folders clean' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 2] AUTO-START SERVICES ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 2] AUTO-START SERVICES >> "%SW_REPORT%"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:SW_REPORT;$thr=$env:SW_THREATS_TMP;$wrn=$env:SW_WARN_TMP;$svcs=@(Get-WmiObject Win32_Service -EA SilentlyContinue | Where-Object{$_.StartMode -eq 'Auto'});$found=0;foreach($s in $svcs){$path=$s.PathName;if($path -match '(?i)\\Temp\\|\\AppData\\|\\Users\\Public\\|cmd.*/c|powershell.*-enc|mshta|wscript|regsvr32'){Write-Host ('  [THREAT]  Suspicious auto-start service: '+$s.Name+' -> '+$path) -ForegroundColor Red;Add-Content $rep ('[THREAT] Suspicious service: '+$s.Name+' -> '+$path) -EA SilentlyContinue;Add-Content $thr ('Suspicious auto-start service: '+$s.Name) -EA SilentlyContinue;$found++}elseif($path -and $path -notmatch '(?i)^\x22?C:\\Windows\\|^\x22?C:\\Program Files\\|^\x22?C:\\Program Files \(x86\)\\'){Write-Host ('  [WARN]    Service binary outside standard paths: '+$s.Name+' -> '+$path) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Non-standard service path: '+$s.Name+' -> '+$path) -EA SilentlyContinue;Add-Content $wrn ('Non-standard service path: '+$s.Name) -EA SilentlyContinue;$found++}};if($found -eq 0){Write-Host '  [CLEAN]   All auto-start service binaries in expected locations' -ForegroundColor Green;Add-Content $rep '[CLEAN] Auto-start services clean' -EA SilentlyContinue};Write-Host ('  [INFO]    Auto-start services checked: '+$svcs.Count) -ForegroundColor DarkGray"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 3] SCHEDULED TASKS (PERSISTENCE-FOCUSED) ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 3] SCHEDULED TASKS >> "%SW_REPORT%"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:SW_REPORT;$thr=$env:SW_THREATS_TMP;$wrn=$env:SW_WARN_TMP;try{$tasks=Get-ScheduledTask -EA SilentlyContinue | Where-Object{$_.State -ne 'Disabled'};$found=0;foreach($t in $tasks){foreach($a in $t.Actions){$exec=$a.Execute;$args=$a.Arguments;$cmd=(($exec)+' '+($args)).Trim();if($cmd -match '(?i)\\Temp\\|\\AppData\\Roaming\\|powershell.*-enc|powershell.*-nop.*hidden|mshta|wscript.*http|regsvr32.*http|rundll32.*http|bitsadmin|certutil.*-decode|\\Users\\Public\\|cmd.*/c.*http'){Write-Host ('  [THREAT]  Malicious task command: '+$t.TaskName+' -> '+$cmd) -ForegroundColor Red;Add-Content $rep ('[THREAT] Malicious task: '+$t.TaskName+' -> '+$cmd) -EA SilentlyContinue;Add-Content $thr ('Malicious scheduled task: '+$t.TaskName) -EA SilentlyContinue;$found++}elseif($exec -and (Test-Path $exec -EA SilentlyContinue) -eq $false -and $exec -notmatch '(?i)^(?:C:\\Windows|C:\\Program Files)'){Write-Host ('  [WARN]    Task points to missing binary: '+$t.TaskName+' -> '+$exec) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Missing task binary: '+$t.TaskName) -EA SilentlyContinue;Add-Content $wrn ('Task missing binary: '+$t.TaskName) -EA SilentlyContinue;$found++}};if($t.Principal.RunLevel -eq 'Highest' -and $t.Author -and $t.Author -notmatch 'Microsoft|Windows|SYSTEM|NT AUTHORITY'){Write-Host ('  [WARN]    High-privilege non-Microsoft task: '+$t.TaskName) -ForegroundColor Yellow;Add-Content $wrn ('High-priv non-MS task: '+$t.TaskName) -EA SilentlyContinue}};if($found -eq 0){Write-Host '  [CLEAN]   No malicious scheduled tasks detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] Scheduled tasks clean' -EA SilentlyContinue};Write-Host ('  [INFO]    Active tasks checked: '+$tasks.Count) -ForegroundColor DarkGray}catch{Write-Host '  [WARN]    Could not enumerate scheduled tasks' -ForegroundColor Yellow}"
+echo.
+
+:SW_CHECK_WMI
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 4] WMI EVENT SUBSCRIPTIONS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 4] WMI EVENT SUBSCRIPTIONS >> "%SW_REPORT%"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:SW_REPORT;$thr=$env:SW_THREATS_TMP;$wrn=$env:SW_WARN_TMP;$found=0;$filters=@(Get-CimInstance -Namespace root\subscription -ClassName __EventFilter -EA SilentlyContinue);$consumers=@(Get-CimInstance -Namespace root\subscription -ClassName CommandLineEventConsumer -EA SilentlyContinue)+@(Get-CimInstance -Namespace root\subscription -ClassName ActiveScriptEventConsumer -EA SilentlyContinue);$bindings=@(Get-CimInstance -Namespace root\subscription -ClassName __FilterToConsumerBinding -EA SilentlyContinue);Write-Host ('  [INFO]    WMI Filters: '+$filters.Count+'  Consumers: '+$consumers.Count+'  Bindings: '+$bindings.Count) -ForegroundColor DarkGray;Add-Content $rep ('WMI: Filters='+$filters.Count+' Consumers='+$consumers.Count+' Bindings='+$bindings.Count) -EA SilentlyContinue;foreach($f in $filters){if($f.Name -notmatch '^BVTFilter$|^SCM Event Log Filter$'){Write-Host ('  [THREAT]  WMI EventFilter (non-default): '+$f.Name+' | Query: '+$f.Query) -ForegroundColor Red;Add-Content $rep ('[THREAT] WMI EventFilter: '+$f.Name+' | '+$f.Query) -EA SilentlyContinue;Add-Content $thr ('WMI EventFilter persistence: '+$f.Name) -EA SilentlyContinue;$found++}};foreach($c in $consumers){$cType=$c.CimClass.CimClassName;$cName=$c.Name;$cCmd=if($c.CommandLineTemplate){$c.CommandLineTemplate}elseif($c.ScriptText){$c.ScriptText}else{'(no command)'};Write-Host ('  [THREAT]  WMI Consumer: ['+$cType+'] '+$cName+' -> '+$cCmd) -ForegroundColor Red;Add-Content $rep ('[THREAT] WMI Consumer: '+$cType+' '+$cName+' -> '+$cCmd) -EA SilentlyContinue;Add-Content $thr ('WMI Consumer persistence: '+$cName) -EA SilentlyContinue;$found++};if($found -eq 0){Write-Host '  [CLEAN]   No suspicious WMI event subscriptions found' -ForegroundColor Green;Add-Content $rep '[CLEAN] WMI subscriptions clean' -EA SilentlyContinue}else{Write-Host ('  [!!!]     WMI PERSISTENCE DETECTED - '+$found+' suspicious entry/entries') -ForegroundColor Red}"
+echo.
+
+set "SW_THREAT_COUNT=0"
+set "SW_WARN_COUNT=0"
+for /f %%A in ('type "%SW_THREATS_TMP%" ^| find /c /v ""') do set "SW_THREAT_COUNT=%%A"
+for /f %%A in ('type "%SW_WARN_TMP%" ^| find /c /v ""') do set "SW_WARN_COUNT=%%A"
+echo. >> "%SW_REPORT%"
+echo ================================================ >> "%SW_REPORT%"
+echo    SCAN SUMMARY >> "%SW_REPORT%"
+echo ================================================ >> "%SW_REPORT%"
+echo    Mode     : !SW_MODE! >> "%SW_REPORT%"
+echo    Threats  : !SW_THREAT_COUNT! >> "%SW_REPORT%"
+echo    Warnings : !SW_WARN_COUNT! >> "%SW_REPORT%"
+echo    Date     : %DATE% %TIME% >> "%SW_REPORT%"
+echo ================================================ >> "%SW_REPORT%"
+if !SW_THREAT_COUNT! GTR 0 (
+    echo. >> "%SW_REPORT%"
+    echo    THREATS DETECTED: >> "%SW_REPORT%"
+    type "%SW_THREATS_TMP%" >> "%SW_REPORT%" 2>nul
+)
+if !SW_WARN_COUNT! GTR 0 (
+    echo. >> "%SW_REPORT%"
+    echo    WARNINGS: >> "%SW_REPORT%"
+    type "%SW_WARN_TMP%" >> "%SW_REPORT%" 2>nul
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    STARTUP AND WMI SCAN COMPLETE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+if !SW_THREAT_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !SW_THREAT_COUNT!' -ForegroundColor Red"
+) else (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !SW_THREAT_COUNT!' -ForegroundColor Green"
+)
+if !SW_WARN_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !SW_WARN_COUNT!' -ForegroundColor Yellow"
+) else (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !SW_WARN_COUNT!' -ForegroundColor Green"
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  Report saved to:' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host ('  ' + $env:SW_REPORT) -ForegroundColor !COL_OPS_PS!"
+echo.
+if "!SA_ACTIVE!"=="1" goto SA_SW_CONT
+pause
+del "%SW_THREATS_TMP%" >nul 2>&1
+del "%SW_WARN_TMP%" >nul 2>&1
+goto STARTUP_WMI_SCANNER
+:SA_SW_CONT
+del "%SW_THREATS_TMP%" >nul 2>&1
+del "%SW_WARN_TMP%" >nul 2>&1
+echo.
+powershell -NoProfile -Command "Write-Host '  B  >  Continue to next scanner (Process and DLL Injection)' -ForegroundColor Yellow"
+echo.
+:SA_SW_WAIT
+set "SA_CONT="
+set /p "SA_CONT=  [B] Continue: "
+if /i not "!SA_CONT!"=="B" goto SA_SW_WAIT
+goto PI_RUN_SCAN
+
+:PROCINJECTION_SCANNER
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    PROCESS AND DLL INJECTION SCANNER' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+powershell -NoProfile -Command "Write-Host '  Checks: processes in suspicious paths, DLLs in explorer/svchost,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  unsigned modules, unsigned kernel drivers' -ForegroundColor DarkGray"
+echo.
+echo   1  ^>  Begin Scan
+echo   B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "PI_START="
+set /p "PI_START=  Select [1, B]: "
+if /i "!PI_START!"=="B" goto CAT_SCANNING
+if not "!PI_START!"=="1" goto PROCINJECTION_SCANNER
+:PI_RUN_SCAN
+
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    PROCESS AND DLL INJECTION SCANNER - RUNNING' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+for /f %%D in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmm"') do set "PI_DATE=%%D"
+set "PI_REPORT=!LOGDIR!\YTSH_ProcInjection_!PI_DATE!.txt"
+set "PI_THREATS_TMP=%TEMP%\ytsh_pi_t_%RANDOM%.tmp"
+set "PI_WARN_TMP=%TEMP%\ytsh_pi_w_%RANDOM%.tmp"
+type nul > "!PI_THREATS_TMP!"
+type nul > "!PI_WARN_TMP!"
+echo ================================================ > "!PI_REPORT!"
+echo   YTSH PROCESS AND DLL INJECTION SCAN REPORT >> "!PI_REPORT!"
+echo   Scanned: %DATE% %TIME% >> "!PI_REPORT!"
+echo ================================================ >> "!PI_REPORT!"
+
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 1] PROCESSES IN SUSPICIOUS PATHS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 1] SUSPICIOUS PROCESS PATHS >> "!PI_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:PI_REPORT;$thr=$env:PI_THREATS_TMP;$wrn=$env:PI_WARN_TMP;$procs=Get-Process -EA SilentlyContinue;$found=0;$sysProcs=@('System','Idle','Registry','Secure System','Memory Compression');foreach($p in $procs){if($p.Name -in $sysProcs){continue};try{$path=$p.MainModule.FileName;if($path){$sig=Get-AuthenticodeSignature $path -EA SilentlyContinue;$signed=$sig -and $sig.Status -eq 'Valid';if($path -match '(?i)\\Temp\\|\\AppData\\Roaming\\[^\\]+\.exe|\\AppData\\Local\\Temp\\|\\Users\\Public\\|\\ProgramData\\[^\\]+\.exe'){Write-Host ('  [THREAT]  Process in suspicious path: '+$p.Name+' [PID:'+$p.Id+'] -> '+$path) -ForegroundColor Red;Add-Content $rep ('[THREAT] Suspicious path: '+$p.Name+' PID:'+$p.Id+' -> '+$path) -EA SilentlyContinue;Add-Content $thr ('Suspicious path process: '+$p.Name+' -> '+$path) -EA SilentlyContinue;$found++}elseif(-not $signed -and $path -notmatch '(?i)\\Windows\\|\\Program Files\\|\\Program Files \(x86\)\\'){Write-Host ('  [WARN]    Unsigned process outside standard paths: '+$p.Name+' -> '+$path) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unsigned non-standard: '+$p.Name+' -> '+$path) -EA SilentlyContinue;Add-Content $wrn ('Unsigned process: '+$p.Name) -EA SilentlyContinue}}}catch{}};if($found -eq 0){Write-Host '  [CLEAN]   No processes found in suspicious paths' -ForegroundColor Green;Add-Content $rep '[CLEAN] Process paths clean' -EA SilentlyContinue};Write-Host ('  [INFO]    Total processes scanned: '+$procs.Count) -ForegroundColor DarkGray"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 2] DLLs LOADED IN EXPLORER.EXE ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 2] DLLs IN EXPLORER.EXE >> "!PI_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:PI_REPORT;$thr=$env:PI_THREATS_TMP;$wrn=$env:PI_WARN_TMP;$found=0;$exp=Get-Process explorer -EA SilentlyContinue | Select-Object -First 1;if($exp){try{$mods=$exp.Modules;foreach($m in $mods){$mp=$m.FileName;$sig=Get-AuthenticodeSignature $mp -EA SilentlyContinue;$signed=$sig -and $sig.Status -eq 'Valid';if($mp -match '(?i)\\Temp\\|\\AppData\\|\\Users\\Public\\'){Write-Host ('  [THREAT]  DLL in suspicious path loaded in explorer: '+$mp) -ForegroundColor Red;Add-Content $rep ('[THREAT] Explorer DLL suspicious path: '+$mp) -EA SilentlyContinue;Add-Content $thr ('Explorer DLL suspicious path: '+$mp) -EA SilentlyContinue;$found++}elseif(-not $signed -and $mp -notmatch '(?i)\\Windows\\|\\Program Files\\|\\Program Files \(x86\)\\'){Write-Host ('  [WARN]    Unsigned DLL in explorer: '+$mp) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unsigned explorer DLL: '+$mp) -EA SilentlyContinue;Add-Content $wrn ('Unsigned explorer DLL: '+$mp) -EA SilentlyContinue;$found++}}}catch{Write-Host '  [WARN]    Access denied reading explorer modules (run as SYSTEM for full results)' -ForegroundColor Yellow}}else{Write-Host '  [INFO]    explorer.exe not running' -ForegroundColor DarkGray};if($found -eq 0){Write-Host '  [CLEAN]   No suspicious DLLs found in explorer.exe' -ForegroundColor Green;Add-Content $rep '[CLEAN] Explorer DLLs clean' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 3] DLLs LOADED IN SVCHOST.EXE ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 3] DLLs IN SVCHOST.EXE >> "!PI_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:PI_REPORT;$thr=$env:PI_THREATS_TMP;$wrn=$env:PI_WARN_TMP;$found=0;$svchosts=Get-Process svchost -EA SilentlyContinue;$checked=@{};foreach($s in $svchosts){try{foreach($m in $s.Modules){$mp=$m.FileName;if($checked[$mp]){continue};$checked[$mp]=$true;$sig=Get-AuthenticodeSignature $mp -EA SilentlyContinue;$signed=$sig -and $sig.Status -eq 'Valid';if($mp -match '(?i)\\Temp\\|\\AppData\\|\\Users\\Public\\'){Write-Host ('  [THREAT]  DLL in suspicious path in svchost: '+$mp) -ForegroundColor Red;Add-Content $rep ('[THREAT] Svchost DLL suspicious: '+$mp) -EA SilentlyContinue;Add-Content $thr ('Svchost DLL suspicious path: '+$mp) -EA SilentlyContinue;$found++}elseif(-not $signed -and $mp -notmatch '(?i)\\Windows\\|\\Program Files\\'){Write-Host ('  [WARN]    Unsigned DLL in svchost: '+$mp) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unsigned svchost DLL: '+$mp) -EA SilentlyContinue;Add-Content $wrn ('Unsigned svchost DLL: '+$mp) -EA SilentlyContinue;$found++}}}catch{}};if($found -eq 0){Write-Host '  [CLEAN]   No suspicious DLLs found in svchost instances' -ForegroundColor Green;Add-Content $rep '[CLEAN] Svchost DLLs clean' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 4] UNSIGNED KERNEL DRIVERS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 4] UNSIGNED KERNEL DRIVERS >> "!PI_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:PI_REPORT;$thr=$env:PI_THREATS_TMP;$wrn=$env:PI_WARN_TMP;$found=0;try{$drivers=@(Get-CimInstance -ClassName Win32_SystemDriver -EA SilentlyContinue | Where-Object{$_.State -eq 'Running'});foreach($d in $drivers){$path=$d.PathName -replace '^\\SystemRoot\\','C:\Windows\' -replace '^\\\?\?\\','';if($path -and (Test-Path $path -EA SilentlyContinue)){$sig=Get-AuthenticodeSignature $path -EA SilentlyContinue;if($sig -and $sig.Status -ne 'Valid'){Write-Host ('  [THREAT]  Unsigned/invalid driver: '+$d.Name+' -> '+$path) -ForegroundColor Red;Add-Content $rep ('[THREAT] Unsigned driver: '+$d.Name+' -> '+$path) -EA SilentlyContinue;Add-Content $thr ('Unsigned driver: '+$d.Name) -EA SilentlyContinue;$found++}}};if($found -eq 0){Write-Host '  [CLEAN]   All running drivers appear signed' -ForegroundColor Green;Add-Content $rep '[CLEAN] Drivers signed' -EA SilentlyContinue};Write-Host ('  [INFO]    Running drivers checked: '+$drivers.Count) -ForegroundColor DarkGray}catch{Write-Host '  [WARN]    Could not enumerate drivers' -ForegroundColor Yellow}"
+echo.
+
+set "PI_THREAT_COUNT=0"
+set "PI_WARN_COUNT=0"
+for /f %%A in ('type "!PI_THREATS_TMP!" ^| find /c /v ""') do set "PI_THREAT_COUNT=%%A"
+for /f %%A in ('type "!PI_WARN_TMP!" ^| find /c /v ""') do set "PI_WARN_COUNT=%%A"
+echo. >> "!PI_REPORT!"
+echo ================================================ >> "!PI_REPORT!"
+echo   SCAN SUMMARY >> "!PI_REPORT!"
+echo ================================================ >> "!PI_REPORT!"
+echo   Threats  : !PI_THREAT_COUNT! >> "!PI_REPORT!"
+echo   Warnings : !PI_WARN_COUNT! >> "!PI_REPORT!"
+echo   Date     : %DATE% %TIME% >> "!PI_REPORT!"
+echo ================================================ >> "!PI_REPORT!"
+if !PI_THREAT_COUNT! GTR 0 (
+    echo. >> "!PI_REPORT!"
+    echo   THREATS DETECTED: >> "!PI_REPORT!"
+    type "!PI_THREATS_TMP!" >> "!PI_REPORT!" 2>nul
+)
+if !PI_WARN_COUNT! GTR 0 (
+    echo. >> "!PI_REPORT!"
+    echo   WARNINGS: >> "!PI_REPORT!"
+    type "!PI_WARN_TMP!" >> "!PI_REPORT!" 2>nul
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    PROCESS AND DLL INJECTION SCAN COMPLETE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+if !PI_THREAT_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !PI_THREAT_COUNT!' -ForegroundColor Red"
+) else (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !PI_THREAT_COUNT!' -ForegroundColor Green"
+)
+if !PI_WARN_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !PI_WARN_COUNT!' -ForegroundColor Yellow"
+) else (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !PI_WARN_COUNT!' -ForegroundColor Green"
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  Report saved to:' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host ('  ' + $env:PI_REPORT) -ForegroundColor !COL_OPS_PS!"
+echo.
+if "!SA_ACTIVE!"=="1" goto SA_PI_CONT
+pause
+del "!PI_THREATS_TMP!" >nul 2>&1
+del "!PI_WARN_TMP!" >nul 2>&1
+goto PROCINJECTION_SCANNER
+:SA_PI_CONT
+del "!PI_THREATS_TMP!" >nul 2>&1
+del "!PI_WARN_TMP!" >nul 2>&1
+echo.
+powershell -NoProfile -Command "Write-Host '  B  >  Continue to next scanner (Browser Hijack)' -ForegroundColor Yellow"
+echo.
+:SA_PI_WAIT
+set "SA_CONT="
+set /p "SA_CONT=  [B] Continue: "
+if /i not "!SA_CONT!"=="B" goto SA_PI_WAIT
+goto BH_RUN_SCAN
+
+:BROWSER_HIJACK_SCANNER
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    BROWSER HIJACK SCANNER' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+powershell -NoProfile -Command "Write-Host '  Checks: Chrome/Edge/Firefox default search and homepage,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  installed extensions, proxy hijacking via registry' -ForegroundColor DarkGray"
+echo.
+echo   1  ^>  Begin Scan
+echo   B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "BH_START="
+set /p "BH_START=  Select [1, B]: "
+if /i "!BH_START!"=="B" goto CAT_SCANNING
+if not "!BH_START!"=="1" goto BROWSER_HIJACK_SCANNER
+:BH_RUN_SCAN
+
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    BROWSER HIJACK SCANNER - RUNNING' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+for /f %%D in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmm"') do set "BH_DATE=%%D"
+set "BH_REPORT=!LOGDIR!\YTSH_BrowserHijack_!BH_DATE!.txt"
+set "BH_THREATS_TMP=%TEMP%\ytsh_bh_t_%RANDOM%.tmp"
+set "BH_WARN_TMP=%TEMP%\ytsh_bh_w_%RANDOM%.tmp"
+type nul > "!BH_THREATS_TMP!"
+type nul > "!BH_WARN_TMP!"
+echo ================================================ > "!BH_REPORT!"
+echo   YTSH BROWSER HIJACK SCAN REPORT >> "!BH_REPORT!"
+echo   Scanned: %DATE% %TIME% >> "!BH_REPORT!"
+echo ================================================ >> "!BH_REPORT!"
+
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 1] CHROME SETTINGS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 1] CHROME SETTINGS >> "!BH_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:BH_REPORT;$thr=$env:BH_THREATS_TMP;$wrn=$env:BH_WARN_TMP;$found=0;$chromePrefs=Get-ChildItem 'C:\Users' -Directory -EA SilentlyContinue | ForEach-Object{$p=$_.FullName+'\AppData\Local\Google\Chrome\User Data\Default\Preferences';if(Test-Path $p){$p}};foreach($pf in $chromePrefs){try{$raw=Get-Content $pf -Raw -EA SilentlyContinue|ConvertFrom-Json;$se=$raw.default_search_provider_data.template_url_data.short_name;$hp=$raw.homepage;$ntp=$raw.browser.last_known_google_url;if($se -and $se -notmatch '(?i)google|bing|duckduckgo|yahoo|ecosia|brave|startpage|qwant'){Write-Host ('  [THREAT]  Chrome search engine hijacked: '+$se+' in '+$pf) -ForegroundColor Red;Add-Content $rep ('[THREAT] Chrome search hijack: '+$se) -EA SilentlyContinue;Add-Content $thr ('Chrome search hijacked: '+$se) -EA SilentlyContinue;$found++}else{Write-Host ('  [CLEAN]   Chrome search engine: '+$se) -ForegroundColor Green};if($hp -and $hp -notmatch '(?i)^about:blank$|google\.|bing\.|chrome://newtab'){Write-Host ('  [WARN]    Chrome homepage set: '+$hp) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Chrome homepage: '+$hp) -EA SilentlyContinue;Add-Content $wrn ('Chrome homepage: '+$hp) -EA SilentlyContinue;$found++}}catch{}};$chromePolicy=Get-ItemProperty 'HKLM:\SOFTWARE\Policies\Google\Chrome' -EA SilentlyContinue;if($chromePolicy){Write-Host '  [WARN]    Chrome policies are enforced via registry (potential policy hijack)' -ForegroundColor Yellow;Add-Content $rep '[WARN] Chrome registry policies present' -EA SilentlyContinue;Add-Content $wrn 'Chrome registry policies enforced' -EA SilentlyContinue;$found++};if($found -eq 0){Write-Host '  [CLEAN]   Chrome: No hijack indicators detected (or not installed)' -ForegroundColor Green;Add-Content $rep '[CLEAN] Chrome settings clean' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 2] EDGE SETTINGS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 2] EDGE SETTINGS >> "!BH_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:BH_REPORT;$thr=$env:BH_THREATS_TMP;$wrn=$env:BH_WARN_TMP;$found=0;$edgePrefs=Get-ChildItem 'C:\Users' -Directory -EA SilentlyContinue | ForEach-Object{$p=$_.FullName+'\AppData\Local\Microsoft\Edge\User Data\Default\Preferences';if(Test-Path $p){$p}};foreach($pf in $edgePrefs){try{$raw=Get-Content $pf -Raw -EA SilentlyContinue|ConvertFrom-Json;$se=$raw.default_search_provider_data.template_url_data.short_name;$hp=$raw.homepage;if($se -and $se -notmatch '(?i)bing|google|duckduckgo|yahoo|ecosia'){Write-Host ('  [THREAT]  Edge search engine hijacked: '+$se) -ForegroundColor Red;Add-Content $rep ('[THREAT] Edge search hijack: '+$se) -EA SilentlyContinue;Add-Content $thr ('Edge search hijacked: '+$se) -EA SilentlyContinue;$found++}else{Write-Host ('  [CLEAN]   Edge search engine: '+$se) -ForegroundColor Green};if($hp -and $hp -notmatch '(?i)^about:blank$|microsoft\.|bing\.|edge://newtab'){Write-Host ('  [WARN]    Edge homepage set: '+$hp) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Edge homepage: '+$hp) -EA SilentlyContinue;Add-Content $wrn ('Edge homepage: '+$hp) -EA SilentlyContinue;$found++}}catch{}};$edgePolicy=Get-ItemProperty 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -EA SilentlyContinue;if($edgePolicy){Write-Host '  [WARN]    Edge policies are enforced via registry' -ForegroundColor Yellow;Add-Content $rep '[WARN] Edge registry policies present' -EA SilentlyContinue;Add-Content $wrn 'Edge registry policies enforced' -EA SilentlyContinue;$found++};if($found -eq 0){Add-Content $rep '[CLEAN] Edge settings clean' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 3] FIREFOX SETTINGS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 3] FIREFOX SETTINGS >> "!BH_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:BH_REPORT;$thr=$env:BH_THREATS_TMP;$wrn=$env:BH_WARN_TMP;$found=0;$ffProfiles=Get-ChildItem 'C:\Users' -Directory -EA SilentlyContinue | ForEach-Object{$base=$_.FullName+'\AppData\Roaming\Mozilla\Firefox\Profiles';Get-ChildItem $base -Directory -EA SilentlyContinue};foreach($prof in $ffProfiles){$prefs=$prof.FullName+'\prefs.js';if(Test-Path $prefs){$lines=Get-Content $prefs -EA SilentlyContinue;foreach($l in $lines){if($l -match 'keyword\.URL|browser\.search\.defaultenginename|browser\.startup\.homepage'){if($l -match '(?i)(hao123|babylon|conduit|mywebsearch|sweetpacks|delta-search|iminent|snap\.do|istart\.webssearches)'){Write-Host ('  [THREAT]  Firefox hijack in prefs: '+$l.Trim()) -ForegroundColor Red;Add-Content $rep ('[THREAT] Firefox prefs hijack: '+$l.Trim()) -EA SilentlyContinue;Add-Content $thr ('Firefox pref hijack: '+$l.Trim()) -EA SilentlyContinue;$found++}else{Write-Host ('  [INFO]    Firefox pref: '+$l.Trim()) -ForegroundColor DarkGray;Add-Content $rep ('[INFO] Firefox pref: '+$l.Trim()) -EA SilentlyContinue}}}};$userjs=$prof.FullName+'\user.js';if(Test-Path $userjs){Write-Host ('  [WARN]    user.js present in Firefox profile (overrides prefs): '+$userjs) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Firefox user.js: '+$userjs) -EA SilentlyContinue;Add-Content $wrn ('Firefox user.js found: '+$userjs) -EA SilentlyContinue;$found++}};if($found -eq 0){Write-Host '  [CLEAN]   No Firefox hijack indicators detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] Firefox clean' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 4] BROWSER EXTENSIONS (CHROME/EDGE) ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 4] BROWSER EXTENSIONS >> "!BH_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:BH_REPORT;$thr=$env:BH_THREATS_TMP;$wrn=$env:BH_WARN_TMP;$found=0;$knownMalExt=@('lifbcibllhkdhoafpjfnlhfpfgnpldfl','flliilndjeohchalpbbcdekjklbdgfkk','dbljljbbkkhdjlmelpmeibmajmlcpobl','aapbdbdomjkkjkaonfhkkikfgjllcleb','lmjegmlicamnimmfhcmpkclmigmmcbeh');$extPaths=@();Get-ChildItem 'C:\Users' -Directory -EA SilentlyContinue | ForEach-Object{$u=$_.FullName;@($u+'\AppData\Local\Google\Chrome\User Data\Default\Extensions',$u+'\AppData\Local\Microsoft\Edge\User Data\Default\Extensions') | ForEach-Object{if(Test-Path $_){$extPaths+=$_}}};foreach($ep in $extPaths){$browser=if($ep -match 'Chrome'){'Chrome'}else{'Edge'};$exts=Get-ChildItem $ep -Directory -EA SilentlyContinue;foreach($e in $exts){$id=$e.Name;$manifest=Get-ChildItem $e.FullName -Filter 'manifest.json' -Recurse -EA SilentlyContinue | Select-Object -First 1;$name='(unknown)';if($manifest){try{$mj=Get-Content $manifest.FullName -Raw -EA SilentlyContinue|ConvertFrom-Json;$name=$mj.name;if($name -match '__MSG_'){$name='(localized name)'}}catch{}};if($id -in $knownMalExt){Write-Host ('  [THREAT]  Known malicious extension in '+$browser+': '+$name+' ['+$id+']') -ForegroundColor Red;Add-Content $rep ('[THREAT] Malicious extension: '+$name+' ['+$id+']') -EA SilentlyContinue;Add-Content $thr ('Malicious browser extension: '+$name) -EA SilentlyContinue;$found++}else{Write-Host ('  [INFO]    '+$browser+' extension: '+$name+' ['+$id+']') -ForegroundColor DarkGray;Add-Content $rep ('[EXT] '+$browser+': '+$name+' ['+$id+']') -EA SilentlyContinue}}};if($found -eq 0){Write-Host '  [CLEAN]   No known malicious extension IDs detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] No known malicious extensions' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 5] PROXY HIJACKING (REGISTRY) ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 5] PROXY HIJACKING >> "!BH_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:BH_REPORT;$thr=$env:BH_THREATS_TMP;$wrn=$env:BH_WARN_TMP;$found=0;$users=Get-ChildItem 'C:\Users' -Directory -EA SilentlyContinue;foreach($u in $users){try{$hive='Registry::HKEY_USERS';$sids=Get-ChildItem $hive -EA SilentlyContinue | Where-Object{$_.Name -match 'S-1-5-21'};foreach($sid in $sids){$pKey=$hive+'\'+$sid.PSChildName+'\Software\Microsoft\Windows\CurrentVersion\Internet Settings';$ps=Get-ItemProperty $pKey -EA SilentlyContinue;if($ps -and $ps.ProxyEnable -eq 1){Write-Host ('  [WARN]    Proxy enabled for SID '+$sid.PSChildName+': '+$ps.ProxyServer) -ForegroundColor Yellow;Add-Content $rep ('[WARN] User proxy enabled: '+$sid.PSChildName+' -> '+$ps.ProxyServer) -EA SilentlyContinue;Add-Content $wrn ('User proxy enabled: '+$ps.ProxyServer) -EA SilentlyContinue;$found++};if($ps -and $ps.AutoConfigURL){Write-Host ('  [WARN]    Auto-config PAC URL set for SID '+$sid.PSChildName+': '+$ps.AutoConfigURL) -ForegroundColor Yellow;Add-Content $rep ('[WARN] PAC URL: '+$ps.AutoConfigURL) -EA SilentlyContinue;Add-Content $wrn ('PAC URL: '+$ps.AutoConfigURL) -EA SilentlyContinue;$found++}}}catch{}};if($found -eq 0){Write-Host '  [CLEAN]   No proxy hijacking detected in user registry hives' -ForegroundColor Green;Add-Content $rep '[CLEAN] Proxy registry clean' -EA SilentlyContinue}"
+echo.
+
+set "BH_THREAT_COUNT=0"
+set "BH_WARN_COUNT=0"
+for /f %%A in ('type "!BH_THREATS_TMP!" ^| find /c /v ""') do set "BH_THREAT_COUNT=%%A"
+for /f %%A in ('type "!BH_WARN_TMP!" ^| find /c /v ""') do set "BH_WARN_COUNT=%%A"
+echo. >> "!BH_REPORT!"
+echo ================================================ >> "!BH_REPORT!"
+echo   SCAN SUMMARY >> "!BH_REPORT!"
+echo ================================================ >> "!BH_REPORT!"
+echo   Threats  : !BH_THREAT_COUNT! >> "!BH_REPORT!"
+echo   Warnings : !BH_WARN_COUNT! >> "!BH_REPORT!"
+echo   Date     : %DATE% %TIME% >> "!BH_REPORT!"
+echo ================================================ >> "!BH_REPORT!"
+if !BH_THREAT_COUNT! GTR 0 (
+    echo. >> "!BH_REPORT!"
+    echo   THREATS DETECTED: >> "!BH_REPORT!"
+    type "!BH_THREATS_TMP!" >> "!BH_REPORT!" 2>nul
+)
+if !BH_WARN_COUNT! GTR 0 (
+    echo. >> "!BH_REPORT!"
+    echo   WARNINGS: >> "!BH_REPORT!"
+    type "!BH_WARN_TMP!" >> "!BH_REPORT!" 2>nul
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    BROWSER HIJACK SCAN COMPLETE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+if !BH_THREAT_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !BH_THREAT_COUNT!' -ForegroundColor Red"
+) else (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !BH_THREAT_COUNT!' -ForegroundColor Green"
+)
+if !BH_WARN_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !BH_WARN_COUNT!' -ForegroundColor Yellow"
+) else (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !BH_WARN_COUNT!' -ForegroundColor Green"
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  Report saved to:' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host ('  ' + $env:BH_REPORT) -ForegroundColor !COL_OPS_PS!"
+echo.
+if "!SA_ACTIVE!"=="1" goto SA_BH_CONT
+pause
+del "!BH_THREATS_TMP!" >nul 2>&1
+del "!BH_WARN_TMP!" >nul 2>&1
+goto BROWSER_HIJACK_SCANNER
+:SA_BH_CONT
+del "!BH_THREATS_TMP!" >nul 2>&1
+del "!BH_WARN_TMP!" >nul 2>&1
+echo.
+powershell -NoProfile -Command "Write-Host '  B  >  Continue to next scanner (Credential Exposure)' -ForegroundColor Yellow"
+echo.
+:SA_BH_WAIT
+set "SA_CONT="
+set /p "SA_CONT=  [B] Continue: "
+if /i not "!SA_CONT!"=="B" goto SA_BH_WAIT
+goto CR_RUN_SCAN
+
+:CREDENTIAL_SCANNER
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    CREDENTIAL EXPOSURE SCANNER' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+powershell -NoProfile -Command "Write-Host '  Checks: stored Windows credentials, LSA protection, WDigest,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  LSASS PPL status, Protected Users group, Credential Guard' -ForegroundColor DarkGray"
+echo.
+echo   1  ^>  Begin Scan
+echo   B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "CR_START="
+set /p "CR_START=  Select [1, B]: "
+if /i "!CR_START!"=="B" goto CAT_SCANNING
+if not "!CR_START!"=="1" goto CREDENTIAL_SCANNER
+:CR_RUN_SCAN
+
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    CREDENTIAL EXPOSURE SCANNER - RUNNING' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+for /f %%D in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmm"') do set "CR_DATE=%%D"
+set "CR_REPORT=!LOGDIR!\YTSH_CredExposure_!CR_DATE!.txt"
+set "CR_THREATS_TMP=%TEMP%\ytsh_cr_t_%RANDOM%.tmp"
+set "CR_WARN_TMP=%TEMP%\ytsh_cr_w_%RANDOM%.tmp"
+type nul > "!CR_THREATS_TMP!"
+type nul > "!CR_WARN_TMP!"
+echo ================================================ > "!CR_REPORT!"
+echo   YTSH CREDENTIAL EXPOSURE SCAN REPORT >> "!CR_REPORT!"
+echo   Scanned: %DATE% %TIME% >> "!CR_REPORT!"
+echo ================================================ >> "!CR_REPORT!"
+
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 1] STORED WINDOWS CREDENTIALS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 1] STORED CREDENTIALS >> "!CR_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:CR_REPORT;$thr=$env:CR_THREATS_TMP;$wrn=$env:CR_WARN_TMP;$found=0;$creds=cmdkey /list 2>$null;$credLines=$creds | Where-Object{$_ -match 'Target:|Type:|User:'};$credCount=($creds | Where-Object{$_ -match 'Target:'}).Count;Write-Host ('  [INFO]    Stored credentials count: '+$credCount) -ForegroundColor DarkGray;Add-Content $rep ('Stored credential entries: '+$credCount) -EA SilentlyContinue;foreach($l in $credLines){Add-Content $rep $l -EA SilentlyContinue;Write-Host ('  [INFO]    '+$l.Trim()) -ForegroundColor DarkGray};$suspcreds=$creds | Where-Object{$_ -match '(?i)Domain Password|Generic.*password|MicrosoftOffice.*|TERMSRV'};if($suspcreds.Count -gt 0){Write-Host ('  [WARN]    Potentially sensitive credential types stored: '+$suspcreds.Count) -ForegroundColor Yellow;Add-Content $wrn ('Sensitive credential types stored: '+$suspcreds.Count) -EA SilentlyContinue;$found++};$domCreds=$creds | Where-Object{$_ -match 'Domain'};if($domCreds){Write-Host '  [WARN]    Domain credentials stored in Credential Manager' -ForegroundColor Yellow;Add-Content $wrn 'Domain credentials in Credential Manager' -EA SilentlyContinue;$found++};if($credCount -eq 0){Write-Host '  [CLEAN]   No credentials stored in Credential Manager' -ForegroundColor Green;Add-Content $rep '[CLEAN] No stored credentials' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 2] WDIGEST CREDENTIAL CACHING ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 2] WDIGEST >> "!CR_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:CR_REPORT;$thr=$env:CR_Threats_TMP;$wrn=$env:CR_WARN_TMP;$wd=Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest' -EA SilentlyContinue;if($wd -and $wd.UseLogonCredential -eq 1){Write-Host '  [THREAT]  WDigest UseLogonCredential=1 - LSASS stores plaintext passwords (cleartext caching active)' -ForegroundColor Red;Add-Content $rep '[THREAT] WDigest enabled - plaintext password caching active' -EA SilentlyContinue;Add-Content $env:CR_THREATS_TMP 'WDigest plaintext password caching enabled' -EA SilentlyContinue}elseif($wd -and $wd.UseLogonCredential -eq 0){Write-Host '  [CLEAN]   WDigest disabled (UseLogonCredential=0)' -ForegroundColor Green;Add-Content $rep '[CLEAN] WDigest disabled' -EA SilentlyContinue}else{Write-Host '  [CLEAN]   WDigest UseLogonCredential not set (default=off on Win8.1+)' -ForegroundColor Green;Add-Content $rep '[CLEAN] WDigest not configured (default safe)' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 3] LSA PROTECTION (PPL) STATUS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 3] LSA PPL >> "!CR_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:CR_REPORT;$thr=$env:CR_THREATS_TMP;$wrn=$env:CR_WARN_TMP;$lsa=Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa' -EA SilentlyContinue;$ppl=$lsa.RunAsPPL;if($ppl -eq 1 -or $ppl -eq 2){Write-Host ('  [CLEAN]   LSASS is running as PPL (Protected Process Light) - RunAsPPL='+$ppl) -ForegroundColor Green;Add-Content $rep ('[CLEAN] LSASS PPL enabled: '+$ppl) -EA SilentlyContinue}else{Write-Host '  [WARN]    LSASS is NOT running as PPL (RunAsPPL=0 or not set) - vulnerable to credential dumping' -ForegroundColor Yellow;Add-Content $rep '[WARN] LSASS PPL not enabled - credential dumping risk' -EA SilentlyContinue;Add-Content $wrn 'LSASS not running as PPL' -EA SilentlyContinue};$cgEnabled=(Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard' -EA SilentlyContinue).EnableVirtualizationBasedSecurity;$cgCfg=(Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa' -EA SilentlyContinue).LsaCfgFlags;if($cgEnabled -eq 1 -and $cgCfg -ge 1){Write-Host '  [CLEAN]   Credential Guard appears enabled (VBS + LsaCfgFlags)' -ForegroundColor Green;Add-Content $rep '[CLEAN] Credential Guard enabled' -EA SilentlyContinue}else{Write-Host '  [WARN]    Credential Guard does not appear to be enabled' -ForegroundColor Yellow;Add-Content $rep '[WARN] Credential Guard not detected' -EA SilentlyContinue;Add-Content $wrn 'Credential Guard not enabled' -EA SilentlyContinue}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 4] PROTECTED USERS GROUP ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 4] PROTECTED USERS GROUP >> "!CR_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:CR_REPORT;$thr=$env:CR_THREATS_TMP;$wrn=$env:CR_WARN_TMP;try{$pu=net localgroup 'Protected Users' 2>$null;$members=$pu | Where-Object{$_ -notmatch 'The command|Members|group name|Comment|---|----|Members of'} | Where-Object{$_.Trim() -ne ''};Write-Host ('  [INFO]    Protected Users group members: '+$members.Count) -ForegroundColor DarkGray;Add-Content $rep ('Protected Users members: '+$members.Count) -EA SilentlyContinue;foreach($m in $members){Write-Host ('  [INFO]    Member: '+$m.Trim()) -ForegroundColor DarkGray};$admins=net localgroup administrators 2>$null | Where-Object{$_ -notmatch 'The command|Members|group name|Comment|---|----|Alias name|Members of'} | Where-Object{$_.Trim() -ne ''};$unprotAdmins=$admins | Where-Object{$m=$_.Trim();$m -and $m -notin ($members | ForEach-Object{$_.Trim()})};if($unprotAdmins.Count -gt 0){Write-Host ('  [WARN]    Admin accounts NOT in Protected Users: '+($unprotAdmins -join ', ')) -ForegroundColor Yellow;Add-Content $wrn ('Admins not in Protected Users: '+($unprotAdmins -join ',')) -EA SilentlyContinue;Add-Content $rep ('[WARN] Unprotected admins: '+($unprotAdmins -join ',')) -EA SilentlyContinue}else{Write-Host '  [CLEAN]   All admin accounts appear in Protected Users' -ForegroundColor Green;Add-Content $rep '[CLEAN] All admins in Protected Users' -EA SilentlyContinue}}catch{Write-Host '  [INFO]    Could not enumerate Protected Users group' -ForegroundColor DarkGray}"
+echo.
+
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 5] NTLM AUTHENTICATION LEVEL ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 5] NTLM LEVEL >> "!CR_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:CR_REPORT;$thr=$env:CR_THREATS_TMP;$wrn=$env:CR_WARN_TMP;$lsa=Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa' -EA SilentlyContinue;$level=$lsa.LmCompatibilityLevel;$desc=switch($level){0{'Send LM and NTLM - very insecure'} 1{'Send LM and NTLM, NTLMv2 if negotiated'} 2{'Send NTLM only'} 3{'Send NTLMv2 only'} 4{'Send NTLMv2, refuse LM'} 5{'Send NTLMv2, refuse LM and NTLM - most secure'} $null{'Not set (default=3 on Win10+)'} default{'Unknown level '+$level}};if($level -le 2 -and $level -ne $null){Write-Host ('  [THREAT]  NTLM level too low: '+$desc) -ForegroundColor Red;Add-Content $rep ('[THREAT] NTLM insecure level: '+$level+' - '+$desc) -EA SilentlyContinue;Add-Content $thr ('Insecure NTLM level: '+$level) -EA SilentlyContinue}elseif($level -ge 4 -or $level -eq $null){Write-Host ('  [CLEAN]   NTLM level acceptable: '+$desc) -ForegroundColor Green;Add-Content $rep ('[CLEAN] NTLM level: '+$level+' - '+$desc) -EA SilentlyContinue}else{Write-Host ('  [WARN]    NTLM level is '+$level+' ('+$desc+') - consider raising to 5') -ForegroundColor Yellow;Add-Content $rep ('[WARN] NTLM level: '+$level+' - '+$desc) -EA SilentlyContinue;Add-Content $wrn ('NTLM level low: '+$level) -EA SilentlyContinue}"
+echo.
+
+set "CR_THREAT_COUNT=0"
+set "CR_WARN_COUNT=0"
+for /f %%A in ('type "!CR_THREATS_TMP!" ^| find /c /v ""') do set "CR_THREAT_COUNT=%%A"
+for /f %%A in ('type "!CR_WARN_TMP!" ^| find /c /v ""') do set "CR_WARN_COUNT=%%A"
+echo. >> "!CR_REPORT!"
+echo ================================================ >> "!CR_REPORT!"
+echo   SCAN SUMMARY >> "!CR_REPORT!"
+echo ================================================ >> "!CR_REPORT!"
+echo   Threats  : !CR_THREAT_COUNT! >> "!CR_REPORT!"
+echo   Warnings : !CR_WARN_COUNT! >> "!CR_REPORT!"
+echo   Date     : %DATE% %TIME% >> "!CR_REPORT!"
+echo ================================================ >> "!CR_REPORT!"
+if !CR_THREAT_COUNT! GTR 0 (
+    echo. >> "!CR_REPORT!"
+    echo   THREATS DETECTED: >> "!CR_REPORT!"
+    type "!CR_THREATS_TMP!" >> "!CR_REPORT!" 2>nul
+)
+if !CR_WARN_COUNT! GTR 0 (
+    echo. >> "!CR_REPORT!"
+    echo   WARNINGS: >> "!CR_REPORT!"
+    type "!CR_WARN_TMP!" >> "!CR_REPORT!" 2>nul
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    CREDENTIAL EXPOSURE SCAN COMPLETE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+if !CR_THREAT_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !CR_THREAT_COUNT!' -ForegroundColor Red"
+) else (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !CR_THREAT_COUNT!' -ForegroundColor Green"
+)
+if !CR_WARN_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !CR_WARN_COUNT!' -ForegroundColor Yellow"
+) else (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !CR_WARN_COUNT!' -ForegroundColor Green"
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  Report saved to:' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host ('  ' + $env:CR_REPORT) -ForegroundColor !COL_OPS_PS!"
+echo.
+if "!SA_ACTIVE!"=="1" goto SA_CR_CONT
+pause
+del "!CR_THREATS_TMP!" >nul 2>&1
+del "!CR_WARN_TMP!" >nul 2>&1
+goto CREDENTIAL_SCANNER
+:SA_CR_CONT
+del "!CR_THREATS_TMP!" >nul 2>&1
+del "!CR_WARN_TMP!" >nul 2>&1
+echo.
+powershell -NoProfile -Command "Write-Host '  B  >  Continue to next scanner (Driver Integrity and Rootkit)' -ForegroundColor Yellow"
+echo.
+:SA_CR_WAIT
+set "SA_CONT="
+set /p "SA_CONT=  [B] Continue: "
+if /i not "!SA_CONT!"=="B" goto SA_CR_WAIT
+goto DR_RUN_SCAN
+
+:DRIVER_ROOTKIT_SCANNER
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    DRIVER INTEGRITY AND ROOTKIT SCANNER' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+powershell -NoProfile -Command "Write-Host '  Checks: unsigned running drivers, suspicious driver paths,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  orphaned boot drivers, known rootkit driver name signatures' -ForegroundColor DarkGray"
+echo.
+echo   1  ^>  Begin Scan
+echo   B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "DR_START="
+set /p "DR_START=  Select [1, B]: "
+if /i "!DR_START!"=="B" goto CAT_SCANNING
+if not "!DR_START!"=="1" goto DRIVER_ROOTKIT_SCANNER
+:DR_RUN_SCAN
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    DRIVER INTEGRITY AND ROOTKIT SCANNER - RUNNING' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+for /f %%D in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmm"') do set "DR_DATE=%%D"
+set "DR_REPORT=!LOGDIR!\YTSH_DriverRootkit_!DR_DATE!.txt"
+set "DR_THREATS_TMP=%TEMP%\ytsh_dr_t_%RANDOM%.tmp"
+set "DR_WARN_TMP=%TEMP%\ytsh_dr_w_%RANDOM%.tmp"
+type nul > "!DR_THREATS_TMP!"
+type nul > "!DR_WARN_TMP!"
+echo ================================================ > "!DR_REPORT!"
+echo   YTSH DRIVER INTEGRITY AND ROOTKIT SCAN REPORT >> "!DR_REPORT!"
+echo   Scanned: %DATE% %TIME% >> "!DR_REPORT!"
+echo ================================================ >> "!DR_REPORT!"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 1] UNSIGNED RUNNING DRIVERS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 1] UNSIGNED RUNNING DRIVERS >> "!DR_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:DR_REPORT;$thr=$env:DR_THREATS_TMP;$wrn=$env:DR_WARN_TMP;$found=0;$drivers=Get-CimInstance Win32_SystemDriver -EA SilentlyContinue|Where-Object{$_.State -eq 'Running'};Write-Host ('  [INFO]    Running drivers found: '+$drivers.Count) -ForegroundColor DarkGray;Add-Content $rep ('Running drivers: '+$drivers.Count) -EA SilentlyContinue;foreach($d in $drivers){$path=($d.PathName -replace '\\\\?\\.\\','\\' -replace '"','').Trim();if($path -and (Test-Path $path -EA SilentlyContinue)){$sig=Get-AuthenticodeSignature $path -EA SilentlyContinue;if($sig -and $sig.Status -notin @('Valid','NotSupportedFileFormat')){Write-Host ('  [WARN]    Unsigned driver: '+$d.Name+' | '+$path) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Unsigned: '+$d.Name+' '+$path) -EA SilentlyContinue;Add-Content $wrn ('Unsigned driver: '+$d.Name) -EA SilentlyContinue;$found++}}elseif($path -and $path.Length -gt 3){Write-Host ('  [WARN]    Driver file not found on disk: '+$d.Name+' | '+$path) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Missing driver file: '+$d.Name+' '+$path) -EA SilentlyContinue;Add-Content $wrn ('Driver file missing: '+$d.Name) -EA SilentlyContinue;$found++}};if($found -eq 0){Write-Host '  [CLEAN]   All running drivers appear signed' -ForegroundColor Green;Add-Content $rep '[CLEAN] Running drivers signed' -EA SilentlyContinue}"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 2] SUSPICIOUS DRIVER FILE PATHS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 2] SUSPICIOUS DRIVER PATHS >> "!DR_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:DR_REPORT;$thr=$env:DR_THREATS_TMP;$wrn=$env:DR_WARN_TMP;$found=0;$legitDirs=@('system32\drivers','system32\driverstore','syswow64\drivers','windows\inf');$drivers=Get-CimInstance Win32_SystemDriver -EA SilentlyContinue|Where-Object{$_.State -eq 'Running'};foreach($d in $drivers){$raw=$d.PathName;if(-not $raw){continue};$path=($raw -replace '\\\\?\\.\\','\\' -replace '"','').ToLower().Trim();$isLegit=$false;foreach($lp in $legitDirs){if($path -match [regex]::Escape($lp)){$isLegit=$true;break}};if(-not $isLegit -and $path.Length -gt 3){if($path -match '\\temp\\|\\tmp\\|\\appdata\\|\\programdata\\local\\|\\users\\'){Write-Host ('  [THREAT]  Driver loading from user or temp path: '+$d.Name+' | '+$d.PathName) -ForegroundColor Red;Add-Content $rep ('[THREAT] Driver in user/temp path: '+$d.Name+' | '+$d.PathName) -EA SilentlyContinue;Add-Content $thr ('Rootkit-suspect driver path: '+$d.Name) -EA SilentlyContinue;$found++}elseif($path -notmatch '\\windows\\'){Write-Host ('  [WARN]    Driver outside Windows directory: '+$d.Name+' | '+$d.PathName) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Non-Windows driver: '+$d.Name+' | '+$d.PathName) -EA SilentlyContinue;Add-Content $wrn ('Non-Windows driver path: '+$d.Name) -EA SilentlyContinue;$found++}else{Write-Host ('  [INFO]    Non-standard subpath (review): '+$d.Name) -ForegroundColor DarkGray;Add-Content $rep ('[INFO] Non-standard path: '+$d.Name+' '+$d.PathName) -EA SilentlyContinue}}};if($found -eq 0){Write-Host '  [CLEAN]   All running drivers load from expected Windows paths' -ForegroundColor Green;Add-Content $rep '[CLEAN] Driver paths nominal' -EA SilentlyContinue}"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 3] KNOWN ROOTKIT DRIVER NAME SIGNATURES ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 3] ROOTKIT NAME SIGNATURES >> "!DR_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:DR_REPORT;$thr=$env:DR_THREATS_TMP;$wrn=$env:DR_WARN_TMP;$found=0;$sigs=@('tdldrv','tdss','sinowal','mebroot','zeroaccess','necursdrv','alureon','rustock','srizbi','cutwail','blackenergy','bootkit','hxdef','azazel','adore','suckit','enyelkm','reptile','diamorphine','rkdrv','hidrv','gbot32','gbot64','ntos_drv','msblst','win32k_ext');$drivers=Get-CimInstance Win32_SystemDriver -EA SilentlyContinue;foreach($d in $drivers){$name=$d.Name.ToLower();foreach($sig in $sigs){if($name -match $sig){Write-Host ('  [THREAT]  Driver matches rootkit signature: '+$d.Name+' (pattern: '+$sig+')') -ForegroundColor Red;Add-Content $rep ('[THREAT] Rootkit name match: '+$d.Name+' pattern:'+$sig) -EA SilentlyContinue;Add-Content $thr ('Rootkit name signature: '+$d.Name) -EA SilentlyContinue;$found++;break}}};Write-Host ('  [INFO]    Drivers checked against '+$sigs.Count+' rootkit signatures') -ForegroundColor DarkGray;if($found -eq 0){Write-Host '  [CLEAN]   No known rootkit driver name signatures matched' -ForegroundColor Green;Add-Content $rep '[CLEAN] No rootkit name signatures found' -EA SilentlyContinue}"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 4] ORPHANED BOOT-START DRIVERS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 4] ORPHANED BOOT DRIVERS >> "!DR_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:DR_REPORT;$thr=$env:DR_THREATS_TMP;$wrn=$env:DR_WARN_TMP;$found=0;$bootDrvs=Get-CimInstance Win32_SystemDriver -EA SilentlyContinue|Where-Object{$_.StartMode -eq 'Boot' -and $_.State -ne 'Running'};Write-Host ('  [INFO]    Boot-start drivers not running: '+$bootDrvs.Count) -ForegroundColor DarkGray;Add-Content $rep ('Boot-start not running: '+$bootDrvs.Count) -EA SilentlyContinue;foreach($d in $bootDrvs){$path=($d.PathName -replace '\\\\?\\.\\','\\' -replace '"','').Trim();if(-not (Test-Path $path -EA SilentlyContinue)){Write-Host ('  [WARN]    Orphaned boot driver (file missing on disk): '+$d.Name+' | '+$path) -ForegroundColor Yellow;Add-Content $rep ('[WARN] Orphaned boot driver: '+$d.Name+' '+$path) -EA SilentlyContinue;Add-Content $wrn ('Orphaned boot driver: '+$d.Name) -EA SilentlyContinue;$found++}else{Write-Host ('  [INFO]    Boot driver stopped (may be normal): '+$d.Name) -ForegroundColor DarkGray;Add-Content $rep ('[INFO] Boot driver stopped: '+$d.Name) -EA SilentlyContinue}};if($found -eq 0){Write-Host '  [CLEAN]   No orphaned boot drivers detected' -ForegroundColor Green;Add-Content $rep '[CLEAN] No orphaned boot drivers' -EA SilentlyContinue}"
+echo.
+set "DR_THREAT_COUNT=0"
+set "DR_WARN_COUNT=0"
+for /f %%A in ('type "!DR_THREATS_TMP!" ^| find /c /v ""') do set "DR_THREAT_COUNT=%%A"
+for /f %%A in ('type "!DR_WARN_TMP!" ^| find /c /v ""') do set "DR_WARN_COUNT=%%A"
+echo. >> "!DR_REPORT!"
+echo ================================================ >> "!DR_REPORT!"
+echo   SCAN SUMMARY >> "!DR_REPORT!"
+echo ================================================ >> "!DR_REPORT!"
+echo   Threats  : !DR_THREAT_COUNT! >> "!DR_REPORT!"
+echo   Warnings : !DR_WARN_COUNT! >> "!DR_REPORT!"
+echo   Date     : %DATE% %TIME% >> "!DR_REPORT!"
+echo ================================================ >> "!DR_REPORT!"
+if !DR_THREAT_COUNT! GTR 0 (
+    echo. >> "!DR_REPORT!"
+    echo   THREATS DETECTED: >> "!DR_REPORT!"
+    type "!DR_THREATS_TMP!" >> "!DR_REPORT!" 2>nul
+)
+if !DR_WARN_COUNT! GTR 0 (
+    echo. >> "!DR_REPORT!"
+    echo   WARNINGS: >> "!DR_REPORT!"
+    type "!DR_WARN_TMP!" >> "!DR_REPORT!" 2>nul
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    DRIVER INTEGRITY AND ROOTKIT SCAN COMPLETE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+if !DR_THREAT_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !DR_THREAT_COUNT!' -ForegroundColor Red"
+) else (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !DR_THREAT_COUNT!' -ForegroundColor Green"
+)
+if !DR_WARN_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !DR_WARN_COUNT!' -ForegroundColor Yellow"
+) else (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !DR_WARN_COUNT!' -ForegroundColor Green"
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  Report saved to:' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host ('  ' + $env:DR_REPORT) -ForegroundColor !COL_OPS_PS!"
+echo.
+if "!SA_ACTIVE!"=="1" goto SA_DR_CONT
+pause
+del "!DR_THREATS_TMP!" >nul 2>&1
+del "!DR_WARN_TMP!" >nul 2>&1
+goto DRIVER_ROOTKIT_SCANNER
+:SA_DR_CONT
+del "!DR_THREATS_TMP!" >nul 2>&1
+del "!DR_WARN_TMP!" >nul 2>&1
+echo.
+powershell -NoProfile -Command "Write-Host '  B  >  Continue to next scanner (Privacy and Tracker)' -ForegroundColor Yellow"
+echo.
+:SA_DR_WAIT
+set "SA_CONT="
+set /p "SA_CONT=  [B] Continue: "
+if /i not "!SA_CONT!"=="B" goto SA_DR_WAIT
+goto PT_RUN_SCAN
+
+:PRIVACY_TRACKER_SCANNER
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    USER PRIVACY AND TRACKER SCANNER' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+powershell -NoProfile -Command "Write-Host '  Checks: Windows Advertising ID per profile, telemetry' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  registry keys, browser cookie store presence, privacy flags' -ForegroundColor DarkGray"
+echo.
+echo   1  ^>  Begin Scan
+echo   B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "PT_START="
+set /p "PT_START=  Select [1, B]: "
+if /i "!PT_START!"=="B" goto CAT_SCANNING
+if not "!PT_START!"=="1" goto PRIVACY_TRACKER_SCANNER
+:PT_RUN_SCAN
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    USER PRIVACY AND TRACKER SCANNER - RUNNING' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+for /f %%D in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmm"') do set "PT_DATE=%%D"
+set "PT_REPORT=!LOGDIR!\YTSH_PrivacyTracker_!PT_DATE!.txt"
+set "PT_THREATS_TMP=%TEMP%\ytsh_pt_t_%RANDOM%.tmp"
+set "PT_WARN_TMP=%TEMP%\ytsh_pt_w_%RANDOM%.tmp"
+type nul > "!PT_THREATS_TMP!"
+type nul > "!PT_WARN_TMP!"
+echo ================================================ > "!PT_REPORT!"
+echo   YTSH USER PRIVACY AND TRACKER SCAN REPORT >> "!PT_REPORT!"
+echo   Scanned: %DATE% %TIME% >> "!PT_REPORT!"
+echo ================================================ >> "!PT_REPORT!"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 1] WINDOWS ADVERTISING ID (ALL PROFILES) ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 1] ADVERTISING ID >> "!PT_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:PT_REPORT;$thr=$env:PT_THREATS_TMP;$wrn=$env:PT_WARN_TMP;$found=0;$hive='Registry::HKEY_USERS';$sids=Get-ChildItem $hive -EA SilentlyContinue|Where-Object{$_.Name -match 'S-1-5-21'};Write-Host ('  [INFO]    User SIDs found in HKU: '+$sids.Count) -ForegroundColor DarkGray;Add-Content $rep ('User SIDs: '+$sids.Count) -EA SilentlyContinue;foreach($sid in $sids){$advKey=$hive+'\'+$sid.PSChildName+'\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo';$adv=Get-ItemProperty $advKey -EA SilentlyContinue;if($adv -and $adv.Enabled -eq 1){Write-Host ('  [WARN]    Advertising ID ENABLED for SID: '+$sid.PSChildName) -ForegroundColor Yellow;Add-Content $rep ('[WARN] AdvertisingID on: '+$sid.PSChildName) -EA SilentlyContinue;Add-Content $wrn ('Advertising ID enabled: SID '+$sid.PSChildName) -EA SilentlyContinue;$found++}elseif($adv){Write-Host ('  [CLEAN]   Advertising ID disabled for SID: '+$sid.PSChildName) -ForegroundColor Green;Add-Content $rep ('[CLEAN] AdvertisingID off: '+$sid.PSChildName) -EA SilentlyContinue}};$cur=Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo' -EA SilentlyContinue;if($cur -and $cur.Enabled -eq 1){Write-Host '  [WARN]    Advertising ID enabled for current user (HKCU)' -ForegroundColor Yellow;Add-Content $wrn 'AdvertisingID enabled HKCU' -EA SilentlyContinue;$found++}elseif($cur){Write-Host '  [CLEAN]   Advertising ID disabled for current user' -ForegroundColor Green};if($found -eq 0){Add-Content $rep '[CLEAN] Advertising ID not enabled on any profile' -EA SilentlyContinue}"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 2] TELEMETRY REGISTRY KEYS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 2] TELEMETRY REGISTRY >> "!PT_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:PT_REPORT;$thr=$env:PT_THREATS_TMP;$wrn=$env:PT_WARN_TMP;$found=0;$checks=@(@{P='HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection';V='AllowTelemetry';Good=0;Desc='DataCollection AllowTelemetry'},@{P='HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection';V='AllowTelemetry';Good=0;Desc='Policy AllowTelemetry'},@{P='HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack';V='Start';Good=4;Desc='DiagTrack service start'});foreach($c in $checks){$prop=Get-ItemProperty $c.P -EA SilentlyContinue;if($prop -and $null -ne $prop.($c.V)){$val=$prop.($c.V);if($val -eq $c.Good){Write-Host ('  [CLEAN]   '+$c.Desc+' = '+$val+' (restricted)') -ForegroundColor Green;Add-Content $rep ('[CLEAN] '+$c.Desc+'='+$val) -EA SilentlyContinue}else{Write-Host ('  [WARN]    '+$c.Desc+' = '+$val+' (not restricted)') -ForegroundColor Yellow;Add-Content $rep ('[WARN] '+$c.Desc+'='+$val) -EA SilentlyContinue;Add-Content $wrn ($c.Desc+'='+$val+' not restricted') -EA SilentlyContinue;$found++}}else{Write-Host ('  [INFO]    Not configured (default): '+$c.Desc) -ForegroundColor DarkGray;Add-Content $rep ('[INFO] Not set: '+$c.Desc) -EA SilentlyContinue}};if($found -eq 0){Write-Host '  [CLEAN]   Telemetry keys are restricted or unconfigured' -ForegroundColor Green}"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 3] BROWSER COOKIE STORE PRESENCE ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 3] BROWSER COOKIE STORES >> "!PT_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:PT_REPORT;$thr=$env:PT_THREATS_TMP;$wrn=$env:PT_WARN_TMP;$found=0;$stores=@();Get-ChildItem 'C:\Users' -Directory -EA SilentlyContinue|Where-Object{$_.Name -notmatch '^(Public|Default|Default User|All Users)$'}|ForEach-Object{$u=$_.FullName;$stores+=@($u+'\AppData\Local\Google\Chrome\User Data\Default\Network\Cookies',$u+'\AppData\Local\Microsoft\Edge\User Data\Default\Network\Cookies',$u+'\AppData\Local\BraveSoftware\Brave-Browser\User Data\Default\Network\Cookies')};$presentCount=0;foreach($s in $stores){if(Test-Path $s -EA SilentlyContinue){$presentCount++}};Write-Host ('  [INFO]    Browser cookie database files found: '+$presentCount) -ForegroundColor DarkGray;Add-Content $rep ('Cookie DB files found: '+$presentCount) -EA SilentlyContinue;if($presentCount -gt 0){Write-Host ('  [WARN]    '+$presentCount+' browser cookie stores detected - clear cookies periodically to reduce tracker persistence') -ForegroundColor Yellow;Add-Content $rep ('[WARN] Cookie stores present: '+$presentCount) -EA SilentlyContinue;Add-Content $wrn ('Cookie stores detected: '+$presentCount) -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   No browser cookie stores found on this system' -ForegroundColor Green;Add-Content $rep '[CLEAN] No cookie stores found' -EA SilentlyContinue}"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 4] TAILORED EXPERIENCES AND INPUT PERSONALIZATION ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 4] TAILORED EXPERIENCES >> "!PT_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:PT_REPORT;$thr=$env:PT_THREATS_TMP;$wrn=$env:PT_WARN_TMP;$found=0;$privChecks=@(@{P='HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy';V='TailoredExperiencesWithDiagnosticDataEnabled';Bad=1;Desc='Tailored Experiences'},@{P='HKCU:\Software\Microsoft\InputPersonalization';V='RestrictImplicitTextCollection';Bad=0;Desc='Input Text Collection'},@{P='HKCU:\Software\Microsoft\InputPersonalization';V='RestrictImplicitInkCollection';Bad=0;Desc='Input Ink Collection'},@{P='HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced';V='Start_TrackProgs';Bad=1;Desc='Start Menu App Tracking'});foreach($c in $privChecks){$prop=Get-ItemProperty $c.P -EA SilentlyContinue;if($prop -and $null -ne $prop.($c.V)){$val=$prop.($c.V);if($val -eq $c.Bad){Write-Host ('  [WARN]    Privacy-reducing setting active: '+$c.Desc+' = '+$val) -ForegroundColor Yellow;Add-Content $rep ('[WARN] '+$c.Desc+'='+$val) -EA SilentlyContinue;Add-Content $wrn ('Privacy setting active: '+$c.Desc) -EA SilentlyContinue;$found++}else{Write-Host ('  [CLEAN]   '+$c.Desc+' = '+$val) -ForegroundColor Green;Add-Content $rep ('[CLEAN] '+$c.Desc+'='+$val) -EA SilentlyContinue}}else{Write-Host ('  [INFO]    Not configured: '+$c.Desc) -ForegroundColor DarkGray;Add-Content $rep ('[INFO] Not set: '+$c.Desc) -EA SilentlyContinue}};if($found -eq 0){Write-Host '  [CLEAN]   No privacy-reducing personalization flags active' -ForegroundColor Green;Add-Content $rep '[CLEAN] Privacy flags nominal' -EA SilentlyContinue}"
+echo.
+set "PT_THREAT_COUNT=0"
+set "PT_WARN_COUNT=0"
+for /f %%A in ('type "!PT_THREATS_TMP!" ^| find /c /v ""') do set "PT_THREAT_COUNT=%%A"
+for /f %%A in ('type "!PT_WARN_TMP!" ^| find /c /v ""') do set "PT_WARN_COUNT=%%A"
+echo. >> "!PT_REPORT!"
+echo ================================================ >> "!PT_REPORT!"
+echo   SCAN SUMMARY >> "!PT_REPORT!"
+echo ================================================ >> "!PT_REPORT!"
+echo   Threats  : !PT_THREAT_COUNT! >> "!PT_REPORT!"
+echo   Warnings : !PT_WARN_COUNT! >> "!PT_REPORT!"
+echo   Date     : %DATE% %TIME% >> "!PT_REPORT!"
+echo ================================================ >> "!PT_REPORT!"
+if !PT_THREAT_COUNT! GTR 0 (
+    echo. >> "!PT_REPORT!"
+    echo   THREATS DETECTED: >> "!PT_REPORT!"
+    type "!PT_THREATS_TMP!" >> "!PT_REPORT!" 2>nul
+)
+if !PT_WARN_COUNT! GTR 0 (
+    echo. >> "!PT_REPORT!"
+    echo   WARNINGS: >> "!PT_REPORT!"
+    type "!PT_WARN_TMP!" >> "!PT_REPORT!" 2>nul
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    USER PRIVACY AND TRACKER SCAN COMPLETE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+if !PT_THREAT_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !PT_THREAT_COUNT!' -ForegroundColor Red"
+) else (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !PT_THREAT_COUNT!' -ForegroundColor Green"
+)
+if !PT_WARN_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !PT_WARN_COUNT!' -ForegroundColor Yellow"
+) else (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !PT_WARN_COUNT!' -ForegroundColor Green"
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  Report saved to:' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host ('  ' + $env:PT_REPORT) -ForegroundColor !COL_OPS_PS!"
+echo.
+if "!SA_ACTIVE!"=="1" goto SA_PT_CONT
+pause
+del "!PT_THREATS_TMP!" >nul 2>&1
+del "!PT_WARN_TMP!" >nul 2>&1
+goto PRIVACY_TRACKER_SCANNER
+:SA_PT_CONT
+del "!PT_THREATS_TMP!" >nul 2>&1
+del "!PT_WARN_TMP!" >nul 2>&1
+echo.
+powershell -NoProfile -Command "Write-Host '  B  >  Continue to next scanner (Vulnerability and Patch)' -ForegroundColor Yellow"
+echo.
+:SA_PT_WAIT
+set "SA_CONT="
+set /p "SA_CONT=  [B] Continue: "
+if /i not "!SA_CONT!"=="B" goto SA_PT_WAIT
+goto CV_RUN_SCAN
+
+:CVE_PATCH_SCANNER
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    VULNERABILITY AND PATCH SCANNER' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+powershell -NoProfile -Command "Write-Host '  Checks: Windows Update auto-update config, days since last' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  hotfix, Defender definition age, pending reboot for updates' -ForegroundColor DarkGray"
+echo.
+echo   1  ^>  Begin Scan
+echo   B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "CV_START="
+set /p "CV_START=  Select [1, B]: "
+if /i "!CV_START!"=="B" goto CAT_SCANNING
+if not "!CV_START!"=="1" goto CVE_PATCH_SCANNER
+:CV_RUN_SCAN
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    VULNERABILITY AND PATCH SCANNER - RUNNING' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+for /f %%D in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmm"') do set "CV_DATE=%%D"
+set "CV_REPORT=!LOGDIR!\YTSH_VulnPatch_!CV_DATE!.txt"
+set "CV_THREATS_TMP=%TEMP%\ytsh_cv_t_%RANDOM%.tmp"
+set "CV_WARN_TMP=%TEMP%\ytsh_cv_w_%RANDOM%.tmp"
+type nul > "!CV_THREATS_TMP!"
+type nul > "!CV_WARN_TMP!"
+echo ================================================ > "!CV_REPORT!"
+echo   YTSH VULNERABILITY AND PATCH SCAN REPORT >> "!CV_REPORT!"
+echo   Scanned: %DATE% %TIME% >> "!CV_REPORT!"
+echo ================================================ >> "!CV_REPORT!"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 1] WINDOWS UPDATE CONFIGURATION ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 1] WINDOWS UPDATE CONFIG >> "!CV_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:CV_REPORT;$thr=$env:CV_THREATS_TMP;$wrn=$env:CV_WARN_TMP;$found=0;$wuKey=Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update' -EA SilentlyContinue;$au=$wuKey.AUOptions;$desc=switch($au){1{'Never check for updates'} 2{'Notify before download only'} 3{'Notify before install'} 4{'Auto-install (recommended)'} $null{'Not explicitly set (uses default)'} default{'Unknown value: '+$au}};Write-Host ('  [INFO]    Windows Update AUOptions: '+$desc) -ForegroundColor DarkGray;Add-Content $rep ('WU AUOptions: '+$desc) -EA SilentlyContinue;if($au -eq 1){Write-Host '  [THREAT]  Windows Update set to NEVER CHECK - system may be critically unpatched' -ForegroundColor Red;Add-Content $rep '[THREAT] WU set to never check' -EA SilentlyContinue;Add-Content $thr 'Windows Update disabled - never checks' -EA SilentlyContinue;$found++}elseif($au -eq 2){Write-Host '  [WARN]    Windows Update only notifies - updates are not downloaded automatically' -ForegroundColor Yellow;Add-Content $wrn 'WU notify-only mode' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   Windows Update is configured to check or auto-install' -ForegroundColor Green;Add-Content $rep '[CLEAN] WU active' -EA SilentlyContinue};$detectKey=Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\Results\Detect' -EA SilentlyContinue;if($detectKey -and $detectKey.LastSuccessTime){try{$lastDt=[datetime]::ParseExact($detectKey.LastSuccessTime,'yyyy-MM-dd HH:mm:ss',$null);$days=([datetime]::Now-$lastDt).Days;Write-Host ('  [INFO]    Last WU detection: '+$detectKey.LastSuccessTime+' ('+$days+' days ago)') -ForegroundColor DarkGray;Add-Content $rep ('Last WU detect: '+$detectKey.LastSuccessTime+' ('+$days+' days ago)') -EA SilentlyContinue;if($days -gt 30){Write-Host '  [WARN]    Windows Update has not checked in over 30 days' -ForegroundColor Yellow;Add-Content $wrn ('WU last check '+$days+' days ago') -EA SilentlyContinue;$found++}}catch{Write-Host '  [INFO]    Could not parse last WU detection time' -ForegroundColor DarkGray}};if($found -eq 0){Write-Host '  [CLEAN]   Windows Update configuration is acceptable' -ForegroundColor Green}"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 2] RECENT HOTFIXES ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 2] RECENT HOTFIXES >> "!CV_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:CV_REPORT;$thr=$env:CV_THREATS_TMP;$wrn=$env:CV_WARN_TMP;$found=0;$hf=Get-HotFix -EA SilentlyContinue|Where-Object{$_.InstalledOn -ne $null}|Sort-Object InstalledOn -Descending;$total=(Get-HotFix -EA SilentlyContinue).Count;Write-Host ('  [INFO]    Total hotfixes installed: '+$total) -ForegroundColor DarkGray;Add-Content $rep ('Hotfixes total: '+$total) -EA SilentlyContinue;$latest=$hf|Select-Object -First 1;if($latest -and $latest.InstalledOn){$days=([datetime]::Now-[datetime]$latest.InstalledOn).Days;Write-Host ('  [INFO]    Most recent hotfix: '+$latest.HotFixID+' installed '+$days+' days ago') -ForegroundColor DarkGray;Add-Content $rep ('Latest hotfix: '+$latest.HotFixID+' ('+$days+' days ago)') -EA SilentlyContinue;if($days -gt 60){Write-Host '  [WARN]    No hotfix installed in over 60 days - security patches may be missing' -ForegroundColor Yellow;Add-Content $rep '[WARN] No hotfix in 60+ days' -EA SilentlyContinue;Add-Content $wrn ('Last hotfix was '+$days+' days ago') -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   Recent hotfix installed within 60 days' -ForegroundColor Green;Add-Content $rep '[CLEAN] Recent hotfix OK' -EA SilentlyContinue}}else{Write-Host '  [WARN]    Could not determine hotfix installation dates' -ForegroundColor Yellow;Add-Content $wrn 'Hotfix dates unavailable' -EA SilentlyContinue};$hf|Select-Object -First 5|ForEach-Object{$dt=if($_.InstalledOn){([datetime]$_.InstalledOn).ToString('yyyy-MM-dd')}else{'unknown'};Add-Content $rep ('  '+$_.HotFixID+' | '+$dt+' | '+$_.Description) -EA SilentlyContinue};if($found -eq 0 -and $latest){Write-Host '  [CLEAN]   Hotfix history looks up to date' -ForegroundColor Green}"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 3] WINDOWS DEFENDER STATUS ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 3] DEFENDER STATUS >> "!CV_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:CV_REPORT;$thr=$env:CV_THREATS_TMP;$wrn=$env:CV_WARN_TMP;$found=0;try{$mp=Get-MpComputerStatus -EA SilentlyContinue;if($mp){if(-not $mp.AntivirusEnabled){Write-Host '  [THREAT]  Windows Defender antivirus is DISABLED' -ForegroundColor Red;Add-Content $rep '[THREAT] Defender disabled' -EA SilentlyContinue;Add-Content $thr 'Windows Defender antivirus disabled' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   Windows Defender antivirus is enabled' -ForegroundColor Green;Add-Content $rep '[CLEAN] Defender enabled' -EA SilentlyContinue};$defAge=([datetime]::Now-$mp.AntivirusSignatureLastUpdated).Days;Write-Host ('  [INFO]    Defender definitions last updated: '+$mp.AntivirusSignatureLastUpdated.ToString('yyyy-MM-dd')+' ('+$defAge+' days ago)') -ForegroundColor DarkGray;Add-Content $rep ('Defender defs: '+$mp.AntivirusSignatureLastUpdated.ToString('yyyy-MM-dd')+' ('+$defAge+' days ago)') -EA SilentlyContinue;if($defAge -gt 7){Write-Host ('  [WARN]    Defender definitions are '+$defAge+' days old - update recommended') -ForegroundColor Yellow;Add-Content $rep '[WARN] Defender defs over 7 days old' -EA SilentlyContinue;Add-Content $wrn ('Defender defs '+$defAge+' days old') -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   Defender definitions are current' -ForegroundColor Green;Add-Content $rep '[CLEAN] Defender defs current' -EA SilentlyContinue};if($mp.RealTimeProtectionEnabled){Write-Host '  [CLEAN]   Real-time protection is enabled' -ForegroundColor Green;Add-Content $rep '[CLEAN] RTP enabled' -EA SilentlyContinue}else{Write-Host '  [THREAT]  Real-time protection is DISABLED' -ForegroundColor Red;Add-Content $thr 'Defender real-time protection disabled' -EA SilentlyContinue;Add-Content $rep '[THREAT] RTP disabled' -EA SilentlyContinue;$found++}}else{Write-Host '  [INFO]    Could not query Defender status (may not be the active AV)' -ForegroundColor DarkGray;Add-Content $rep '[INFO] Defender status unavailable' -EA SilentlyContinue}}catch{Write-Host '  [INFO]    Defender query failed (third-party AV may be active)' -ForegroundColor DarkGray;Add-Content $rep '[INFO] Defender query failed' -EA SilentlyContinue}"
+echo.
+powershell -NoProfile -Command "Write-Host '  --- [CHECK 4] PENDING UPDATE REBOOT ---' -ForegroundColor !COL_HDR_PS!"
+echo.
+echo [CHECK 4] PENDING REBOOT >> "!CV_REPORT!"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$rep=$env:CV_REPORT;$thr=$env:CV_THREATS_TMP;$wrn=$env:CV_WARN_TMP;$found=0;$wuReboot='HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\RebootRequired';$cbsReboot='HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending';$pfroReboot='HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager';if(Test-Path $wuReboot -EA SilentlyContinue){Write-Host '  [WARN]    Reboot is required to apply pending Windows updates' -ForegroundColor Yellow;Add-Content $rep '[WARN] WU reboot pending' -EA SilentlyContinue;Add-Content $wrn 'Windows Update reboot pending' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   No Windows Update reboot pending' -ForegroundColor Green;Add-Content $rep '[CLEAN] No WU reboot pending' -EA SilentlyContinue};if(Test-Path $cbsReboot -EA SilentlyContinue){Write-Host '  [WARN]    Component Based Servicing reboot is pending' -ForegroundColor Yellow;Add-Content $rep '[WARN] CBS reboot pending' -EA SilentlyContinue;Add-Content $wrn 'CBS reboot pending' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   No Component Servicing reboot pending' -ForegroundColor Green;Add-Content $rep '[CLEAN] No CBS reboot pending' -EA SilentlyContinue};$pfro=Get-ItemProperty $pfroReboot -EA SilentlyContinue;if($pfro -and $pfro.PendingFileRenameOperations){Write-Host '  [WARN]    Pending file rename operations detected (update or installer in-progress)' -ForegroundColor Yellow;Add-Content $rep '[WARN] Pending file rename operations' -EA SilentlyContinue;Add-Content $wrn 'Pending file rename operations' -EA SilentlyContinue;$found++}else{Write-Host '  [CLEAN]   No pending file rename operations' -ForegroundColor Green;Add-Content $rep '[CLEAN] No pending file renames' -EA SilentlyContinue};if($found -eq 0){Write-Host '  [CLEAN]   No pending update reboots or operations detected' -ForegroundColor Green}"
+echo.
+set "CV_THREAT_COUNT=0"
+set "CV_WARN_COUNT=0"
+for /f %%A in ('type "!CV_THREATS_TMP!" ^| find /c /v ""') do set "CV_THREAT_COUNT=%%A"
+for /f %%A in ('type "!CV_WARN_TMP!" ^| find /c /v ""') do set "CV_WARN_COUNT=%%A"
+echo. >> "!CV_REPORT!"
+echo ================================================ >> "!CV_REPORT!"
+echo   SCAN SUMMARY >> "!CV_REPORT!"
+echo ================================================ >> "!CV_REPORT!"
+echo   Threats  : !CV_THREAT_COUNT! >> "!CV_REPORT!"
+echo   Warnings : !CV_WARN_COUNT! >> "!CV_REPORT!"
+echo   Date     : %DATE% %TIME% >> "!CV_REPORT!"
+echo ================================================ >> "!CV_REPORT!"
+if !CV_THREAT_COUNT! GTR 0 (
+    echo. >> "!CV_REPORT!"
+    echo   THREATS DETECTED: >> "!CV_REPORT!"
+    type "!CV_THREATS_TMP!" >> "!CV_REPORT!" 2>nul
+)
+if !CV_WARN_COUNT! GTR 0 (
+    echo. >> "!CV_REPORT!"
+    echo   WARNINGS: >> "!CV_REPORT!"
+    type "!CV_WARN_TMP!" >> "!CV_REPORT!" 2>nul
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    VULNERABILITY AND PATCH SCAN COMPLETE' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+if !CV_THREAT_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !CV_THREAT_COUNT!' -ForegroundColor Red"
+) else (
+    powershell -NoProfile -Command "Write-Host '  THREATS  : !CV_THREAT_COUNT!' -ForegroundColor Green"
+)
+if !CV_WARN_COUNT! GTR 0 (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !CV_WARN_COUNT!' -ForegroundColor Yellow"
+) else (
+    powershell -NoProfile -Command "Write-Host '  WARNINGS : !CV_WARN_COUNT!' -ForegroundColor Green"
+)
+echo.
+powershell -NoProfile -Command "Write-Host '  Report saved to:' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host ('  ' + $env:CV_REPORT) -ForegroundColor !COL_OPS_PS!"
+echo.
+if "!SA_ACTIVE!"=="1" goto SA_CV_CONT
+pause
+del "!CV_THREATS_TMP!" >nul 2>&1
+del "!CV_WARN_TMP!" >nul 2>&1
+goto CVE_PATCH_SCANNER
+:SA_CV_CONT
+del "!CV_THREATS_TMP!" >nul 2>&1
+del "!CV_WARN_TMP!" >nul 2>&1
+echo.
+powershell -NoProfile -Command "Write-Host '  B  >  Continue to next scanner (Hardware Health and SMART)' -ForegroundColor Yellow"
+echo.
+:SA_CV_WAIT
+set "SA_CONT="
+set /p "SA_CONT=  [B] Continue: "
+if /i not "!SA_CONT!"=="B" goto SA_CV_WAIT
+goto SM_RUN_SCAN
+
+:SCAN_ALL_MENU
+cls
+color !COL_OPS!
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '    SCAN ALL - SELECT SCAN DEPTH' -ForegroundColor !COL_HDR_PS!"
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+powershell -NoProfile -Command "Write-Host '  Runs all 13 scanners in sequence:' -ForegroundColor !COL_OPS_PS!"
+powershell -NoProfile -Command "Write-Host '  Malware, Network, Registry Persistence, Startup+WMI,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  Process+DLL Injection, Browser Hijack, Credential Exposure,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  Driver Integrity+Rootkit, Privacy+Tracker, Vulnerability+Patch,' -ForegroundColor DarkGray"
+powershell -NoProfile -Command "Write-Host '  Hardware SMART, Sensitive Info (DLP), Browser Security+Policy' -ForegroundColor DarkGray"
+echo.
+echo   1  ^>  Full Scan     ^(all checks from each scanner - most thorough^)
+echo   2  ^>  Minimal Scan  ^(key checks only from each scanner^)
+echo.
+echo   B  ^>  Back
+echo.
+powershell -NoProfile -Command "Write-Host '  =============================================' -ForegroundColor !COL_HDR_PS!"
+echo.
+set "SA_CHOICE="
+set /p "SA_CHOICE=  Select scan depth [1-2, B]: "
+if /i "!SA_CHOICE!"=="B" goto CAT_SCANNING
+if "!SA_CHOICE!"=="1" (
+    set "SA_ACTIVE=1"
+    set "SA_SCANMODE=FULL"
+    set "SA_RP_MODE=FULL"
+    set "SA_SW_MODE=FULL"
+    set "ML_SCANMODE=FULL"
+    set "ML_CUSTOM=0"
+    goto MALWARE_RUN_SCAN
+)
+if "!SA_CHOICE!"=="2" (
+    set "SA_ACTIVE=1"
+    set "SA_SCANMODE=MINIMAL"
+    set "SA_RP_MODE=QUICK"
+    set "SA_SW_MODE=WMIONLY"
+    set "ML_SCANMODE=MINIMAL"
+    set "ML_CUSTOM=0"
+    goto MALWARE_RUN_SCAN
+)
+goto SCAN_ALL_MENU
 
 :EXIT_SCRIPT
 del /q /f "%TEMP%\ytsh_*.ps1" >nul 2>&1
